@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>《政权更迭》书籍简介</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700;900&family=Noto+Sans+SC:wght@400;500;700&family=Noto+Serif+SC:wght@600;900&family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shared.css">
+<style>
+  /* ===== HERO ===== */
+  .hero {
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    gap: 36px;
+    align-items: center;
+    background: var(--surface-card);
+    border: 1px solid var(--border-light);
+    border-radius: 18px;
+    padding: 36px 40px;
+    margin-bottom: 26px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--c-trump), var(--c-loyal) 20%, var(--c-cab) 40%, var(--c-tech) 65%, var(--c-enemy) 82%, var(--c-war));
+  }
+
+  /* Book cover mockup */
+  .book-cover {
+    width: 220px; height: 330px;
+    background: linear-gradient(160deg, #1A1612 0%, #2E2821 55%, #3D352B 100%);
+    border-radius: 10px;
+    box-shadow: 0 18px 40px rgba(26,22,18,.35);
+    position: relative;
+    padding: 22px 18px;
+    color: #F5F3EF;
+    overflow: hidden;
+    transform: rotate(-1.5deg);
+    transition: transform .4s var(--ease-out-quart);
+  }
+  .book-cover:hover { transform: rotate(0) translateY(-4px); }
+  .bc-spine { position: absolute; left: 0; top: 0; bottom: 0; width: 8px; background: linear-gradient(90deg, rgba(0,0,0,.4), rgba(0,0,0,0)); }
+  .bc-band { position: absolute; top: 0; left: 0; right: 0; height: 5px; background: linear-gradient(90deg, var(--c-trump), var(--c-loyal) 25%, var(--c-cab) 45%, var(--c-tech) 65%, var(--c-enemy) 85%, var(--c-war)); }
+  .bc-kicker { font-size: 8px; letter-spacing: .22em; color: #D8B48C; text-transform: uppercase; margin-top: 8px; }
+  .bc-title { font-family: var(--font-serif); font-size: 27px; font-weight: 900; line-height: 1.12; margin-top: 12px; letter-spacing: -.01em; }
+  .bc-sub { font-size: 9px; color: #B5AC9F; margin-top: 10px; line-height: 1.6; font-style: italic; }
+  .bc-rule { width: 44px; height: 2px; background: #D8B48C; margin: 16px 0 12px; }
+  .bc-authors { font-size: 10px; color: #E8E2D8; letter-spacing: .05em; }
+  .bc-meta { position: absolute; bottom: 16px; left: 18px; right: 18px; font-size: 7.5px; color: #8E857D; letter-spacing: .08em; text-transform: uppercase; }
+
+  .hero-kicker { font-size: 10px; font-weight: 700; letter-spacing: .16em; color: var(--c-trump); text-transform: uppercase; margin-bottom: 10px; }
+  .hero-title-en { font-family: var(--font-serif); font-size: clamp(22px, 2.8vw, 32px); font-weight: 900; letter-spacing: -.02em; color: var(--text-primary); line-height: 1.1; }
+  .hero-title-zh { font-size: 13px; color: var(--text-secondary); margin-top: 7px; font-weight: 500; }
+  .hero-blurb { font-size: 12.5px; color: var(--text-secondary); margin-top: 14px; line-height: 1.75; max-width: 560px; }
+  .hero-meta { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 16px; }
+  .hm-tag { font-size: 10px; padding: 4px 11px; border-radius: 14px; background: var(--surface-base); border: 1px solid var(--border-light); color: var(--text-secondary); font-weight: 500; }
+
+  /* ===== FACT STRIP ===== */
+  .fact-strip {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 1px;
+    background: var(--border-light);
+    border: 1px solid var(--border-light);
+    border-radius: 14px;
+    overflow: hidden;
+    margin-bottom: 26px;
+  }
+  .fact-item { background: var(--surface-card); padding: 16px 18px; }
+  .fact-num { font-family: var(--font-serif); font-size: 21px; font-weight: 900; color: var(--text-primary); line-height: 1; }
+  .fact-label { font-size: 9.5px; color: var(--text-tertiary); margin-top: 6px; line-height: 1.5; }
+
+  /* ===== CORE THESIS ===== */
+  .thesis {
+    background: linear-gradient(145deg, var(--c-loyal-bg), var(--surface-card));
+    border: 1px solid rgba(74,66,144,.25);
+    border-left: 4px solid var(--c-loyal);
+    border-radius: 14px;
+    padding: 24px 28px;
+    margin-bottom: 32px;
+  }
+  .thesis-label { font-size: 9.5px; font-weight: 700; letter-spacing: .14em; color: var(--c-loyal-dark); text-transform: uppercase; margin-bottom: 8px; }
+  .thesis-text { font-family: var(--font-serif); font-size: clamp(15px, 1.9vw, 19px); font-weight: 700; line-height: 1.55; color: var(--text-primary); }
+  .thesis-text em { font-style: italic; color: var(--c-loyal); }
+  .thesis-note { font-size: 11px; color: var(--text-secondary); margin-top: 10px; }
+
+  /* ===== AUTHORS (enriched) ===== */
+  .author-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 16px; }
+  .author-card {
+    background: var(--surface-card);
+    border: 1px solid var(--border-light);
+    border-radius: 16px;
+    padding: 22px 24px;
+    transition: all .3s var(--ease-out-quart);
+  }
+  .author-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-3px); }
+  .ac-head { display: flex; gap: 14px; align-items: center; margin-bottom: 14px; }
+  .ac-avatar {
+    width: 52px; height: 52px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-serif); font-size: 20px; font-weight: 900;
+    color: #fff; flex-shrink: 0;
+  }
+  .ac-name { font-size: 15px; font-weight: 700; font-family: var(--font-serif); }
+  .ac-org { font-size: 10.5px; color: var(--text-tertiary); margin-top: 2px; }
+  .ac-bio { font-size: 11.5px; color: var(--text-secondary); line-height: 1.72; }
+  .ac-tags { display: flex; gap: 5px; flex-wrap: wrap; margin-top: 12px; }
+  .ac-tag { font-size: 8.5px; font-weight: 600; padding: 3px 9px; border-radius: 7px; }
+
+  /* ===== REPORTING METHOD (how the scoops came) ===== */
+  .method {
+    background: var(--surface-card);
+    border: 1px solid var(--border-light);
+    border-radius: 16px;
+    padding: 26px 28px;
+    margin-top: 26px;
+  }
+  /* Banner image */
+  .method-banner {
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    height: 200px;
+    background: var(--surface-base);
+  }
+  .method-banner-img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .method-banner-overlay {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 0 32px;
+    background: linear-gradient(90deg, rgba(245,243,239,.85) 0%, rgba(245,243,239,.55) 50%, rgba(245,243,239,.15) 100%);
+  }
+  .mb-kicker { font-size: 9.5px; font-weight: 700; letter-spacing: .16em; color: var(--c-trump); text-transform: uppercase; }
+  .mb-title { font-family: var(--font-serif); font-size: clamp(18px, 2.2vw, 24px); font-weight: 900; color: var(--text-primary); margin-top: 4px; line-height: 1.18; max-width: 480px; }
+  .mb-sub { font-size: 11px; color: var(--text-secondary); margin-top: 4px; max-width: 420px; }
+  @media (max-width: 720px) {
+    .method-banner { height: 160px; }
+    .method-banner-overlay { padding: 0 18px; }
+  }
+  .method-head { display: flex; align-items: center; gap: 10px; margin-bottom: 18px; }
+  .method-icon { width: 36px; height: 36px; border-radius: 10px; background: var(--c-trump-bg); display: flex; align-items: center; justify-content: center; font-size: 17px; }
+  .method-title { font-family: var(--font-serif); font-size: 17px; font-weight: 900; }
+  .method-sub { font-size: 10.5px; color: var(--text-tertiary); margin-top: 2px; }
+
+  .method-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; }
+  .method-card {
+    border: 1px solid var(--border-light);
+    border-radius: 12px;
+    padding: 14px 16px;
+    background: var(--surface-base);
+  }
+  .mc-label { font-size: 11px; font-weight: 700; color: var(--text-primary); display: flex; align-items: center; gap: 7px; }
+  .mc-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+  .mc-desc { font-size: 10.5px; color: var(--text-secondary); margin-top: 6px; line-height: 1.6; }
+
+  /* Source pyramid */
+  .pyramid { margin-top: 22px; }
+  .pyramid-title { font-size: 10px; font-weight: 700; letter-spacing: .1em; color: var(--text-tertiary); text-transform: uppercase; margin-bottom: 12px; }
+  .py-row {
+    display: flex; align-items: center; gap: 14px;
+    margin-bottom: 8px;
+  }
+  .py-bar {
+    height: 34px; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; font-weight: 700; color: #fff;
+    white-space: nowrap; overflow: hidden;
+    transition: all .3s var(--ease-out-quart);
+  }
+  .py-bar:hover { filter: brightness(1.1); }
+  .py-note { font-size: 10px; color: var(--text-tertiary); flex-shrink: 0; width: 110px; }
+
+  /* ===== MODULE NAV (simplified, at bottom) ===== */
+  .module-nav { margin-top: 34px; }
+  .mn-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; }
+  .mn-card {
+    display: flex; align-items: center; gap: 13px;
+    text-decoration: none;
+    background: var(--surface-card);
+    border: 1px solid var(--border-light);
+    border-radius: 14px;
+    padding: 18px 20px;
+    color: var(--text-primary);
+    transition: all .3s var(--ease-out-quart);
+  }
+  .mn-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); border-color: var(--border-mid); }
+  .mn-icon { width: 42px; height: 42px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 19px; flex-shrink: 0; }
+  .mn-title { font-size: 13px; font-weight: 700; }
+  .mn-desc { font-size: 9.5px; color: var(--text-tertiary); margin-top: 2px; }
+  .mn-arrow { margin-left: auto; color: var(--text-tertiary); font-size: 15px; opacity: 0; transform: translateX(-5px); transition: all .3s var(--ease-out-quart); }
+  .mn-card:hover .mn-arrow { opacity: 1; transform: translateX(0); }
+
+  @media (max-width: 760px) {
+    .hero { grid-template-columns: 1fr; }
+    .book-cover { width: 180px; height: 270px; margin: 0 auto; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <h1 class="site-title">《政权更迭》读书分享</h1>
+  <p class="site-subtitle">Regime Change: Inside the Imperial Presidency of Donald Trump</p>
+  <div class="site-meta">
+    <span class="meta-tag">部门读书分享 · 互动演示站点</span>
+  </div>
+</header>
+
+<nav class="nav-bar">
+  <a class="nav-link active" href="index.html">本书简介</a>
+  <a class="nav-link" href="story.html">内容梳理</a>
+  <a class="nav-link" href="data.html">数据仪表盘</a>
+  <a class="nav-link" href="人物图谱.html">人物图谱</a>
+</nav>
+
+<div class="page">
+
+  <!-- HERO + BOOK INTRO -->
+  <section class="hero fade-up">
+    <div class="book-cover">
+      <div class="bc-band"></div>
+      <div class="bc-spine"></div>
+      <div class="bc-kicker">A Simon &amp; Schuster Book</div>
+      <div class="bc-title">Regime Change</div>
+      <div class="bc-sub">Inside the Imperial Presidency of Donald Trump</div>
+      <div class="bc-rule"></div>
+      <div class="bc-authors">Maggie Haberman<br>Jonathan Swan</div>
+      <div class="bc-meta">SIMON &amp; SCHUSTER · 2026</div>
+    </div>
+    <div>
+      <div class="hero-kicker">Book Briefing · 书籍简介</div>
+      <div class="hero-title-en">Regime Change</div>
+      <div class="hero-title-zh">《政权更迭：特朗普的帝国主义总统任期透视》（中文版）</div>
+      <div class="hero-blurb">
+        2026年4月出版的重量级调查报道，由两位顶级白宫记者耗时数年完成。全书以2020年败选为起点，完整呈现特朗普第二任期如何从"清算"走向"战争"——四大部分、33章，记录了一个帝国总统任期的完整形态。
+      </div>
+      <div class="hero-meta">
+        <span class="hm-tag">📖 4部分 · 33章</span>
+        <span class="hm-tag">🎙 数百次采访</span>
+        <span class="hm-tag">🏛 白宫内部信源</span>
+        <span class="hm-tag">🗓 覆盖 2020—2026</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- FACT STRIP -->
+  <div class="fact-strip fade-up d-1">
+    <div class="fact-item"><div class="fact-num">2026.4</div><div class="fact-label">英文版出版（Simon &amp; Schuster）</div></div>
+    <div class="fact-item"><div class="fact-num">4 + 33</div><div class="fact-label">四大部分 · 三十三章</div></div>
+    <div class="fact-item"><div class="fact-num">2020—26</div><div class="fact-label">时间跨度：败选到战争</div></div>
+    <div class="fact-item"><div class="fact-num">2 位</div><div class="fact-label">普利策奖 + 艾美奖得主作者</div></div>
+    <div class="fact-item"><div class="fact-num">30+</div><div class="fact-label">特朗普核心圈人物被深度报道</div></div>
+  </div>
+
+  <!-- CORE THESIS -->
+  <section class="thesis fade-up d-2">
+    <div class="thesis-label">核心论点 · The Trump Paradox</div>
+    <div class="thesis-text">
+      正是民主党成功将特朗普赶出白宫——2020年选举失利与后续四起刑事追诉——<br>
+      反而造就了一个<em>更强大、更无情、更不受约束</em>的「特朗普 2.0」。
+    </div>
+    <div class="thesis-note">四年的「流亡期」让他组建了真正的忠诚团队、获得最高法院总统豁免权、将法律起诉转化为政治资产、把刺杀未遂变成"天命"叙事。</div>
+  </section>
+
+  <!-- AUTHORS -->
+  <div class="sec-head fade-up d-2">
+    <div class="sec-eyebrow">The Authors</div>
+    <div class="sec-title">作者：两位顶级白宫记者</div>
+    <div class="sec-desc">这本书的分量，首先来自作者——他们是在白宫新闻圈摸爬滚打数十年的"内部人"。</div>
+  </div>
+
+  <div class="author-grid fade-up d-3">
+    <div class="author-card">
+      <div class="ac-head">
+        <div class="ac-avatar" style="background:var(--c-trump)">MH</div>
+        <div>
+          <div class="ac-name">Maggie Haberman · 玛吉·哈伯曼</div>
+          <div class="ac-org">《纽约时报》白宫记者 · 普利策奖得主</div>
+        </div>
+      </div>
+      <div class="ac-bio">
+        美国最具影响力的白宫记者之一。自2016年特朗普竞选以来持续贴身追踪报道，前作《自信的执念》(Confidence Man) 即聚焦特朗普第一任期。她以掌握海量白宫内部细节著称——书中大量"电话咆哮""会议室密谈"场景，都来自她数十年积累的信源网络。
+      </div>
+      <div class="ac-tags">
+        <span class="ac-tag" style="background:var(--c-trump-bg);color:var(--c-trump-dark)">纽约时报</span>
+        <span class="ac-tag" style="background:var(--c-trump-bg);color:var(--c-trump-dark)">普利策奖</span>
+        <span class="ac-tag" style="background:var(--c-trump-bg);color:var(--c-trump-dark)">30+ 年报道</span>
+      </div>
+    </div>
+    <div class="author-card">
+      <div class="ac-head">
+        <div class="ac-avatar" style="background:var(--c-cab)">JS</div>
+        <div>
+          <div class="ac-name">Jonathan Swan · 乔纳森·斯旺</div>
+          <div class="ac-org">Semafor 首席政治记者（前 Axios）· 艾美奖得主</div>
+        </div>
+      </div>
+      <div class="ac-bio">
+        以"尖锐追问"闻名的政治记者，擅长用三连问逼出真话。2017年一段与白宫幕僚的电视交锋让其声名鹊起。他与哈伯曼搭档，为本书完成了对特朗普政府核心圈（内阁、顾问、幕僚）的大规模独家采访——很多受访者是在离开白宫后才愿意开口的。
+      </div>
+      <div class="ac-tags">
+        <span class="ac-tag" style="background:var(--c-cab-bg);color:var(--c-cab-dark)">Semafor</span>
+        <span class="ac-tag" style="background:var(--c-cab-bg);color:var(--c-cab-dark)">艾美奖</span>
+        <span class="ac-tag" style="background:var(--c-cab-bg);color:var(--c-cab-dark)">尖锐采访</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- REPORTING METHOD -->
+  <div class="method fade-up d-4">
+    <div class="method-banner">
+      <img class="method-banner-img" src="assets/Editorial_illustration_in_warm_2026-08-04T02-57-50.png" alt="调查记者的工具：录音机、钢笔、白宫"/>
+      <div class="method-banner-overlay">
+        <div class="mb-kicker">Reporting Method</div>
+        <div class="mb-title">这些特朗普秘闻是怎么来的？</div>
+        <div class="mb-sub">书里那些"电话咆哮""密室对话"，凭什么写出来</div>
+      </div>
+    </div>
+
+    <div class="method-head" style="margin-top:18px">
+      <div class="method-icon">🕵️</div>
+      <div>
+        <div class="method-title">六条调查方法</div>
+        <div class="method-sub">从一通电话到一篇报道 · 调查报道的基本功</div>
+      </div>
+    </div>
+
+    <div class="method-grid">
+      <div class="method-card">
+        <div class="mc-label"><span class="mc-dot" style="background:var(--c-trump)"></span>数百次深度采访</div>
+        <div class="mc-desc">对特朗普政府核心圈（内阁成员、顾问、幕僚、军方高层）进行数百次采访，很多受访者选择在离职后才开口——这正是"内部秘闻"的第一手来源。</div>
+      </div>
+      <div class="method-card">
+        <div class="mc-label"><span class="mc-dot" style="background:var(--c-loyal)"></span>数十年追踪积累</div>
+        <div class="mc-desc">哈伯曼自2016年起贴身追踪特朗普，斯旺深耕白宫报道多年。两位作者合计数十年的一线观察，让书中人物关系、权力细节经得起推敲。</div>
+      </div>
+      <div class="method-card">
+        <div class="mc-label"><span class="mc-dot" style="background:var(--c-cab)"></span>白宫内部信源网络</div>
+        <div class="mc-desc">跨越两届任期积累的"白宫线人"网络——包括前幕僚、前顾问、前官员。书中大量"会议现场还原"来自这些人对当时的回忆与交叉印证。</div>
+      </div>
+      <div class="method-card">
+        <div class="mc-label"><span class="mc-dot" style="background:var(--c-tech)"></span>公开记录与文件</div>
+        <div class="mc-desc">起诉书、法庭文件、国会证词、行政令文本、竞选财务记录——公开证据与私人采访相互锚定，让"故事"同时也是"证据"。</div>
+      </div>
+      <div class="method-card">
+        <div class="mc-label"><span class="mc-dot" style="background:var(--c-enemy)"></span>独家专访关键人物</div>
+        <div class="mc-desc">两位作者都曾直接采访特朗普本人及其核心幕僚。书中对"总统真实想法"的刻画，部分来自这些面对面的第一手对话。</div>
+      </div>
+      <div class="method-card">
+        <div class="mc-label"><span class="mc-dot" style="background:var(--c-war)"></span>交叉验证原则</div>
+        <div class="mc-desc">关键细节至少由两个独立信源确认才写入——这是调查报道的基本功，也是这本书区别于"八卦爆料"的根本原因。</div>
+      </div>
+    </div>
+
+    <!-- Source pyramid -->
+    <div class="pyramid">
+      <div class="pyramid-title">信源金字塔 · 秘闻的信任层级</div>
+      <div class="py-row">
+        <div class="py-bar" style="width:38%; background:var(--c-trump); font-size:9.5px">特朗普本人及最核心幕僚</div>
+        <div class="py-note">独家访谈 · 第一手表达</div>
+      </div>
+      <div class="py-row">
+        <div class="py-bar" style="width:56%; background:var(--c-loyal)">前内阁成员 · 高级顾问</div>
+        <div class="py-note">离职后开口 · 内部决策细节</div>
+      </div>
+      <div class="py-row">
+        <div class="py-bar" style="width:74%; background:var(--c-cab)">白宫幕僚 · 中层官员</div>
+        <div class="py-note">现场亲历 · 匿名保护</div>
+      </div>
+      <div class="py-row">
+        <div class="py-bar" style="width:92%; background:var(--c-tech)">国会工作人员 · 企业高管 · 外围观察者</div>
+        <div class="py-note">外围印证 · 多方交叉</div>
+      </div>
+      <div class="py-row">
+        <div class="py-bar" style="width:100%; background:var(--c-enemy); font-size:9.5px">公开记录 · 起诉书 · 文件 · 证词</div>
+        <div class="py-note">客观证据 · 全书的锚</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODULE NAV (simplified) -->
+  <div class="module-nav fade-up d-5">
+    <div class="sec-head">
+      <div class="sec-eyebrow">Explore</div>
+      <div class="sec-title">深入分享</div>
+      <div class="sec-desc">接下来，沿着时间线梳理全书内容，或直接探索人物与数据。</div>
+    </div>
+    <div class="mn-grid">
+      <a class="mn-card" href="story.html">
+        <div class="mn-icon" style="background:var(--c-loyal-bg)">📜</div>
+        <div>
+          <div class="mn-title">内容梳理（推荐）</div>
+          <div class="mn-desc">时间线主轴 · 章节阶段 · 概念与人物 · 原文引用</div>
+        </div>
+        <span class="mn-arrow">→</span>
+      </a>
+      <a class="mn-card" href="人物图谱.html">
+        <div class="mn-icon" style="background:var(--c-war-bg)">🧩</div>
+        <div>
+          <div class="mn-title">人物关系图谱</div>
+          <div class="mn-desc">20+ 核心人物 · 权力圈层 · 关系网络</div>
+        </div>
+        <span class="mn-arrow">→</span>
+      </a>
+      <a class="mn-card" href="data.html">
+        <div class="mn-icon" style="background:var(--c-tech-bg)">📊</div>
+        <div>
+          <div class="mn-title">数据仪表盘</div>
+          <div class="mn-desc">12 项核心数据 · 权力定价</div>
+        </div>
+        <span class="mn-arrow">→</span>
+      </a>
+    </div>
+  </div>
+
+</div>
+
+<footer class="site-footer">
+  数据来源：《政权更迭》(Regime Change) by Maggie Haberman &amp; Jonathan Swan — Simon &amp; Schuster, 2026 · 仅供学习研究使用
+</footer>
+
+</body>
+</html>

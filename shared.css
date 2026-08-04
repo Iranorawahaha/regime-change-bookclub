@@ -1,0 +1,175 @@
+/* ============================================================
+   《政权更迭》读书分享站点 — 共享样式
+   设计语言：暖色编辑风 (Warm Editorial)
+   与人物关系图谱 v5 保持一致
+   ============================================================ */
+:root {
+  /* Typography */
+  --font-serif: 'Playfair Display', 'Noto Serif SC', Georgia, serif;
+  --font-sans: 'DM Sans', 'Noto Sans SC', -apple-system, sans-serif;
+
+  /* Surfaces */
+  --surface-base: #F5F3EF;
+  --surface-card: #FFFDF9;
+  --surface-deep: #EDE8E0;
+
+  /* Text */
+  --text-primary: #1A1612;
+  --text-secondary: #5C534A;
+  --text-tertiary: #8E857D;
+
+  /* Borders & shadows */
+  --border-light: #DDD6CC;
+  --border-mid: #C9C0B4;
+  --shadow-sm: 0 1px 2px rgba(26,22,18,.06);
+  --shadow-md: 0 4px 14px rgba(26,22,18,.08);
+  --shadow-lg: 0 12px 32px rgba(26,22,18,.12);
+
+  /* Layer colors — warm editorial palette */
+  --c-trump: #C4653A;
+  --c-trump-dark: #6B2E12;
+  --c-trump-bg: #FDE8DD;
+  --c-loyal: #4A4290;
+  --c-loyal-dark: #26215C;
+  --c-loyal-bg: #E8E4F4;
+  --c-cab: #1B6088;
+  --c-cab-dark: #042C53;
+  --c-cab-bg: #DFECF5;
+  --c-tech: #9A6B28;
+  --c-tech-dark: #412402;
+  --c-tech-bg: #FBF0DC;
+  --c-enemy: #A63D2E;
+  --c-enemy-dark: #501313;
+  --c-enemy-bg: #FAE5E0;
+  --c-war: #1A7A5E;
+  --c-war-dark: #04342C;
+  --c-war-bg: #DFF0EA;
+  --c-delegate: #7A7268;
+
+  /* Motion */
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { font-size: 15px; scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-sans);
+  background: var(--surface-base);
+  color: var(--text-primary);
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
+
+/* ===== SITE HEADER ===== */
+.site-header {
+  text-align: center;
+  padding: 30px 24px 20px;
+  background: var(--surface-card);
+  border-bottom: 1px solid var(--border-light);
+  position: relative;
+}
+.site-header::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg,
+    var(--c-trump), var(--c-loyal) 20%, var(--c-cab) 40%,
+    var(--c-tech) 65%, var(--c-enemy) 82%, var(--c-war));
+  opacity: .45;
+}
+.site-title {
+  font-family: var(--font-serif);
+  font-size: clamp(22px, 2.8vw, 32px);
+  font-weight: 900;
+  letter-spacing: -.02em;
+  color: var(--text-primary);
+  line-height: 1.15;
+}
+.site-subtitle {
+  font-size: 11px;
+  color: var(--text-secondary);
+  margin-top: 3px;
+  font-style: italic;
+  letter-spacing: .02em;
+}
+.site-meta { display: flex; justify-content: center; gap: 7px; margin-top: 8px; flex-wrap: wrap; }
+.meta-tag {
+  font-size: 9.5px; padding: 2.5px 9px; border-radius: 14px;
+  background: var(--surface-base); border: 1px solid var(--border-light);
+  color: var(--text-tertiary); font-weight: 500;
+}
+
+/* ===== NAV BAR ===== */
+.nav-bar {
+  display: flex; justify-content: center; align-items: center;
+  gap: 4px; padding: 10px 16px;
+  background: var(--surface-card);
+  border-bottom: 1px solid var(--border-light);
+  position: sticky; top: 0; z-index: 100;
+  flex-wrap: wrap;
+}
+.nav-link {
+  font-family: inherit;
+  font-size: 11.5px; font-weight: 500;
+  padding: 6px 14px; border-radius: 16px;
+  border: 1.5px solid var(--border-light);
+  background: transparent;
+  color: var(--text-secondary);
+  cursor: pointer;
+  text-decoration: none;
+  transition: all .25s var(--ease-out-quart);
+}
+.nav-link:hover { border-color: var(--c-loyal); color: var(--c-loyal-dark); }
+.nav-link.active {
+  background: var(--c-loyal); border-color: var(--c-loyal);
+  color: #fff;
+}
+
+/* ===== PAGE CONTAINER ===== */
+.page { max-width: 1060px; margin: 0 auto; padding: 28px 20px 48px; }
+
+/* Section title */
+.sec-head { margin-bottom: 22px; }
+.sec-eyebrow {
+  font-size: 9.5px; font-weight: 700; letter-spacing: .14em;
+  color: var(--text-tertiary); text-transform: uppercase;
+  margin-bottom: 5px;
+}
+.sec-title {
+  font-family: var(--font-serif);
+  font-size: clamp(19px, 2.4vw, 26px);
+  font-weight: 900; letter-spacing: -.01em;
+  color: var(--text-primary);
+}
+.sec-desc { font-size: 12.5px; color: var(--text-secondary); margin-top: 6px; max-width: 640px; }
+
+/* ===== FOOTER ===== */
+.site-footer {
+  text-align: center; padding: 16px 20px;
+  font-size: 9.5px; color: var(--text-tertiary);
+  margin-top: 12px;
+  border-top: 1px solid var(--border-light);
+  background: var(--surface-card);
+}
+
+/* ===== ANIMATIONS ===== */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.fade-up { animation: fadeUp .55s var(--ease-out-expo) both; }
+.d-1 { animation-delay: .08s; } .d-2 { animation-delay: .16s; }
+.d-3 { animation-delay: .24s; } .d-4 { animation-delay: .32s; }
+.d-5 { animation-delay: .40s; } .d-6 { animation-delay: .48s; }
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 720px) {
+  .page { padding: 20px 14px 40px; }
+}

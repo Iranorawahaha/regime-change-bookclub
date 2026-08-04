@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>关键数据仪表盘 · 《政权更迭》</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700;900&family=Noto+Sans+SC:wght@400;500;700&family=Noto+Serif+SC:wght@600;900&family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shared.css">
+<style>
+  /* ===== CATEGORY HEADER ===== */
+  .cat-head {
+    display: flex; align-items: center; gap: 12px;
+    margin: 30px 0 14px;
+  }
+  .cat-head:first-of-type { margin-top: 4px; }
+  .cat-icon { width: 34px; height: 34px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 16px; }
+  .cat-title { font-family: var(--font-serif); font-size: 17px; font-weight: 900; }
+  .cat-sub { font-size: 10px; color: var(--text-tertiary); margin-top: 1px; }
+  .cat-line { flex: 1; height: 1px; background: var(--border-light); }
+
+  /* ===== DATA GRID ===== */
+  .data-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 14px;
+  }
+  .data-card {
+    background: var(--surface-card);
+    border: 1px solid var(--border-light);
+    border-radius: 14px;
+    padding: 18px 18px 14px;
+    position: relative;
+    overflow: hidden;
+    transition: all .3s var(--ease-out-quart);
+    cursor: default;
+  }
+  .data-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); }
+  .data-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0;
+    height: 3px; opacity: .7;
+  }
+
+  .dc-num {
+    font-family: var(--font-serif);
+    font-size: clamp(26px, 3vw, 34px);
+    font-weight: 900; letter-spacing: -.02em;
+    line-height: 1.05;
+  }
+  .dc-num small { font-size: .45em; font-weight: 700; margin-left: 3px; letter-spacing: 0; }
+  .dc-label { font-size: 12px; font-weight: 700; margin-top: 7px; }
+  .dc-en { font-size: 9px; color: var(--text-tertiary); font-style: italic; margin-top: 1px; }
+  .dc-note { font-size: 10px; color: var(--text-secondary); margin-top: 8px; line-height: 1.6; opacity: 0; max-height: 0; transition: all .35s var(--ease-out-quart); }
+  .data-card:hover .dc-note { opacity: 1; max-height: 80px; margin-top: 8px; }
+
+  /* Theme accents */
+  .dt-retr::before { background: var(--c-enemy); }
+  .dt-retr .dc-num { color: var(--c-enemy); }
+  .dt-war::before { background: var(--c-war); }
+  .dt-war .dc-num { color: var(--c-war); }
+  .dt-power::before { background: var(--c-loyal); }
+  .dt-power .dc-num { color: var(--c-loyal); }
+  .dt-money::before { background: var(--c-tech); }
+  .dt-money .dc-num { color: var(--c-tech); }
+
+  /* ===== SUMMARY BAND ===== */
+  .summary-band {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 12px; margin-top: 32px;
+  }
+  .sum-item {
+    background: var(--surface-card);
+    border: 1px solid var(--border-light);
+    border-radius: 12px;
+    padding: 16px 18px;
+  }
+  .sum-num { font-family: var(--font-serif); font-size: 22px; font-weight: 900; color: var(--c-loyal); }
+  .sum-label { font-size: 11px; color: var(--text-secondary); margin-top: 3px; font-weight: 500; }
+
+  /* ===== METHOD NOTE ===== */
+  .method-note {
+    background: var(--surface-card);
+    border: 1px dashed var(--border-mid);
+    border-radius: 14px; padding: 18px 22px; margin-top: 30px;
+  }
+  .method-note h3 { font-family: var(--font-serif); font-size: 15px; font-weight: 900; margin-bottom: 8px; }
+  .method-note p { font-size: 11.5px; color: var(--text-secondary); line-height: 1.7; }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <h1 class="site-title">关键数据仪表盘</h1>
+  <p class="site-subtitle">Numbers That Matter · 用数字量化"帝国总统"的代价与逻辑</p>
+  <div class="site-meta">
+    <span class="meta-tag">12项核心数据</span>
+    <span class="meta-tag">悬停卡片查看解读</span>
+  </div>
+</header>
+
+<nav class="nav-bar">
+  <a class="nav-link" href="index.html">本书简介</a>
+  <a class="nav-link" href="story.html">内容梳理</a>
+  <a class="nav-link active" href="data.html">数据仪表盘</a>
+  <a class="nav-link" href="人物图谱.html">人物图谱</a>
+</nav>
+
+<div class="page">
+
+  <!-- CATEGORY: RETRIBUTION -->
+  <div class="cat-head fade-up">
+    <div class="cat-icon" style="background:var(--c-enemy-bg)">⚖️</div>
+    <div>
+      <div class="cat-title">报复的代价</div>
+      <div class="cat-sub">The Price of Retribution · Part II</div>
+    </div>
+    <div class="cat-line"></div>
+  </div>
+
+  <div class="data-grid">
+    <div class="data-card dt-retr fade-up d-1">
+      <div class="dc-num">$40<small>M</small></div>
+      <div class="dc-label">宝维斯律所"和解金"</div>
+      <div class="dc-en">Paul Weiss settlement</div>
+      <div class="dc-note">被行政令威胁客户业务后，被迫承诺$4000万"公益法律服务"——书中称之为"现代版保护费"(extortion money)。</div>
+    </div>
+    <div class="data-card dt-retr fade-up d-2">
+      <div class="dc-num">$90<small>亿</small></div>
+      <div class="dc-label">哈佛面临的资助总威胁</div>
+      <div class="dc-en">Harvard total funding threat</div>
+      <div class="dc-note">在冻结$26亿之后，Trump政府威胁取消总额高达$90亿的联邦资助，并吊销免税资格——预算武器化的极致。</div>
+    </div>
+    <div class="data-card dt-retr fade-up d-3">
+      <div class="dc-num">$26<small>亿</small></div>
+      <div class="dc-label">哈佛首批冻结资助</div>
+      <div class="dc-en">First tranche frozen</div>
+      <div class="dc-note">冻结发生在2025上半年，哈佛随后提起诉讼反击——成为机构对抗的标杆案例。</div>
+    </div>
+    <div class="data-card dt-retr fade-up d-4">
+      <div class="dc-num">$25<small>M</small></div>
+      <div class="dc-label">扎克伯格和解金</div>
+      <div class="dc-en">Zuckerberg settlement</div>
+      <div class="dc-note">Meta为修复关系支付的诉讼和解金，叠加主动赴Mar-a-Lago"朝贡"——商业利益压倒一切。</div>
+    </div>
+  </div>
+
+  <!-- CATEGORY: WAR -->
+  <div class="cat-head fade-up d-2">
+    <div class="cat-icon" style="background:var(--c-war-bg)">💥</div>
+    <div>
+      <div class="cat-title">战争的代价</div>
+      <div class="cat-sub">The Cost of War · Part IV</div>
+    </div>
+    <div class="cat-line"></div>
+  </div>
+
+  <div class="data-grid">
+    <div class="data-card dt-war fade-up d-2">
+      <div class="dc-num">$150<small>亿+</small></div>
+      <div class="dc-label">对伊战争花费（截至2026.3）</div>
+      <div class="dc-en">War spending on Iran</div>
+      <div class="dc-note">开战仅一个月即烧掉$150亿+。"史诗怒火"(Operation Epic Wrath)——连战争的名字都是表演性的。</div>
+    </div>
+    <div class="data-card dt-war fade-up d-3">
+      <div class="dc-num">13<small>人</small></div>
+      <div class="dc-label">美军阵亡</div>
+      <div class="dc-en">US service members killed</div>
+      <div class="dc-note">截至2026年3月已有13名美军阵亡、200+人受伤——这是Trump公开承认的"代价"。</div>
+    </div>
+    <div class="data-card dt-war fade-up d-4">
+      <div class="dc-num">10<small>艘</small></div>
+      <div class="dc-label">贩毒快艇被击沉</div>
+      <div class="dc-en">Cartel boats sunk (2025.9-10)</div>
+      <div class="dc-note">"炸船行动"中死神无人机+地狱火导弹的战果。幸存者挥手求救仍遭补射——连John Yoo都认为无法无天。</div>
+    </div>
+    <div class="data-card dt-war fade-up d-5">
+      <div class="dc-num">100<small>%</small></div>
+      <div class="dc-label">霍尔木兹海峡基本关闭</div>
+      <div class="dc-en">Strait of Hormuz effectively closed</div>
+      <div class="dc-note">全球最重要的石油运输通道因战事基本关闭，全球油价飙升——战争的外部性外溢到全世界。</div>
+    </div>
+  </div>
+
+  <!-- CATEGORY: POWER -->
+  <div class="cat-head fade-up d-3">
+    <div class="cat-icon" style="background:var(--c-loyal-bg)">🏛</div>
+    <div>
+      <div class="cat-title">权力的扩张</div>
+      <div class="cat-sub">The Expansion of Power · Part I & III</div>
+    </div>
+    <div class="cat-line"></div>
+  </div>
+
+  <div class="data-grid">
+    <div class="data-card dt-power fade-up d-3">
+      <div class="dc-num">17<small>个</small></div>
+      <div class="dc-label">加巴德领导的情报机构</div>
+      <div class="dc-en">Intelligence agencies under Gabbard</div>
+      <div class="dc-note">前民主党众议员转投Trump后掌管美国情报界全部17个机构——史无前例的政治化任命。</div>
+    </div>
+    <div class="data-card dt-power fade-up d-4">
+      <div class="dc-num">数万<small>名</small></div>
+      <div class="dc-label">受 Schedule F 影响的公务员</div>
+      <div class="dc-en">Federal employees affected</div>
+      <div class="dc-note">通过行政令将数万联邦公务员转为政治任命（可随时解雇），叠加DOGE裁员——行政国家的拆除工程。</div>
+    </div>
+    <div class="data-card dt-power fade-up d-5">
+      <div class="dc-num">4<small>起</small></div>
+      <div class="dc-label">刑事起诉（反而成为资产）</div>
+      <div class="dc-en">Indictments turned political fuel</div>
+      <div class="dc-note">四起起诉书成为募捐信，每一次出庭变成政治集会——司法武器化的反向效果。</div>
+    </div>
+    <div class="data-card dt-power fade-up d-6">
+      <div class="dc-num">1<small>人</small></div>
+      <div class="dc-label">最高法院总统豁免权</div>
+      <div class="dc-en">SCOTUS immunity ruling</div>
+      <div class="dc-note">最高法院裁定总统对"官方行为"享有广泛豁免权——为第二任期不受约束的行动提供了法律护身符。</div>
+    </div>
+  </div>
+
+  <!-- SUMMARY BAND -->
+  <div class="sec-head fade-up" style="margin-top:34px">
+    <div class="sec-eyebrow">Takeaway</div>
+    <div class="sec-title">三句话总结</div>
+  </div>
+
+  <div class="summary-band fade-up">
+    <div class="sum-item">
+      <div class="sum-num">$1.5B+</div>
+      <div class="sum-label">对内报复 + 对外战争的直接花费（律所和解金 + 战争支出）</div>
+    </div>
+    <div class="sum-item">
+      <div class="sum-num">13</div>
+      <div class="sum-label">战争开打一个月内的美军阵亡人数——代价由士兵与纳税人承担</div>
+    </div>
+    <div class="sum-item">
+      <div class="sum-num">"0"</div>
+      <div class="sum-label">特朗普本人承担的制度成本——豁免权 + 忠诚团队 = 无问责机制</div>
+    </div>
+  </div>
+
+  <div class="method-note fade-up">
+    <h3>💡 分享提示</h3>
+    <p>讲数据时建议遵循"<strong>3-2-1</strong>"节奏：先抛出3个最震撼的数字（$4000万保护费 / $150亿战争 / 13名阵亡）建立冲击力，再解释2个机制（预算武器化、司法武器化）讲清逻辑，最后留1个问题给听众：<em>"如果权力可以这样定价，下一个买单的是谁？"</em></p>
+  </div>
+
+</div>
+
+<footer class="site-footer">
+  数据来源：《政权更迭》(Regime Change) by Maggie Haberman &amp; Jonathan Swan — Simon &amp; Schuster, 2026 · 仅供学习研究使用
+</footer>
+
+</body>
+</html>

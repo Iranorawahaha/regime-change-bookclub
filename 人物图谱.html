@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>《政权更迭》人物关系图谱</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700;900&family=Noto+Sans+SC:wght@400;500;700&family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+    --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+    --surface-base: #F5F3EF;
+    --surface-card: #FFFDF9;
+    --text-primary: #1A1612;
+    --text-secondary: #5C534A;
+    --text-tertiary: #8E857D;
+    --border-light: #DDD6CC;
+    /* Layer colors — warm editorial palette */
+    --c-trump:   #C4653A;
+    --c-trump-bg:#FDE8DD;
+    --c-loyal:   #4A4290;
+    --c-loyal-bg:#E8E4F4;
+    --c-cab:     #1B6088;
+    --c-cab-bg:  #DFECF5;
+    --c-tech:    #9A6B28;
+    --c-tech-bg: #FBF0DC;
+    --c-enemy:   #A63D2E;
+    --c-enemy-bg:#FAE5E0;
+    --c-war:     #1A7A5E;
+    --c-war-bg:  #DFF0EA;
+    --c-delegate:#7A7268;
+    --shadow-sm: 0 1px 2px rgba(26,22,18,.06);
+    --shadow-md: 0 4px 14px rgba(26,22,18,.08);
+    --shadow-lg: 0 10px 30px rgba(26,22,18,.10);
+  }
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  html { font-size: 15px; scroll-behavior: smooth; }
+  body {
+    font-family: 'DM Sans', 'Noto Sans SC', -apple-system, sans-serif;
+    background: var(--surface-base);
+    color: var(--text-primary);
+    line-height: 1.55;
+    min-height: 100vh;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+  }
+
+  /* ===== HEADER ===== */
+  .site-header { text-align: center; padding: 28px 24px 18px; background: var(--surface-card); border-bottom: 1px solid var(--border-light); position: relative; }
+  .site-header::after { content:''; position:absolute; bottom:0; left:0; right:0; height:2px; background: linear-gradient(90deg, var(--c-trump), var(--c-loyal) 20%, var(--c-cab) 40%, var(--c-tech) 65%, var(--c-enemy) 82%, var(--c-war)); opacity:.45; }
+  .site-title { font-family:'Playfair Display','Noto Serif SC',serif; font-size:clamp(22px,2.8vw,32px); font-weight:900; letter-spacing:-.02em; color:var(--text-primary); line-height:1.15; }
+  .site-subtitle { font-size:11px; color:var(--text-secondary); margin-top:3px; font-style:italic; letter-spacing:.02em; }
+  .site-meta { display:flex; justify-content:center; gap:7px; margin-top:7px; flex-wrap:wrap; }
+  .meta-tag { font-size:9.5px; padding:2.5px 9px; border-radius:14px; background:var(--surface-base); border:1px solid var(--border-light); color:var(--text-tertiary); font-weight:500; }
+
+  /* ===== MAIN CANVAS ===== */
+  .canvas-wrapper {
+    max-width: 1100px; margin: 0 auto; padding: 20px 16px 32px;
+    position: relative;
+  }
+
+  /* The SVG-based graph container */
+  .graph-container {
+    position: relative;
+    background: var(--surface-card);
+    border-radius: 16px;
+    border: 1px solid var(--border-light);
+    box-shadow: var(--shadow-md);
+    overflow: hidden;
+  }
+
+  svg.graph-svg { width: 100%; height: auto; display: block; }
+
+  /* ===== SVG STYLES ===== */
+  .node-rect { cursor: pointer; transition: all .25s var(--ease-out-quart); }
+  .node-rect:hover { filter: brightness(.96); transform: translateY(-1px); }
+  .node-rect.selected { stroke-width: 2 !important; filter: drop-shadow(0 0 8px currentColor); }
+  .node-rect.highlighted { animation: nodePulse 1.2s ease-in-out infinite; }
+  @keyframes nodePulse { 0%,100%{filter:brightness(1)} 50%{filter:brightness(.88)} }
+  .node-rect.dimmed { opacity: .3; transition: opacity .3s; }
+
+  .conn-line { transition: all .3s; }
+  .conn-line.dimmed { opacity: .12; }
+  .conn-line.highlighted { stroke-width: 2.5 !important; filter: drop-shadow(0 0 3px currentColor); }
+
+  .layer-label { font-family:'Noto Sans SC',sans-serif; font-size:10px; fill:var(--text-tertiary); letter-spacing:.12em; }
+
+  /* ===== DETAIL SIDEBAR (slides in from right) ===== */
+  .detail-overlay {
+    position: fixed; top:0; right:-420px; width:400px; height:100vh;
+    background: var(--surface-card);
+    border-left: 1px solid var(--border-light);
+    box-shadow: -8px 0 30px rgba(26,22,18,.12);
+    z-index: 1000; overflow-y: auto;
+    transition: right .4s var(--ease-out-expo);
+    padding: 28px 24px;
+  }
+  .detail-overlay.open { right: 0; }
+  .detail-backdrop {
+    position: fixed; inset:0; background:rgba(26,22,18,.25);
+    z-index: 999; opacity:0; pointer-events:none;
+    transition: opacity .35s;
+  }
+  .detail-backdrop.open { opacity:1; pointer-events:auto; }
+
+  .do-close {
+    float:right; width:30px; height:30px; border-radius:50%;
+    border:1.5px solid var(--border-light); background:var(--surface-base);
+    cursor:pointer; font-size:16px; color:var(--text-tertiary);
+    display:flex; align-items:center; justify-content:center;
+    font-family:inherit; transition:all .2s;
+  }
+  .do-close:hover { background:var(--c-enemy); border-color:var(--c-enemy); color:#fff; }
+
+  .do-head { margin-bottom:18px; padding-bottom:14px; border-bottom:1px solid var(--border-light); clear:both; }
+  .do-name { font-family:'Playfair Display','Noto Serif SC',serif; font-size:22px; font-weight:900; line-height:1.2; }
+  .do-name-en { font-size:12px; color:var(--text-secondary); font-style:italic; margin-top:2px; }
+  .do-badge { display:inline-block; padding:5px 13px; border-radius:14px; font-size:10px; font-weight:700; letter-spacing:.04em; margin-top:8px; }
+
+  .do-section { margin-bottom:14px; }
+  .do-section h4 { font-size:9.5px; font-weight:700; letter-spacing:.08em; color:var(--text-tertiary); margin-bottom:5px; text-transform:uppercase; }
+  .do-section p { font-size:12.5px; line-height:1.72; color:var(--text-primary); }
+  .do-section ul { list-style:none; padding:0; }
+  .do-section li { font-size:11.5px; line-height:1.68; color:var(--text-primary); padding:3px 0 3px 13px; position:relative; }
+  .do-section li::before{content:'';position:absolute;left:0;top:10px;width:5px;height:2px;border-radius:1px;background:var(--c-loyal);opacity:.4;}
+  .do-quote { background:var(--surface-base); padding:10px 12px; border-radius:8px; border-left:3px solid var(--c-loyal); font-size:11.5px; font-style:italic; color:var(--text-secondary); margin:5px 0; line-height:1.62; }
+
+  /* Relation items in detail panel */
+  .rel-item { display:flex; align-items:center; gap:7px; padding:7px 9px; border-radius:8px; margin-bottom:4px; background:var(--surface-base); border:1px solid var(--border-light); cursor:pointer; transition:all .2s; font-size:11px; }
+  .rel-item:hover { border-color:var(--c-loyal); transform:translateX(3px); }
+  .rel-avatar { width:24px; height:24px; border-radius:6px; display:flex; align-items:center; justify-content:center; font-size:10px; font-weight:700; color:#fff; flex-shrink:0; font-family:'Playfair Display',serif; }
+  .rel-info { flex:1; min-width:0; }
+  .rel-name { font-weight:600; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .rel-dir { font-size:9px; color:var(--text-tertiary); }
+  .rel-type { font-size:7px; font-weight:700; padding:2px 6px; border-radius:5px; white-space:nowrap; flex-shrink:0; }
+
+  /* ===== LEGEND BAR ===== */
+  .legend-bar { display:flex; flex-wrap:wrap; justify-content:center; align-items:center; gap:8px 20px; padding:14px 20px; background:var(--surface-card); border:1px solid var(--border-light); border-radius:12px; margin-top:16px; }
+  .leg-group { display:flex; align-items:center; gap:4px; font-size:9.5px; color:var(--text-secondary); }
+  .leg-dot { width:12px; height:12px; border-radius:3px; border:1.5px solid; flex-shrink:0; }
+  .leg-line { display:inline-flex; align-items:center; gap:3px; font-size:8.5px; color:var(--text-tertiary); }
+  .leg-bar { width:20px; height:2px; border-radius:2px; }
+
+  .site-footer { text-align:center; padding:14px 20px; font-size:9.5px; color:var(--text-tertiary); margin-top:8px; }
+
+  @media (max-width: 900px) {
+    .detail-overlay { width:100%; right:-100%; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <h1 class="site-title">《政权更迭》核心人物关系图谱</h1>
+  <p class="site-subtitle">Regime Change: Inside the Imperial Presidency of Donald Trump</p>
+  <div class="site-meta">
+    <span class="meta-tag">Maggie Haberman &amp; Jonathan Swan</span>
+    <span class="meta-tag">Simon &amp; Schuster 2026</span>
+    <span class="meta-tag">25 个核心人物</span>
+    <span class="meta-tag">点击人物查看详情</span>
+  </div>
+</header>
+
+<div class="canvas-wrapper">
+  <div class="graph-container">
+    <!-- SVG Graph -->
+    <svg class="graph-svg" viewBox="0 0 720 1000" xmlns="http://www.w3.org/2000/svg" role="img" id="mainSvg">
+      <defs>
+        <!-- Arrow markers for each relation type -->
+        <marker id="arr-lead" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M2 1L8 5L2 9" fill="none" stroke="#4A4290" stroke-width="1.5" stroke-linecap="round"/>
+        </marker>
+        <marker id="arr-tribute" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M2 1L8 5L2 9" fill="none" stroke="#9A6B28" stroke-width="1.5" stroke-linecap="round"/>
+        </marker>
+        <marker id="arr-retrib" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M2 1L8 5L2 9" fill="none" stroke="#A63D2E" stroke-width="1.5" stroke-linecap="round"/>
+        </marker>
+        <marker id="arr-war" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M2 1L8 5L2 9" fill="none" stroke="#1A7A5E" stroke-width="1.5" stroke-linecap="round"/>
+        </marker>
+        <marker id="arr-deleg" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M2 1L8 5L2 9" fill="none" stroke="#7A7268" stroke-width="1.5" stroke-linecap="round"/>
+        </marker>
+        <!-- Drop shadow for nodes -->
+        <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+          <feDropShadow dx="0" dy="1.5" stdDeviation="2" flood-opacity=".07"/>
+        </filter>
+      </defs>
+
+      <!-- Title inside SVG -->
+      <text x="360" y="24" text-anchor="middle" font-family="'Playfair Display','Noto Serif SC',serif" font-size="14" font-weight="700" fill="#1A1612">权力圈层结构</text>
+
+      <!-- ============ LAYER 0: TRUMP (center top) ============ -->
+      <g id="node-trump" class="node-group" data-id="trump" onclick="showDetail('trump')">
+        <ellipse cx="360" cy="78" rx="80" ry="38" fill="#FDE8DD" stroke="#C4653A" stroke-width="1.8" filter="url(#shadow)" class="node-rect"/>
+        <text x="360" y="73" text-anchor="middle" font-family="'Playfair Display',serif" font-size="15" font-weight="900" fill="#6B2E12">唐纳德·特朗普</text>
+        <text x="360" y="89" text-anchor="middle" font-size="9.5" fill="#994822" font-style="italic">Donald J. Trump · 总统</text>
+      </g>
+
+      <!-- ============ CONNECTIONS (drawn before nodes so lines go under) ============ -->
+      <g id="connections">
+        <!-- Trump → Inner Circle (lead) -->
+        <line x1="310" y1="108" x2="115" y2="172" stroke="#4A4290" stroke-width="1.2" marker-end="url(#arr-lead)" class="conn-line" data-from="trump" data-to="miller"/>
+        <line x1="340" y1="114" x2="260" y2="172" stroke="#4A4290" stroke-width="1.2" marker-end="url(#arr-lead)" class="conn-line" data-from="trump" data-to="wiles"/>
+        <line x1="380" y1="114" x2="430" y2="172" stroke="#4A4290" stroke-width="1.2" marker-end="url(#arr-lead)" class="conn-line" data-from="trump" data-to="rubio"/>
+        <line x1="405" y1="108" x2="585" y2="172" stroke="#4A4290" stroke-width="1.2" marker-end="url(#arr-lead)" class="conn-line" data-from="trump" data-to="hegseth"/>
+
+        <!-- Inner Circle → Cabinet (delegate) -->
+        <line x1="115" y1="222" x2="114" y2="270" stroke="#7A7268" stroke-width=".8" stroke-dasharray="4,2" class="conn-line" data-from="miller" data-to="musk"/>
+        <line x1="260" y1="222" x2="258" y2="270" stroke="#7A7268" stroke-width=".8" stroke-dasharray="4,2" class="conn-line" data-from="wiles" data-to="vance"/>
+        <line x1="430" y1="222" x2="398" y2="270" stroke="#7A7268" stroke-width=".8" stroke-dasharray="4,2" class="conn-line" data-from="rubio" data-to="gabbard"/>
+        <line x1="585" y1="222" x2="536" y2="270" stroke="#7A7268" stroke-width=".8" stroke-dasharray="4,2" class="conn-line" data-from="hegseth" data-to="rfk"/>
+
+        <!-- Tech → Trump (tribute, upward arrows) -->
+        <line x1="122" y1="365" x2="300" y2="112" stroke="#9A6B28" stroke-width="1" marker-end="url(#arr-tribute)" stroke-dasharray="3,2" class="conn-line" data-from="zuck" data-to="trump"/>
+        <line x1="250" y1="365" x2="330" y2="112" stroke="#9A6B28" stroke-width="1" marker-end="url(#arr-tribute)" stroke-dasharray="3,2" class="conn-line" data-from="bezos" data-to="trump"/>
+        <line x1="378" y1="365" x2="385" y2="112" stroke="#9A6B28" stroke-width="1" marker-end="url(#arr-tribute)" stroke-dasharray="3,2" class="conn-line" data-from="cook" data-to="trump"/>
+        <line x1="506" y1="365" x2="420" y2="112" stroke="#9A6B28" stroke-width="1" marker-end="url(#arr-tribute)" stroke-dasharray="3,2" class="conn-line" data-from="pichai" data-to="trump"/>
+
+        <!-- Trump → Enemies (retribution) -->
+        <line x1="315" y1="110" x2="114" y2="462" stroke="#A63D2E" stroke-width="1.1" marker-end="url(#arr-retrib)" class="conn-line" data-from="trump" data-to="milley"/>
+        <line x1="340" y1="116" x2="262" y2="462" stroke="#A63D2E" stroke-width="1.1" marker-end="url(#arr-retrib)" class="conn-line" data-from="trump" data-to="krebs"/>
+        <line x1="380" y1="116" x2="410" y2="462" stroke="#A63D2E" stroke-width="1.1" marker-end="url(#arr-retrib)" class="conn-line" data-from="trump" data-to="harvard"/>
+        <line x1="400" y1="110" x2="558" y2="462" stroke="#A63D2E" stroke-width="1.1" marker-end="url(#arr-retrib)" class="conn-line" data-from="trump" data-to="pw"/>
+
+        <!-- Hegseth → War targets (war execution) -->
+        <line x1="585" y1="222" x2="175" y2="562" stroke="#1A7A5E" stroke-width=".9" stroke-dasharray="5,3" class="conn-line" data-from="hegseth" data-to="maduro"/>
+        <line x1="585" y1="222" x2="360" y2="562" stroke="#1A7A5E" stroke-width=".9" stroke-dasharray="5,3" class="conn-line" data-from="hegseth" data-to="iran"/>
+        <line x1="585" y1="222" x2="545" y2="562" stroke="#1A7A5E" stroke-width=".9" stroke-dasharray="5,3" class="conn-line" data-from="hegseth" data-to="cartels"/>
+      </g>
+
+      <!-- ============ LAYER 1: INNER CIRCLE ============ -->
+      <text x="360" y="158" text-anchor="middle" class="layer-label" font-weight="600">━━ 忠诚核心圈（第一任期即跟随） ━━</text>
+
+      <g id="node-miller" class="node-group" data-id="miller" onclick="showDetail('miller')">
+        <rect x="48" y="174" width="134" height="48" rx="8" fill="#E8E4F4" stroke="#4A4290" stroke-width=".8" filter="url(#shadow)" class="node-rect"/>
+        <text x="115" y="195" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="11.5" font-weight="700" fill="#26215C">斯蒂芬·米勒</text>
+        <text x="115" y="211" text-anchor="middle" font-size="9" fill="#3C3489">Stephen Miller · 复仇记账本</text>
+      </g>
+      <g id="node-wiles" class="node-group" data-id="wiles" onclick="showDetail('wiles')">
+        <rect x="193" y="174" width="134" height="48" rx="8" fill="#E8E4F4" stroke="#4A4290" stroke-width=".8" filter="url(#shadow)" class="node-rect"/>
+        <text x="260" y="195" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="11.5" font-weight="700" fill="#26215C">苏西·怀尔斯</text>
+        <text x="260" y="211" text-anchor="middle" font-size="9" fill="#3C3489">Susie Wiles · 刹车片</text>
+      </g>
+      <g id="node-rubio" class="node-group" data-id="rubio" onclick="showDetail('rubio')">
+        <rect x="338" y="174" width="134" height="48" rx="8" fill="#E8E4F4" stroke="#4A4290" stroke-width=".8" filter="url(#shadow)" class="node-rect"/>
+        <text x="405" y="195" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="11.5" font-weight="700" fill="#26215C">马可·鲁比奥</text>
+        <text x="405" y="211" text-anchor="middle" font-size="9" fill="#3C3489">Marco Rubio · 皈依者</text>
+      </g>
+      <g id="node-hegseth" class="node-group" data-id="hegseth" onclick="showDetail('hegseth')">
+        <rect x="483" y="174" width="134" height="48" rx="8" fill="#E8E4F4" stroke="#4A4290" stroke-width=".8" filter="url(#shadow)" class="node-rect"/>
+        <text x="550" y="195" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="11.5" font-weight="700" fill="#26215C">皮特·赫格塞斯</text>
+        <text x="550" y="211" text-anchor="middle" font-size="9" fill="#3C3489">Pete Hegseth · 执行者</text>
+      </g>
+
+      <!-- ============ LAYER 2: CABINET / ALLIES ============ -->
+      <text x="360" y="256" text-anchor="middle" class="layer-label" font-weight="600">━━ 新任内阁 / 外部盟友 ━━</text>
+
+      <g id="node-musk" class="node-group" data-id="musk" onclick="showDetail('musk')">
+        <rect x="52" y="272" width="124" height="48" rx="8" fill="#DFECF5" stroke="#1B6088" stroke-width=".8" filter="url(#shadow)" class="node-rect"/>
+        <text x="114" y="293" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="11.5" font-weight="700" fill="#042C53">埃隆·马斯克</text>
+        <text x="114" y="309" text-anchor="middle" font-size="9" fill="#0C447C">Elon Musk · DOGE负责人</text>
+      </g>
+      <g id="node-vance" class="node-group" data-id="vance" onclick="showDetail('vance')">
+        <rect x="196" y="272" width="124" height="48" rx="8" fill="#DFECF5" stroke="#1B6088" stroke-width=".8" filter="url(#shadow)" class="node-rect"/>
+        <text x="258" y="293" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="11.5" font-weight="700" fill="#042C53">J·D·万斯</text>
+        <text x="258" y="309" text-anchor="middle" font-size="9" fill="#0C447C">JD Vance · 副总统</text>
+      </g>
+      <g id="node-gabbard" class="node-group" data-id="gabbard" onclick="showDetail('gabbard')">
+        <rect x="340" y="272" width="124" height="48" rx="8" fill="#DFECF5" stroke="#1B6088" stroke-width=".8" filter="url(#shadow)" class="node-rect"/>
+        <text x="402" y="293" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="11.5" font-weight="700" fill="#042C53">塔尔西·加巴德</text>
+        <text x="402" y="309" text-anchor="middle" font-size="9" fill="#0C447C">Tulsi Gabbard · DNI</text>
+      </g>
+      <g id="node-rfk" class="node-group" data-id="rfk" onclick="showDetail('rfk')">
+        <rect x="484" y="272" width="124" height="48" rx="8" fill="#DFECF5" stroke="#1B6088" stroke-width=".8" filter="url(#shadow)" class="node-rect"/>
+        <text x="546" y="293" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="11.5" font-weight="700" fill="#042C53">小肯尼迪</text>
+        <text x="546" y="309" text-anchor="middle" font-size="9" fill="#0C447C">RFK Jr. · 卫生部长</text>
+      </g>
+
+      <!-- ============ LAYER 3: TECH TRIBUTE ============ -->
+      <text x="360" y="350" text-anchor="middle" class="layer-label" font-weight="600">━━ 科技朝贡者（Mar-a-Lago 晚宴） ━━</text>
+
+      <g id="node-zuck" class="node-group" data-id="zuck" onclick="showDetail('zuck')">
+        <rect x="62" y="366" width="120" height="48" rx="8" fill="#FBF0DC" stroke="#9A6B28" stroke-width=".8" filter="url(#shadow)" class="node-rect"/>
+        <text x="122" y="387" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="11.5" font-weight="700" fill="#412402">扎克伯格</text>
+        <text x="122" y="403" text-anchor="middle" font-size="9" fill="#633806">Zuckerberg · Meta CEO</text>
+      </g>
+      <g id="node-bezos" class="node-group" data-id="bezos" onclick="showDetail('bezos')">
+        <rect x="190" y="366" width="120" height="48" rx="8" fill="#FBF0DC" stroke="#9A6B28" stroke-width=".8" filter="url(#shadow)" class="node-rect"/>
+        <text x="250" y="387" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="11.5" font-weight="700" fill="#412402">贝佐斯</text>
+        <text x="250" y="403" text-anchor="middle" font-size="9" fill="#633806">Bezos · Amazon/WaPo</text>
+      </g>
+      <g id="node-cook" class="node-group" data-id="cook" onclick="showDetail('cook')">
+        <rect x="318" y="366" width="120" height="48" rx="8" fill="#FBF0DC" stroke="#9A6B28" stroke-width=".8" filter="url(#shadow)" class="node-rect"/>
+        <text x="378" y="387" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="11.5" font-weight="700" fill="#412402">库克</text>
+        <text x="378" y="403" text-anchor="middle" font-size="9" fill="#633806">Cook · Apple CEO</text>
+      </g>
+      <g id="node-pichai" class="node-group" data-id="pichai" onclick="showDetail('pichai')">
+        <rect x="446" y="366" width="120" height="48" rx="8" fill="#FBF0DC" stroke="#9A6B28" stroke-width=".8" filter="url(#shadow)" class="node-rect"/>
+        <text x="506" y="387" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="11.5" font-weight="700" fill="#412402">皮柴伊</text>
+        <text x="506" y="403" text-anchor="middle" font-size="9" fill="#633806">Pichai · Google CEO</text>
+      </g>
+
+      <!-- ============ LAYER 4: RETRIBUTION TARGETS ============ -->
+      <text x="360" y="444" text-anchor="middle" class="layer-label" font-weight="600">━━ 报复打击目标（Part II 重点） ━━</text>
+
+      <g id="node-milley" class="node-group" data-id="milley" onclick="showDetail('milley')">
+        <rect x="42" y="464" width="144" height="52" rx="8" fill="#FAE5E0" stroke="#A63D2E" stroke-width=".8" filter="url(#shadow)" class="node-rect"/>
+        <text x="114" y="485" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="11.5" font-weight="700" fill="#501313">马克·米利</text>
+        <text x="114" y="500" text-anchor="middle" font-size="8.5" fill="#791F1F">Mark Milley · 前参联会主席</text>
+        <text x="114" y="512" text-anchor="middle" font-size="8" fill="#A8504F">撤肖像 / 取消安保</text>
+      </g>
+      <g id="node-krebs" class="node-group" data-id="krebs" onclick="showDetail('krebs')">
+        <rect x="196" y="464" width="144" height="52" rx="8" fill="#FAE5E0" stroke="#A63D2E" stroke-width=".8" filter="url(#shadow)" class="node-rect"/>
+        <text x="268" y="485" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="11.5" font-weight="700" fill="#501313">克里斯·克雷布斯</text>
+        <text x="268" y="500" text-anchor="middle" font-size="8.5" fill="#791F1F">Chris Krebs · 前网络安全局长</text>
+        <text x="268" y="512" text-anchor="middle" font-size="8" fill="#A8504F">DOJ刑事调查</text>
+      </g>
+      <g id="node-harvard" class="node-group" data-id="harvard" onclick="showDetail('harvard')">
+        <rect x="350" y="464" width="144" height="52" rx="8" fill="#FAE5E0" stroke="#A63D2E" stroke-width=".8" filter="url(#shadow)" class="node-rect"/>
+        <text x="422" y="485" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="11.5" font-weight="700" fill="#501313">哈佛大学</text>
+        <text x="422" y="500" text-anchor="middle" font-size="8.5" fill="#791F1F">Harvard University</text>
+        <text x="422" y="512" text-anchor="middle" font-size="8" fill="#A8504F">冻结$26亿资助 / $90亿威胁</text>
+      </g>
+      <g id="node-pw" class="node-group" data-id="pw" onclick="showDetail('pw')">
+        <rect x="504" y="464" width="144" height="52" rx="8" fill="#FAE5E0" stroke="#A63D2E" stroke-width=".8" filter="url(#shadow)" class="node-rect"/>
+        <text x="576" y="485" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="11.5" font-weight="700" fill="#501313">宝维斯律所</text>
+        <text x="576" y="500" text-anchor="middle" font-size="8.5" fill="#791F1F">Paul, Weiss 律所</text>
+        <text x="576" y="512" text-anchor="middle" font-size="8" fill="#A8504F">$4000万"和解"</text>
+      </g>
+
+      <!-- ============ LAYER 5: WAR TARGETS ============ -->
+      <text x="360" y="544" text-anchor="middle" class="layer-label" font-weight="600">━━ 对外战争目标（Part IV，Hegseth 执行） ━━</text>
+
+      <g id="node-maduro" class="node-group" data-id="maduro" onclick="showDetail('maduro')">
+        <rect x="95" y="564" width="160" height="50" rx="8" fill="#DFF0EA" stroke="#1A7A5E" stroke-width=".8" filter="url(#shadow)" class="node-rect"/>
+        <text x="175" y="584" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="11.5" font-weight="700" fill="#04342C">尼古拉斯·马杜罗</text>
+        <text x="175" y="600" text-anchor="middle" font-size="8.5" fill="#085041">委内瑞拉 · CIA暗杀目标 / 夺油田</text>
+      </g>
+      <g id="node-iran" class="node-group" data-id="iran" onclick="showDetail('iran')">
+        <rect x="280" y="564" width="160" height="50" rx="8" fill="#DFF0EA" stroke="#1A7A5E" stroke-width=".8" filter="url(#shadow)" class="node-rect"/>
+        <text x="360" y="584" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="11.5" font-weight="700" fill="#04342C">伊朗伊斯兰共和国</text>
+        <text x="360" y="600" text-anchor="middle" font-size="8.5" fill="#085041">Iran · 2026.2.28 全面战争</text>
+      </g>
+      <g id="node-cartels" class="node-group" data-id="cartels" onclick="showDetail('cartels')">
+        <rect x="465" y="564" width="160" height="50" rx="8" fill="#DFF0EA" stroke="#1A7A5E" stroke-width=".8" filter="url(#shadow)" class="node-rect"/>
+        <text x="545" y="584" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="11.5" font-weight="700" fill="#04342C">贩毒集团</text>
+        <text x="545" y="600" text-anchor="middle" font-size="8.5" fill="#085041">Cartels · "炸船行动"目标</text>
+      </g>
+
+      <!-- ============ OTHER KEY FIGURES (added) ============ -->
+      <text x="360" y="638" text-anchor="middle" class="layer-label" font-weight="600">━━ 其他关键人物 ━━</text>
+
+      <g id="node-noem" class="node-group" data-id="noem" onclick="showDetail('noem')">
+        <rect x="30" y="652" width="126" height="46" rx="8" fill="#F1EFE8" stroke="#B4B2A9" stroke-width=".8" filter="url(#shadow)" class="node-rect"/>
+        <text x="93" y="671" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="10.5" font-weight="700" fill="#2C2C2A">克里斯蒂·诺姆</text>
+        <text x="93" y="686" text-anchor="middle" font-size="8" fill="#5F5E5A">Kristi Noem · 国土安全部长</text>
+      </g>
+      <g id="node-vought" class="node-group" data-id="vought" onclick="showDetail('vought')">
+        <rect x="164" y="652" width="126" height="46" rx="8" fill="#F1EFE8" stroke="#B4B2A9" stroke-width=".8" filter="url(#shadow)" class="node-rect"/>
+        <text x="227" y="671" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="10.5" font-weight="700" fill="#2C2C2A">拉斯·沃特</text>
+        <text x="227" y="686" text-anchor="middle" font-size="8" fill="#5F5E5A">Russ Vought · OMB主任</text>
+      </g>
+      <g id="node-kelly" class="node-group" data-id="kelly" onclick="showDetail('kelly')">
+        <rect x="298" y="652" width="126" height="46" rx="8" fill="#F1EFE8" stroke="#B4B2A9" stroke-width=".8" filter="url(#shadow)" class="node-rect"/>
+        <text x="361" y="671" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="10.5" font-weight="700" fill="#2C2C2A">约翰·凯利</text>
+        <text x="361" y="686" text-anchor="middle" font-size="8" fill="#5F5E5A">John Kelly · 前幕僚长</text>
+      </g>
+      <g id="node-smith" class="node-group" data-id="smith" onclick="showDetail('smith')">
+        <rect x="432" y="652" width="126" height="46" rx="8" fill="#F1EFE8" stroke="#B4B2A9" stroke-width=".8" filter="url(#shadow)" class="node-rect"/>
+        <text x="495" y="671" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="10.5" font-weight="700" fill="#2C2C2A">杰克·史密斯</text>
+        <text x="495" y="686" text-anchor="middle" font-size="8" fill="#5F5E5A">Jack Smith · 前特别检察官</text>
+      </g>
+      <g id="node-taylor" class="node-group" data-id="taylor" onclick="showDetail('taylor')">
+        <rect x="566" y="652" width="126" height="46" rx="8" fill="#F1EFE8" stroke="#B4B2A9" stroke-width=".8" filter="url(#shadow)" class="node-rect"/>
+        <text x="629" y="671" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="10.5" font-weight="700" fill="#2C2C2A">迈尔斯·泰勒</text>
+        <text x="629" y="686" text-anchor="middle" font-size="8" fill="#5F5E5A">Miles Taylor · "匿名"作者</text>
+      </g>
+
+      <!-- ============ KEY RELATIONSHIP DYNAMICS SECTION ============ -->
+      <text x="360" y="726" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="13" font-weight="700" fill="#1A1612">关键关系动态</text>
+
+      <!-- Miller vs Wiles -->
+      <rect x="36" y="740" width="320" height="82" rx="8" fill="#FCECE6" stroke="#D85A30" stroke-width=".5"/>
+      <text x="52" y="758" font-family="'Noto Sans SC',sans-serif" font-size="10.5" font-weight="700" fill="#712B13">Miller vs Wiles：激进 vs 稳健</text>
+      <text x="52" y="774" font-size="9.5" fill="#993C1D">Miller推动极端政策（大规模驱逐、国内军事化），Wiles试图控制节奏。</text>
+      <text x="52" y="790" font-size="9" fill="#B86A4A">核心张力：Trump最终几乎总是站在Miller一边。</text>
+      <text x="52" y="808" font-size="8.5" fill="#B86A4A" font-style:italic">"白宫内最后的刹车片正在磨损殆尽"</text>
+
+      <!-- Rubio's transformation -->
+      <rect x="364" y="740" width="320" height="82" rx="8" fill="#E6F1FB" stroke="#378ADD" stroke-width=".5"/>
+      <text x="380" y="758" font-family="'Noto Sans SC',sans-serif" font-size="10.5" font-weight="700" fill="#0C447C">Rubio 的"皈依"轨迹</text>
+      <text x="380" y="774" font-size="9.5" fill="#185FA5">2016批评Trump → 2024竞选对手落选 → 国务卿+国安顾问双职</text>
+      <text x="380" y="790" font-size="9" fill="#4A8CD6">从"民主推广理想主义者"变为"马杜罗复仇者"。</text>
+      <text x="380" y="808" font-size="8.5" fill="#4A8CD6" font-style:italic">"不是妥协(concession)，是皈依(conversion)"</text>
+
+      <!-- Musk wild card -->
+      <rect x="36" y="832" width="320" height="70" rx="8" fill="#FAEDA6" stroke="#BA7517" stroke-width=".5"/>
+      <text x="52" y="850" font-family="'Noto Sans SC',sans-serif" font-size="10.5" font-weight="700" fill="#633806">Elon Musk：局外人 × 局内人</text>
+      <text x="52" y="866" font-size="9.5" fill="#854F0B">DOGE负责人但非内阁成员。与Miller结盟削减联邦雇员。</text>
+      <text x="52" y="882" font-size="9" fill="#A6853A">经常绕过Wiles直接汇报。评价同行："一流跪舔(groveling)"</text>
+
+      <!-- Hegseth war philosophy -->
+      <rect x="364" y="832" width="320" height="70" rx="8" fill="#FCEAEA" stroke="#E24B4A" stroke-width=".5"/>
+      <text x="380" y="850" font-family="'Noto Sans SC',sans-serif" font-size="10.5" font-weight="700" fill="#791F1F">Hegseth 的战争哲学</text>
+      <text x="380" y="866" font-size="9.5" fill="#A63D2E">清除国防部法律官(jagoffs)，支持无差别轰炸贩毒快艇。</text>
+      <text x="380" y="882" font-size="9" fill="#D48080">推动ICE使用化学制剂+Black Hawk突袭平民区</text>
+
+      <!-- Key quote at bottom -->
+      <rect x="80" y="918" width="560" height="24" rx="5" fill="#FDE8DD" fill-opacity=".5" stroke="#C4653A" stroke-width=".3"/>
+      <text x="360" y="934" text-anchor="middle" font-size="9.5" fill="#712B13" font-style:italic">"Trump不再需要中间人 —— 报复不再是隐秘任务，而是公开的驱动力。"</text>
+
+      <!-- Legend -->
+      <rect x="36" y="952" width="648" height="38" rx="8" fill="#F5F3EF" stroke="#DDD6CC" stroke-width=".5"/>
+      <text x="52" y="974" font-size="8.5" font-weight="700" fill="#5C534A">图例:</text>
+      <rect x="82" y="964" width="12" height="12" rx="3" fill="#FDE8DD" stroke="#C4653A" stroke-width=".5"/><text x="98" y="974" font-size="8.5" fill="#5C534A">核心</text>
+      <rect x="132" y="964" width="12" height="12" rx="3" fill="#E8E4F4" stroke="#4A4290" stroke-width=".5"/><text x="148" y="974" font-size="8.5" fill="#5C534A">忠诚圈</text>
+      <rect x="192" y="964" width="12" height="12" rx="3" fill="#DFECF5" stroke="#1B6088" stroke-width=".5"/><text x="208" y="974" font-size="8.5" fill="#5C534A">内阁</text>
+      <rect x="242" y="964" width="12" height="12" rx="3" fill="#FBF0DC" stroke="#9A6B28" stroke-width=".5"/><text x="258" y="974" font-size="8.5" fill="#5C534A">朝贡</text>
+      <rect x="292" y="964" width="12" height="12" rx="3" fill="#FAE5E0" stroke="#A63D2E" stroke-width=".5"/><text x="308" y="974" font-size="8.5" fill="#5C534A">报复</text>
+      <rect x="342" y="964" width="12" height="12" rx="3" fill="#DFF0EA" stroke="#1A7A5E" stroke-width=".5"/><text x="358" y="974" font-size="8.5" fill="#5C534A">战争</text>
+      <line x1="400" y1="970" x2="428" y2="970" stroke="#4A4290" stroke-width="1" marker-end="url(#arr-lead)"/><text x="434" y="974" font-size="8.5" fill="#5C534A">领导</text>
+      <line x1="465" y1="970" x2="493" y2="970" stroke="#9A6B28" stroke-width="1" stroke-dasharray="3,2" marker-end="url(#arr-tribute)"/><text x="499" y="974" font-size="8.5" fill="#5C534A">朝贡</text>
+      <line x1="530" y1="970" x2="558" y2="970" stroke="#A63D2E" stroke-width="1" marker-end="url(#arr-retrib)"/><text x="564" y="974" font-size="8.5" fill="#5C534A">报复</text>
+      <line x1="595" y1="970" x2="623" y2="970" stroke="#1A7A5E" stroke-width=".9" stroke-dasharray="5,3"/><text x="629" y="974" font-size="8.5" fill="#5C534A">战争</text>
+    </svg>
+  </div>
+</div>
+
+<!-- Detail Sidebar Overlay -->
+<div class="detail-backdrop" id="backdrop" onclick="closeDetail()"></div>
+<aside class="detail-overlay" id="detailPanel"></aside>
+
+<footer class="site-footer">
+  数据来源：《政权更迭》(Regime Change) by Maggie Haberman &amp; Jonathan Swan — Simon &amp; Schuster, 2026 · 仅供学习研究使用
+</footer>
+
+<script>
+/* ===== DATA ===== */
+const NODES = {
+  trump: { cn:'唐纳德·特朗普', en:'Donald J. Trump', role:'总统', roleEn:'核心决策者', badge:'"我是你们的报复"', layer:'trump',
+    summary:'本书的中心人物。第二任期的Trump比第一任期更加不受约束、更无情、更"帝国主义化"。2020败选和四起刑事起诉非但没有摧毁他，反而成为最强大的政治资产。',
+    quotes:['"I am your retribution." — 2023俄亥俄集会','"I alone can fix it." — 贯穿两任期核心理念'],
+    traits:['私人恩怨→国家政策','表演式治理巩固基础','破坏三权分立制衡','司法起诉→政治资本'] },
+  miller: { cn:'斯蒂芬·米勒', en:'Stephen Miller', role:'副幕僚长', roleEn:'政策大脑 / 复仇记账本', badge:'复仇记账本', layer:'loyal',
+    summary:'Trump主义的思想建筑师。2016竞选起即为核心政策顾问，起草几乎所有行政令。书中称其为"复仇记账本"(revenge ledger)。',
+    keyActions:['起草所有行政令（含Schedule F）','设计大规模移民驱逐方案','推动国内军事化政策','策划哈佛/顶级律所报复行动'],
+    quotes:['Miller是Trump愤怒的"翻译器"——把冲动转化为可执行的政策文本'],
+    relation:'思想供给者：Trump提供方向和愤怒，Miller将其转化为白纸黑字' },
+  wiles: { cn:'苏西·怀尔斯', en:'Susie Wiles', role:'幕僚长', roleEn:'幕后操盘手 / 刹车片', badge:'刹车片', layer:'loyal',
+    summary:'白宫幕僚长，团队唯一敢对Trump说"不"的人。控制信息流、管理媒体曝光节奏。与Miller较量中节节败退。',
+    keyActions:['管理白宫日常运营','控制媒体曝光节奏','试图缓和极端政策','组织Mar-a-Lago科技晚宴'],
+    quotes:['Wiles是最后的"刹车片"，但正在磨损殆尽'],
+    relation:'日常管控：唯一能约束Trump的人，效果越来越有限' },
+  rubio: { cn:'马可·鲁比奥', en:'Marco Rubio', role:'国务卿 + 国安顾问', roleEn:'双职（史无前例）', badge:'皈依者', layer:'loyal',
+    summary:'全书最具戏剧性的人物弧光。2016称Trump为"骗子"，2024副总统候选人落选，最终以国务卿+国安顾问双职回归。',
+    keyActions:['同时担任国务卿和国安顾问','主导委内瑞拉政权更迭计划','包装对伊朗战争的合法性'],
+    quotes:['Rubio的转变代表共和党建制派向Trump主义的全面投降——是皈依(conversion)，非妥协'],
+    relation:'外交执行：给Trump的冲动披上"政策外衣"' },
+  hegseth: { cn:'皮特·赫格塞斯', en:'Pete Hegseth', role:'国防部长', roleEn:'战争机器 / 执行者', badge:'执行者', layer:'loyal',
+    summary:'前Fox News主持人，无传统军方背景。书中描述其观看"处决视频"(snuff films)，清除国防部法律官并称jagoffs。',
+    keyActions:['清除国防部法律顾问团队','ICE化学制剂+Black Hawk突袭','国民警卫队国内部署','执行炸船行动+伊朗全面战争'],
+    quotes:['Hegseth把五角大楼变成了Trump的私人战争机器'],
+    relation:'战争机器：指哪打哪，不问理由' },
+  musk: { cn:'埃隆·马斯克', en:'Elon Musk', role:'DOGE 负责人', roleEn:'政府效率总监', badge:'局外人×局内人', layer:'cab',
+    summary:'非传统内阁成员，领导新成立DOGE。常绕过Wiles直接向Trump汇报。与Miller结盟推行Schedule F。',
+    keyActions:['领导DOGE削减联邦雇员','与Miller结盟Schedule F','绕过Wiles直接汇报','嘲讽同行："一流跪舔"'],
+    quotes:['"First-class groveling." — 评价Zuckerberg和Bezos'],
+    relation:'特殊盟友：独立权力基础的外部力量' },
+  vance: { cn:'J·D·万斯', en:'JD Vance', role:'副总统', roleEn:'MAGA 接班人', badge:'继承人', layer:'cab',
+    summary:'从写《乡巴佬悲歌》批评Trump文化的人，变成最忠诚副总统。代表MAGA新一代领导人。',
+    keyActions:['协调参议院推进Trump议程','国际场合代表Trump','媒体捍卫Trump政策'], quotes:[], relation:'政治继承人' },
+  gabbard: { cn:'塔尔西·加巴德', en:'Tulsi Gabbard', role:'国家情报总监', roleEn:'DNI / 前民主党人', badge:'前民主党人', layer:'cab',
+    summary:'前民主党众议员转投Trump后获美国情报系统最高文职职位——领导17个情报机构。震惊整个情报界。',
+    keyActions:['领导17个情报机构','重塑政治效忠模式','委内瑞拉秘密行动情报支持'], quotes:[], relation:'情报主管：为行动找"情报依据"' },
+  rfk: { cn:'小罗伯特·肯尼迪', en:'Robert F. Kennedy Jr.', role:'卫生部长', roleEn:'反疫苗活动家', badge:'反疫苗活动家', layer:'cab',
+    summary:'著名反疫苗活动家，肯尼迪家族成员。任命为卫生部长引发巨大争议。',
+    keyActions:['改革FDA/CDC人事政策','质疑疫苗安全','推动医疗自由议程'], quotes:[], relation:'颠覆性任命：用局外人摧毁建制派领地' },
+  zuck: { cn:'马克·扎克伯格', en:'Mark Zuckerberg', role:'Meta CEO', roleEn:'Meta 首席执行官', badge:'朝贡者', layer:'tech',
+    summary:'Meta CEO，国会作证时公开批评Trump。2024后主动赴Mar-a-Lago朝贡，承诺不限内容，支付$25M和解金。',
+    keyActions:['主动赴Mar-a-Lago晚宴','$25M赔偿金','解除账号限制'],
+    quotes:['Zuckerberg的跪姿堪称教科书级别——从批评者到朝圣者完美诠释权力引力'],
+    relation:'被迫效忠：商业利益压倒一切' },
+  bezos: { cn:'杰夫·贝佐斯', en:'Jeff Bezos', role:'Amazon / 华盛顿邮报', roleEn:'Amazon 创始人', badge:'朝贡者', layer:'tech',
+    summary:'亚马逊创始人、WaPo owner。WaPo报道多次激怒Trump，Bezos亲赴Mar-a-Lago修复关系。',
+    keyActions:['控制WaPo编辑立场','寻求国防合同/云计算订单','参加Mar-a-Lago科技晚宴'], quotes:[],
+    relation:'利益交换：最古老的华盛顿游戏' },
+  cook: { cn:'蒂姆·库克', en:'Tim Cook', role:'Apple CEO', roleEn:'Apple 首席执行官', badge:'朝贡者', layer:'tech',
+    summary:'苹果CEO，硅谷与Trump保持工作关系最久的高管。关税问题持续游说，维持表面友好。',
+    keyActions:['关税游说','承诺增美国制造投资','参加每次科技聚会'], quotes:[],
+    relation:'实用主义合作：不站队但不得罪' },
+  pichai: { cn:'孙达尔·皮柴伊', en:'Sundar Pichai', role:'Google CEO', roleEn:'Alphabet 首席执行官', badge:'朝贡者', layer:'tech',
+    summary:'Google/Alphabet CEO。面临DOJ历史性反垄断诉讼同时需维护白宫关系——硅谷最难钢丝。',
+    keyActions:['应对DOJ反垄断诉讼','搜索算法调整','AI政府深度合作'], quotes:[],
+    relation:'脆弱平衡：反垄断威胁下生存策略' },
+  milley: { cn:'马克·米利', en:'Mark Milley', role:'前参联会主席', roleEn:'前军方高层', badge:'个人报复目标', layer:'enemy',
+    summary:'前参联会主席，第一任期多次公开冲突。卸任后系统性报复：撤肖像、取消安保、可能军事法庭调查。',
+    keyActions:['第一任期多次公开冲突','撤五角大楼肖像','安保完全取消'],
+    quotes:['Milley是"叛徒"典型——不忠诚必须受惩罚'],
+    relation:'个人恩怨：不忠诚=必须惩罚' },
+  krebs: { cn:'克里斯·克雷布斯', en:'Chris Krebs', role:'前网络安全官员', roleEn:'前网络安全局长', badge:'报复目标', layer:'enemy',
+    summary:'前CISA局长，因证实2020选举安全被解雇。第二任期面临DOJ调查，可能被控"叛国罪"。',
+    keyActions:['证实2020选举安全（说真话）','因此被解雇','面临DOJ刑事调查'],
+    quotes:['说真话成了报复目标——唯一"罪行"是专业判断'],
+    relation:'真相的代价：专业判断vs政治忠诚二选一' },
+  harvard: { cn:'哈佛大学', en:'Harvard University', role:'顶尖学府', roleEn:'学术机构', badge:'机构打击目标', layer:'enemy',
+    summary:'最大机构报复目标之一。冻结$26亿联邦资助，面临$90亿总额威胁，被威胁取消免税资格。已起诉反击。',
+    keyActions:['首批$26亿冻结','$90亿总威胁','威胁取消免税','已起诉反击'],
+    quotes:['哈佛展示如何将联邦预算武器化'],
+    relation:'意识形态敌人：精英大学=深层政府象征' },
+  pw: { cn:'宝维斯律所', en:'Paul, Weiss', role:'顶级律所', roleEn:'Big Law', badge:'机构打击目标', layer:'enemy',
+    summary:'代表特别检察官Jack Smith的顶级律所。被行政令威胁客户业务后，被迫承诺$4000万"公益服务"自保。',
+    keyActions:['代理Jack Smith工作','$4000万"自愿和解"','其他律所纷纷投降'],
+    quotes:['$4000万"自愿和解"——现代保护费(extortion money)'],
+    relation:'杀鸡儆猴：震慑整个法律行业' },
+  maduro: { cn:'尼古拉斯·马杜罗', en:'Nicolás Maduro', role:'委内瑞拉总统', roleEn:'外国领导人', badge:'CIA暗杀目标', layer:'war',
+    summary:'CIA秘密行动目标。计划夺取全球最大石油储备并更换傀儡领导人。Rubio主导此行动。',
+    keyActions:['CIA收集行踪','石油田夺取计划','政权更迭方案','Rubio外交孤立'],
+    quotes:['马杜罗不知道有多少人在追踪他——CIA、特种部队、雇佣兵...'],
+    relation:'Hegseth军事执行，Rubio外交包装' },
+  iran: { cn:'伊朗伊斯兰共和国', en:'Islamic Republic of Iran', role:'战争对手', roleEn:'敌对国家', badge:'全面战争2026.2.28', layer:'war',
+    summary:'2026.2.28 Trump加入以色列对伊朗全面战争。截至3月：13美军阵亡、200+受伤、$150亿+花费、霍尔木兹海峡关闭。',
+    keyActions:['2026.2.28开战','$150亿+军费','霍尔木兹海峡关闭','油价飙升'],
+    quotes:['"Operation Epic Wrath"——连名字都是表演性的'],
+    relation:'最大对外冒险，Hegseth执行' },
+  cartels: { cn:'贩毒集团', en:'Drug Cartels', role:'跨国犯罪组织', roleEn:'非国家行为体', badge:'炸船行动目标', layer:'war',
+    summary:'"炸船行动"(Boat-Bombing Campaign)目标。死神无人机+地狱火导弹打快艇。幸存者求救仍遭补射——John Yoo都认为无法无天。',
+    keyActions:['死神无人机猎杀快艇','地狱火导弹攻击','重新定义恐怖分子','10艘快艇2025.9-10击沉'],
+    quotes:['连酷刑备忘录作者都认为无法无天——说明什么？'],
+    relation:'唐氏门罗主义实践：西半球武力震慑中俄' },
+  noem: { cn:'克里斯蒂·诺姆', en:'Kristi Noem', role:'国土安全部长', roleEn:'ICE 行动指挥', badge:'表演式治理', layer:'other',
+    summary:'国土安全部长，负责执行大规模移民驱逐行动。书中刻画其"表演式治理"形象——在ICE行动现场跳舞，将执法现场变成政治宣传舞台。',
+    keyActions:['指挥ICE大规模驱逐行动','行动现场表演性出镜','推动国内军事化执法'],
+    quotes:['诺姆在行动现场跳舞的画面，是"表演式治理"最直观的注脚'],
+    relation:'执行者：把移民执法变成政治剧场' },
+  vought: { cn:'拉斯·沃特', en:'Russ Vought', role:'OMB 主任', roleEn:'预算武器化专家', badge:'预算武器化', layer:'other',
+    summary:'白宫管理与预算办公室（OMB）主任，被誉为"预算武器化"专家——用联邦资金作为胁迫工具，对不服从的机构断供。哈佛$26亿冻结即出自其手。',
+    keyActions:['设计哈佛$26亿冻结','联邦预算作为胁迫杠杆','威胁大学/律所资助'],
+    quotes:['Vought把联邦预算变成了政治服从的杠杆'],
+    relation:'工具化执行：让每一分钱都变成服从命令' },
+  kelly: { cn:'约翰·凯利', en:'John Kelly', role:'前幕僚长', roleEn:'前海军陆战队上将', badge:'报复名单', layer:'other',
+    summary:'特朗普第一任期的白宫幕僚长，退役四星上将。因公开批评特朗普（称其"法西斯主义倾向"）而进入报复名单，成为个人报复的又一目标。',
+    keyActions:['第一任期担任幕僚长','公开批评Trump','进入第二任期报复名单'],
+    quotes:['连最忠诚的前幕僚长都成了报复目标——忠诚的保质期有多长？'],
+    relation:'前朝旧臣：批评总统=登上清算名单' },
+  smith: { cn:'杰克·史密斯', en:'Jack Smith', role:'前特别检察官', roleEn:'四起起诉的核心人物', badge:'清算对象', layer:'other',
+    summary:'特别检察官，主导对特朗普的四起刑事起诉。随着特朗普重返白宫，其调查团队被系统性清算，其代理律所（宝维斯等）成为报复目标。',
+    keyActions:['主导四起刑事起诉','调查团队被系统性清算','代理律所被打击'],
+    quotes:['起诉特朗普的人，最终自己成了清算对象'],
+    relation:'司法追诉的象征：被报复的最大靶子' },
+  taylor: { cn:'迈尔斯·泰勒', en:'Miles Taylor', role:'前国土安全部官员', roleEn:'"匿名"作者', badge:'"叛国罪"调查', layer:'other',
+    summary:'前国土安全部高级官员，以"匿名"身份撰写《纽约时报》批评特朗普的文章，著有《警告》(A Warning)。第二任期面临"叛国罪"调查与安全许可吊销。',
+    keyActions:['撰写"匿名"批评文章','出版《警告》一书','面临叛国罪调查'],
+    quotes:['说真话的匿名者被追查——批评总统成了需要隐藏身份的事'],
+    relation:'反叛者样本：被以"叛国罪"威慑' }
+};
+
+const CONNECTIONS = [
+  {from:'trump', to:'miller', type:'lead', label:'思想供给'},
+  {from:'trump', to:'wiles', type:'lead', label:'日常管控'},
+  {from:'trump', to:'rubio', type:'lead', label:'外交执行'},
+  {from:'trump', to:'hegseth', type:'lead', label:'战争机器'},
+  {from:'miller', to:'musk', type:'delegate', label:'盟友协作'},
+  {from:'wiles', to:'vance', type:'delegate', label:'委派协调'},
+  {from:'rubio', to:'gabbard', type:'delegate', label:'情报委派'},
+  {from:'hegseth', to:'rfk', type:'delegate', label:'委派'},
+  {from:'zuck', to:'trump', type:'tribute', label:'效忠朝贡'},
+  {from:'bezos', to:'trump', type:'tribute', label:'效忠朝贡'},
+  {from:'cook', to:'trump', type:'tribute', label:'效忠朝贡'},
+  {from:'pichai', to:'trump', type:'tribute', label:'效忠朝贡'},
+  {from:'trump', to:'milley', type:'retribution', label:'个人报复'},
+  {from:'trump', to:'krebs', type:'retribution', label:'政治清算'},
+  {from:'trump', to:'harvard', type:'retribution', label:'机构打击'},
+  {from:'trump', to:'pw', type:'retribution', label:'杀鸡儆猴'},
+  {from:'hegseth', to:'maduro', type:'war', label:'军事执行'},
+  {from:'hegseth', to:'iran', type:'war', label:'全面战争'},
+  {from:'hegseth', to:'cartels', type:'war', label:'炸船行动'}
+];
+
+const REL_TYPES = {
+  lead:{label:'直接领导',color:'#4A4290',bg:'#E8E4F4'}, tribute:{label:'朝贡效忠',color:'#9A6B28',bg:'#FBF0DC'},
+  retribution:{label:'报复打击',color:'#A63D2E',bg:'#FAE5E0'}, war:{label:'战争执行',color:'#1A7A5E',bg:'#DFF0EA'},
+  delegate:{label:'委派协作',color:'#7A7268',bg:'#F0EDE8'}
+};
+
+const BADGE_STYLE = {
+  trump:['#C4653A','#FFF'], loyal:['#4A4290','#FFF'], cab:['#1B6088','#FFF'],
+  tech:['#9A6B28','#FFF'], enemy:['#A63D2E','#FFF'], war:['#1A7A5E','#FFF'],
+  other:['#8A8278','#FFF']
+};
+
+/* ===== DETAIL PANEL ===== */
+let currentId = null;
+
+function showDetail(id) {
+  currentId = id;
+  const n = NODES[id];
+  if (!n) return;
+  const [bg, fg] = BADGE_STYLE[n.layer] || ['#CCC','#333'];
+  const panel = document.getElementById('detailPanel');
+  const backdrop = document.getElementById('backdrop');
+
+  // Highlight selected node
+  document.querySelectorAll('.node-rect').forEach(r => r.classList.remove('selected'));
+  const selNode = document.querySelector(`#node-${id} .node-rect`);
+  if (selNode) selNode.classList.add('selected');
+
+  let h = `<button class="do-close" onclick="closeDetail()">&times;</button>
+    <div class="do-head">
+      <div class="do-name">${n.cn}</div>
+      <div class="do-name-en">${n.en}</div>
+      <div class="do-badge" style="background:${bg};color:${fg}">${n.badge}</div>
+    </div>
+    <div class="do-section"><h4>角色定位</h4><p>${n.role} <span style="font-size:10.5px;opacity:.6">· ${n.roleEn}</span></p></div>
+    <div class="do-section"><h4>人物概述</h4><p>${n.summary}</p></div>`;
+
+  if (n.keyActions && n.keyActions.length) {
+    h += `<div class="do-section"><h4>关键行为</h4><ul>`; n.keyActions.forEach(a => { h += `<li>${a}</li>`; }); h += `</ul></div>`;
+  }
+  if (n.quotes && n.quotes.length) {
+    h += `<div class="do-section"><h4>书中的评价</h4>`; n.quotes.forEach(q => { h += `<div class="do-quote">${q}</div>`; }); h += `</div>`;
+  }
+  if (n.relation) { h += `<div class="do-section"><h4>与 Trump 的关系</h4><p>${n.relation}</p></div>`; }
+  if (n.traits && n.traits.length) {
+    h += `<div class="do-section"><h4>核心特征</h4><ul>`; n.traits.forEach(t => { h += `<li>${t}</li>`; }); h += `</ul></div>`;
+  }
+
+  // Relation network
+  const rels = CONNECTIONS.filter(c => c.from === id || c.to === id);
+  if (rels.length > 0) {
+    h += `<div class="do-section"><h4>关系网络 (${rels.length}条)</h4>`;
+    rels.forEach(rel => {
+      const otherId = rel.from === id ? rel.to : rel.from;
+      const other = NODES[otherId];
+      if (!other) return;
+      const rt = REL_TYPES[rel.type];
+      const [oBg] = BADGE_STYLE[other.layer] || ['#CCC'];
+      const arrow = rel.from === id ? '→' : '←';
+      const dirLabel = rel.from === id ? '他影响' : '影响他';
+      const initial = other.cn.charAt(0);
+
+      h += `<div class="rel-item" onclick="showDetail('${otherId}')">
+        <div class="rel-avatar" style="background:${oBg}">${initial}</div>
+        <div class="rel-info"><div class="rel-name">${other.cn}</div><div class="rel-dir">${dirLabel} · ${other.role}</div></div>
+        <span class="rel-type" style="background:${rt.bg};color:${rt.color}">${rel.label || rt.label}</span>
+      </div>`;
+    });
+    h += `</div>`;
+  }
+
+  panel.innerHTML = h;
+  panel.classList.add('open');
+  backdrop.classList.add('open');
+}
+
+function closeDetail() {
+  currentId = null;
+  document.querySelectorAll('.node-rect').forEach(r => r.classList.remove('selected'));
+  document.getElementById('detailPanel').classList.remove('open');
+  document.getElementById('backdrop').classList.remove('open');
+}
+
+// Keyboard escape
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDetail(); });
+</script>
+</body>
+</html>

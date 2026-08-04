@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>内容梳理 · 《政权更迭》</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700;900&family=Noto+Sans+SC:wght@400;500;700&family=Noto+Serif+SC:wght@600;900&family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shared.css">
+<style>
+  /* ===== HERO STRIP ===== */
+  .story-hero {
+    background: linear-gradient(145deg, #1A1612, #2E2821);
+    border-radius: 16px;
+    padding: 28px 32px;
+    margin-bottom: 24px;
+    color: #F5F3EF;
+    position: relative; overflow: hidden;
+  }
+  .story-hero::after {
+    content: 'RC';
+    position: absolute; right: 20px; top: -22px;
+    font-family: var(--font-serif);
+    font-size: 130px; font-weight: 900;
+    color: rgba(255,255,255,.045);
+    letter-spacing: -.04em;
+  }
+  .sh-kicker { font-size: 9.5px; font-weight: 700; letter-spacing: .16em; color: #D8B48C; text-transform: uppercase; }
+  .sh-title { font-family: var(--font-serif); font-size: clamp(20px,2.6vw,28px); font-weight: 900; margin-top: 6px; }
+  .sh-sub { font-size: 11.5px; color: #A9A093; margin-top: 6px; max-width: 620px; line-height: 1.7; }
+
+  /* ===== STAGE NAV ===== */
+  .stage-nav {
+    display: flex; gap: 6px; flex-wrap: wrap;
+    margin-bottom: 26px;
+  }
+  .stage-btn {
+    font-family: inherit; font-size: 11px; font-weight: 600;
+    padding: 7px 15px; border-radius: 17px;
+    border: 1.5px solid var(--border-light);
+    background: var(--surface-card);
+    color: var(--text-secondary);
+    cursor: pointer; text-decoration: none;
+    transition: all .25s var(--ease-out-quart);
+  }
+  .stage-btn:hover { border-color: var(--c-loyal); color: var(--c-loyal-dark); transform: translateY(-1px); }
+  .stage-btn .s-dot { display: inline-block; width: 7px; height: 7px; border-radius: 50%; margin-right: 6px; }
+
+  /* ===== STAGE (timeline main axis) ===== */
+  .timeline-axis { position: relative; padding-left: 0; }
+  .tl-spine {
+    position: absolute; left: 27px; top: 0; bottom: 0;
+    width: 3px;
+    background: linear-gradient(180deg, #9A9186, var(--c-trump) 22%, var(--c-enemy) 45%, var(--c-loyal) 68%, var(--c-war) 100%);
+    border-radius: 2px; opacity: .3;
+  }
+
+  .stage {
+    position: relative;
+    padding: 0 0 34px 76px;
+    opacity: 0; transform: translateY(18px);
+    animation: fadeUp .6s var(--ease-out-expo) forwards;
+  }
+  .stage-dot {
+    position: absolute; left: 12px; top: 6px;
+    width: 30px; height: 30px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    color: #fff; font-family: var(--font-serif); font-weight: 900; font-size: 11px;
+    box-shadow: 0 0 0 5px var(--surface-base), var(--shadow-md);
+    z-index: 2;
+  }
+
+  /* Stage body */
+  .stage-body {
+    background: var(--surface-card);
+    border: 1px solid var(--border-light);
+    border-radius: 16px;
+    overflow: hidden;
+  }
+  .stage-head {
+    padding: 20px 26px 16px;
+    border-bottom: 1px solid var(--border-light);
+    display: flex; align-items: flex-start; gap: 16px; flex-wrap: wrap;
+  }
+  .shh-main { flex: 1; min-width: 240px; }
+  .shh-part { font-size: 9px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; }
+  .shh-title { font-family: var(--font-serif); font-size: 20px; font-weight: 900; margin-top: 3px; }
+  .shh-title-en { font-size: 10.5px; color: var(--text-tertiary); font-style: italic; margin-top: 1px; }
+  .shh-time {
+    font-size: 10.5px; font-weight: 600; padding: 4px 11px;
+    border-radius: 12px; white-space: nowrap; align-self: flex-start;
+  }
+  .shh-chapters { font-size: 10px; color: var(--text-tertiary); margin-top: 6px; }
+
+  .stage-lead {
+    padding: 16px 26px;
+    font-size: 12px; line-height: 1.78; color: var(--text-primary);
+  }
+
+  /* Events within stage */
+  .events { padding: 4px 26px 18px; }
+  .event {
+    border-left: 2px solid var(--border-light);
+    padding: 4px 0 14px 18px;
+    position: relative;
+  }
+  .event:last-child { padding-bottom: 4px; }
+  .event::before {
+    content: ''; position: absolute; left: -6px; top: 10px;
+    width: 10px; height: 10px; border-radius: 50%;
+    background: var(--surface-card); border: 2.5px solid var(--c-loyal);
+  }
+  .ev-date { font-size: 10.5px; font-weight: 700; letter-spacing: .02em; }
+  .ev-title { font-size: 13px; font-weight: 700; margin-top: 2px; }
+  .ev-desc { font-size: 11px; color: var(--text-secondary); margin-top: 5px; line-height: 1.7; }
+  .ev-zh { font-size: 10.5px; color: var(--text-tertiary); margin-top: 3px; font-style: italic; }
+
+  /* Quote block */
+  .blockquote {
+    margin: 0 26px 18px;
+    background: var(--surface-base);
+    border-left: 4px solid var(--c-loyal);
+    border-radius: 0 10px 10px 0;
+    padding: 14px 18px;
+  }
+  .bq-en { font-size: 12px; font-style: italic; color: var(--text-primary); line-height: 1.7; font-family: var(--font-serif); }
+  .bq-zh { font-size: 10.5px; color: var(--text-secondary); margin-top: 7px; line-height: 1.65; }
+  .bq-src { font-size: 9px; color: var(--text-tertiary); margin-top: 7px; letter-spacing: .04em; }
+
+  /* Concept & person chips */
+  .chip-row { display: flex; gap: 6px; flex-wrap: wrap; padding: 0 26px 20px; }
+  .chip-label { font-size: 9px; font-weight: 700; letter-spacing: .1em; color: var(--text-tertiary); text-transform: uppercase; align-self: center; margin-right: 2px; }
+  .chip {
+    font-size: 10.5px; font-weight: 600; padding: 4px 11px;
+    border-radius: 14px; border: 1.5px solid; cursor: default;
+    transition: all .2s;
+  }
+  .chip.concept { background: var(--surface-base); cursor: pointer; }
+  .chip.person { background: var(--surface-card); }
+  .chip:hover { transform: translateY(-1px); box-shadow: var(--shadow-sm); }
+  .chip.concept:hover { filter: brightness(.94); box-shadow: var(--shadow-md); }
+  .chip.person a { text-decoration: none; color: inherit; }
+  .chip.person a:hover { text-decoration: underline; }
+
+  /* ===== CONCEPT POPOVER ===== */
+  .concept-popover {
+    position: fixed; z-index: 1200;
+    width: min(420px, calc(100vw - 40px));
+    max-height: 70vh; overflow-y: auto;
+    background: var(--surface-card);
+    border: 1px solid var(--border-mid);
+    border-radius: 16px;
+    box-shadow: 0 20px 60px rgba(26,22,18,.22);
+    padding: 22px 24px 18px;
+    display: none;
+    animation: popIn .3s var(--ease-out-expo);
+  }
+  .concept-popover.show { display: block; }
+  @keyframes popIn { from { opacity: 0; transform: translateY(10px) scale(.98); } to { opacity: 1; transform: translateY(0) scale(1); } }
+  .cp-kicker { font-size: 8.5px; font-weight: 700; letter-spacing: .14em; color: var(--text-tertiary); text-transform: uppercase; margin-bottom: 6px; }
+  .cp-name { font-family: var(--font-serif); font-size: 19px; font-weight: 900; color: var(--text-primary); line-height: 1.2; }
+  .cp-en { font-size: 11px; color: var(--text-tertiary); font-style: italic; margin-top: 2px; }
+  .cp-rule { width: 100%; height: 1px; background: var(--border-light); margin: 13px 0; }
+  .cp-def { font-size: 12px; color: var(--text-primary); line-height: 1.75; }
+  .cp-example {
+    margin-top: 12px; padding: 11px 14px;
+    background: var(--surface-base);
+    border-left: 3px solid var(--c-loyal);
+    border-radius: 0 9px 9px 0;
+    font-size: 11px; color: var(--text-secondary); line-height: 1.65;
+  }
+  .cp-example-label { font-size: 8.5px; font-weight: 700; letter-spacing: .1em; color: var(--text-tertiary); text-transform: uppercase; margin-bottom: 4px; }
+  .cp-close {
+    position: absolute; top: 14px; right: 14px;
+    width: 26px; height: 26px; border-radius: 50%;
+    border: 1.5px solid var(--border-light); background: var(--surface-base);
+    cursor: pointer; font-size: 14px; color: var(--text-tertiary);
+    display: flex; align-items: center; justify-content: center;
+    font-family: inherit; transition: all .2s;
+  }
+  .cp-close:hover { background: var(--c-enemy); border-color: var(--c-enemy); color: #fff; }
+  .cp-arrow {
+    position: absolute; width: 14px; height: 14px;
+    background: var(--surface-card);
+    border-left: 1px solid var(--border-mid);
+    border-top: 1px solid var(--border-mid);
+    transform: rotate(45deg);
+  }
+  .concept-popover[data-pos="below"] .cp-arrow { top: -8px; left: 50%; margin-left: -7px; transform: rotate(45deg); border-left: 1px solid var(--border-mid); border-top: 1px solid var(--border-mid); }
+  .concept-popover[data-pos="above"] .cp-arrow { bottom: -8px; left: 50%; margin-left: -7px; transform: rotate(225deg); }
+
+  /* Stage theme colors */
+  .st-0 .stage-dot { background: #8A8278; } .st-0 .ev-date { color: #8A8278; }
+  .st-1 .stage-dot { background: var(--c-trump); } .st-1 .ev-date { color: var(--c-trump); }
+  .st-1 .shh-title { color: var(--c-trump-dark); } .st-1 .shh-part { color: var(--c-trump); }
+  .st-2 .stage-dot { background: var(--c-enemy); } .st-2 .ev-date { color: var(--c-enemy); }
+  .st-2 .shh-title { color: var(--c-enemy-dark); } .st-2 .shh-part { color: var(--c-enemy); }
+  .st-3 .stage-dot { background: var(--c-loyal); } .st-3 .ev-date { color: var(--c-loyal); }
+  .st-3 .shh-title { color: var(--c-loyal-dark); } .st-3 .shh-part { color: var(--c-loyal); }
+  .st-4 .stage-dot { background: var(--c-war); } .st-4 .ev-date { color: var(--c-war); }
+  .st-4 .shh-title { color: var(--c-war-dark); } .st-4 .shh-part { color: var(--c-war); }
+
+  /* ===== CLOSING ===== */
+  .story-close {
+    background: linear-gradient(145deg, var(--c-loyal-bg), var(--surface-card));
+    border: 1px solid rgba(74,66,144,.25);
+    border-radius: 14px;
+    padding: 24px 28px;
+    margin-top: 26px;
+  }
+  .story-close h3 { font-family: var(--font-serif); font-size: 16px; font-weight: 900; color: var(--c-loyal-dark); margin-bottom: 8px; }
+  .story-close p { font-size: 12px; color: var(--text-secondary); line-height: 1.75; }
+  .story-close strong { color: var(--c-loyal-dark); }
+
+  @media (max-width: 720px) {
+    .stage { padding-left: 56px; }
+    .tl-spine { left: 20px; }
+    .stage-dot { left: 5px; width: 28px; height: 28px; }
+    .stage-head, .stage-lead, .events, .chip-row, .blockquote { padding-left: 18px; padding-right: 18px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <h1 class="site-title">内容梳理</h1>
+  <p class="site-subtitle">沿时间线读《政权更迭》· 章节阶段 × 概念 × 人物 × 原文</p>
+  <div class="site-meta">
+    <span class="meta-tag">5 个阶段</span>
+    <span class="meta-tag">按章节推进</span>
+    <span class="meta-tag">含原文引用</span>
+  </div>
+</header>
+
+<nav class="nav-bar">
+  <a class="nav-link" href="index.html">本书简介</a>
+  <a class="nav-link active" href="story.html">内容梳理</a>
+  <a class="nav-link" href="data.html">数据仪表盘</a>
+  <a class="nav-link" href="人物图谱.html">人物图谱</a>
+</nav>
+
+<div class="page">
+
+  <section class="story-hero fade-up">
+    <div class="sh-kicker">Reading Path · 内容梳理</div>
+    <div class="sh-title">沿着时间线，读完这本书</div>
+    <div class="sh-sub">以时间为轴、以章节为阶段，每进入一个阶段，会看到：该部分的核心事件、书中原文引用、涉及的核心概念与关键人物。点击人物标签可跳转到人物图谱查看详情。</div>
+  </section>
+
+  <div class="stage-nav fade-up d-1">
+    <a class="stage-btn" href="#st-0"><span class="s-dot" style="background:#8A8278"></span>序言 · 败选之夜</a>
+    <a class="stage-btn" href="#st-1"><span class="s-dot" style="background:var(--c-trump)"></span>Part I 旋风</a>
+    <a class="stage-btn" href="#st-2"><span class="s-dot" style="background:var(--c-enemy)"></span>Part II 报复</a>
+    <a class="stage-btn" href="#st-3"><span class="s-dot" style="background:var(--c-loyal)"></span>Part III 内部敌人</a>
+    <a class="stage-btn" href="#st-4"><span class="s-dot" style="background:var(--c-war)"></span>Part IV 掠夺</a>
+  </div>
+
+  <div class="timeline-axis">
+
+    <!-- ================= STAGE 0: PROLOGUE ================= -->
+    <div class="stage st-0 fade-up d-1" id="st-0">
+      <div class="stage-dot">序</div>
+      <div class="stage-body">
+        <div class="stage-head">
+          <div class="shh-main">
+            <div class="shh-part">Prologue · 序言</div>
+            <div class="shh-title">败选之夜：海湖庄园</div>
+            <div class="shh-title-en">Mar-a-Lago, November 2020</div>
+            <div class="shh-chapters">开篇场景 · 全书叙事的原点</div>
+          </div>
+          <div class="shh-time" style="background:#EFECE6;color:#5C534A">2020.11</div>
+        </div>
+
+        <div class="stage-lead">
+          全书以一个极具画面感的场景开场：2020年选举夜，海湖庄园的派对从狂欢走向死寂。特朗普拒绝接受失败，"被窃取的选举"叙事从此诞生——这个叙事构成了他此后一切政治行为的心理原点。
+        </div>
+
+        <div class="events">
+          <div class="event">
+            <div class="ev-date">2020.11.3 夜</div>
+            <div class="ev-title">选举夜从狂欢到死寂</div>
+            <div class="ev-desc">支持者聚集在海湖庄园等待胜利，随着计票推进，气氛逐渐冷却。特朗普在镜头前宣称"我们实际上赢了"，拒绝承认败选。</div>
+          </div>
+          <div class="event">
+            <div class="ev-date">2020.11—2021.1</div>
+            <div class="ev-title">"被窃取的选举"叙事成型</div>
+            <div class="ev-desc">团队推动"选举欺诈"指控，法律挑战接连失败，但叙事已深深植入支持者心中——为2021年1月6日国会山事件埋下伏笔。</div>
+          </div>
+        </div>
+
+        <div class="blockquote">
+          <div class="bq-en">"I alone can fix it."</div>
+          <div class="bq-zh">"只有我能解决它。"——特朗普最核心的自我定位，也解释了为什么他无法接受失败：在他的世界里，失败意味着"被系统背叛"。</div>
+          <div class="bq-src">—— 书中反复引用的特朗普标志性话语（贯穿全书）</div>
+        </div>
+
+        <div class="chip-row">
+          <span class="chip-label">人物</span>
+          <span class="chip person"><a href="人物图谱.html">唐纳德·特朗普</a></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================= STAGE 1: PART I CYCLONE ================= -->
+    <div class="stage st-1 fade-up d-2" id="st-1">
+      <div class="stage-dot">I</div>
+      <div class="stage-body">
+        <div class="stage-head">
+          <div class="shh-main">
+            <div class="shh-part">Part I · The Cyclone</div>
+            <div class="shh-title">旋风：回归与掌权</div>
+            <div class="shh-title-en">The Cyclone — A Second Coming</div>
+            <div class="shh-chapters">第一章起 · 第二任期开局（2024.11—2025春）</div>
+          </div>
+          <div class="shh-time" style="background:var(--c-trump-bg);color:var(--c-trump-dark)">2024.11 → 2025.4</div>
+        </div>
+
+        <div class="stage-lead">
+          第一部分描写特朗普第二任期开局的速度与疯狂：这不是一次"回归"，而是一次"升级"。带着四年的怨恨、忠诚的团队和最高法院的豁免权，他以远快于第一任期的节奏横扫一切——行政令、人事清洗、科技巨头朝贡，如旋风般席卷华盛顿。
+        </div>
+
+        <div class="events">
+          <div class="event">
+            <div class="ev-date">2024.7</div>
+            <div class="ev-title">刺杀未遂："天命"叙事</div>
+            <div class="ev-desc">宾州巴特勒集会上遭遇刺杀，擦耳而过的子弹被迅速包装为"天选之人"的证据，进一步巩固支持者的忠诚。</div>
+          </div>
+          <div class="event">
+            <div class="ev-date">2024.11.5</div>
+            <div class="ev-title">大选胜利：完全回归</div>
+            <div class="ev-desc">以普选票+选举人票双重优势获胜。与2016年不同，这次他带回了一整套"工具箱"：忠诚团队、豁免权、经验与仇恨。</div>
+          </div>
+          <div class="event">
+            <div class="ev-date">2025.1.20</div>
+            <div class="ev-title">就职演说：清算宣言</div>
+            <div class="ev-desc">就职演说明确释放清算信号，上任首日签署创纪录数量的行政令——"旋风"正式启动。</div>
+          </div>
+          <div class="event">
+            <div class="ev-date">2025 春</div>
+            <div class="ev-title">科技巨头"朝贡"海湖庄园</div>
+            <div class="ev-desc">扎克伯格、贝佐斯、库克、皮柴伊先后赴海湖庄园示好。马斯克评价同行："一流跪舔"。</div>
+          </div>
+          <div class="event">
+            <div class="ev-date">2025 春</div>
+            <div class="ev-title">DOGE 成立 · 马斯克入局</div>
+            <div class="ev-desc">政府效率部门成立，由非内阁成员的马斯克领导，绕过传统层级直接向总统汇报，大规模削减联邦雇员。</div>
+          </div>
+        </div>
+
+        <div class="blockquote">
+          <div class="bq-en">"First-class groveling."</div>
+          <div class="bq-zh">"一流跪舔。"——马斯克评价扎克伯格与贝佐斯向特朗普的示好，精准刻画了第二任期开始后硅谷精英与白宫的关系。</div>
+          <div class="bq-src">—— 引自书中马斯克的原话</div>
+        </div>
+
+        <div class="chip-row">
+          <span class="chip-label">核心概念</span>
+          <span class="chip concept" data-key="doge" style="border-color:var(--c-trump);color:var(--c-trump-dark)">DOGE</span>
+          <span class="chip concept" data-key="performance" style="border-color:var(--c-trump);color:var(--c-trump-dark)">表演式治理</span>
+          <span class="chip concept" data-key="conversion" style="border-color:var(--c-trump);color:var(--c-trump-dark)">皈依 vs 妥协</span>
+        </div>
+        <div class="chip-row">
+          <span class="chip-label">关键人物</span>
+          <span class="chip person"><a href="人物图谱.html">唐纳德·特朗普</a></span>
+          <span class="chip person"><a href="人物图谱.html">苏西·怀尔斯</a></span>
+          <span class="chip person"><a href="人物图谱.html">斯蒂芬·米勒</a></span>
+          <span class="chip person"><a href="人物图谱.html">埃隆·马斯克</a></span>
+          <span class="chip person"><a href="人物图谱.html">J·D·万斯</a></span>
+          <span class="chip person"><a href="人物图谱.html">马克·扎克伯格</a></span>
+          <span class="chip person"><a href="人物图谱.html">杰夫·贝佐斯</a></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================= STAGE 2: PART II RETRIBUTION ================= -->
+    <div class="stage st-2 fade-up d-3" id="st-2">
+      <div class="stage-dot">II</div>
+      <div class="stage-body">
+        <div class="stage-head">
+          <div class="shh-main">
+            <div class="shh-part">Part II · Retribution</div>
+            <div class="shh-title">报复：清算与恐吓</div>
+            <div class="shh-title-en">Retribution — "I am your retribution"</div>
+            <div class="shh-chapters">第二部 · 报复兑现（2025 上半年）</div>
+          </div>
+          <div class="shh-time" style="background:var(--c-enemy-bg);color:var(--c-enemy-dark)">2025 H1</div>
+        </div>
+
+        <div class="stage-lead">
+          第二部分是全书题眼——"我是你们的报复"从口号变成施政纲领。报复对象分个人与机构两层：个人层面针对"不忠诚者"（军方高层、前官员），机构层面针对"敌人机构"（哈佛、顶级律所、媒体），手段是联邦预算武器化与行政令点名。
+        </div>
+
+        <div class="events">
+          <div class="event">
+            <div class="ev-date">2025 春</div>
+            <div class="ev-title">米利遭系统性报复</div>
+            <div class="ev-desc">前参联会主席米利被撤走五角大楼官方肖像、取消安保待遇，面临可能被军法调查——"不忠诚必须受惩罚"的样板。</div>
+          </div>
+          <div class="event">
+            <div class="ev-date">2025 春</div>
+            <div class="ev-title">克雷布斯遭刑事调查</div>
+            <div class="ev-desc">前网络安全官员克雷布斯因公开证实2020年选举安全（"说了真话"）而面临DOJ调查，甚至被威胁"叛国罪"。</div>
+          </div>
+          <div class="event">
+            <div class="ev-date">2025 春</div>
+            <div class="ev-title">哈佛：$26亿冻结 + $90亿威胁</div>
+            <div class="ev-desc">首批26亿美元联邦资助被冻结，总额90亿面临威胁，免税资格也被点名。哈佛选择起诉反击——成为机构对抗的标杆。</div>
+          </div>
+          <div class="event">
+            <div class="ev-date">2025 春</div>
+            <div class="ev-title">宝维斯律所：$4000万"保护费"</div>
+            <div class="ev-desc">代表特别检察官Jack Smith的宝维斯律所被行政令威胁后，被迫承诺4000万美元"公益法律服务"——作者称之为"现代保护费"。其他律所纷纷效仿投降。</div>
+          </div>
+        </div>
+
+        <div class="blockquote">
+          <div class="bq-en">"I am your retribution."</div>
+          <div class="bq-zh">"我是你们的报复。"——2023年俄亥俄州集会宣言。作者指出，这句话不是竞选口号，而是第二任期的施政纲领预告：报复从隐秘动机变成了公开承诺。</div>
+          <div class="bq-src">—— 2023年3月俄亥俄州集会 · 书中反复引用的全书题眼</div>
+        </div>
+
+        <div class="chip-row">
+          <span class="chip-label">核心概念</span>
+          <span class="chip concept" data-key="ledger" style="border-color:var(--c-enemy);color:var(--c-enemy-dark)">复仇记账本</span>
+          <span class="chip concept" data-key="budget" style="border-color:var(--c-enemy);color:var(--c-enemy-dark)">预算武器化</span>
+        </div>
+        <div class="chip-row">
+          <span class="chip-label">关键人物</span>
+          <span class="chip person"><a href="人物图谱.html">唐纳德·特朗普</a></span>
+          <span class="chip person"><a href="人物图谱.html">斯蒂芬·米勒</a></span>
+          <span class="chip person"><a href="人物图谱.html">马克·米利</a></span>
+          <span class="chip person"><a href="人物图谱.html">克里斯·克雷布斯</a></span>
+          <span class="chip person"><a href="人物图谱.html">哈佛大学</a></span>
+          <span class="chip person"><a href="人物图谱.html">宝维斯律所</a></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================= STAGE 3: PART III ENEMIES WITHIN ================= -->
+    <div class="stage st-3 fade-up d-4" id="st-3">
+      <div class="stage-dot">III</div>
+      <div class="stage-body">
+        <div class="stage-head">
+          <div class="shh-main">
+            <div class="shh-part">Part III · Enemies Within</div>
+            <div class="shh-title">内部敌人：清洗"深层政府"</div>
+            <div class="shh-title-en">Enemies Within — Loyalty over Expertise</div>
+            <div class="shh-chapters">第三部 · 行政国家拆除工程（2025）</div>
+          </div>
+          <div class="shh-time" style="background:var(--c-loyal-bg);color:var(--c-loyal-dark)">2025</div>
+        </div>
+
+        <div class="stage-lead">
+          第三部分把矛头指向国内"深层政府"：公务员体系、情报界、司法部、军方高层。核心逻辑一句话——用忠诚取代专业。通过Schedule F将数万公务员转为可随时解雇的政治任命，配合DOGE裁员与情报机构政治化，重塑整个联邦官僚体系。
+        </div>
+
+        <div class="events">
+          <div class="event">
+            <div class="ev-date">2025</div>
+            <div class="ev-title">Schedule F：数万公务员清洗</div>
+            <div class="ev-desc">通过行政令将数万名联邦公务员转为政治任命（可随时解雇）。书中称之为"行政国家的拆除工程"——公务员系统的稳定性根基被动摇。</div>
+          </div>
+          <div class="event">
+            <div class="ev-date">2025</div>
+            <div class="ev-title">加巴德执掌17个情报机构</div>
+            <div class="ev-desc">前民主党众议员加巴德转投特朗普后被任命为国家情报总监，领导情报界全部17个机构——情报系统政治化的标志性事件。</div>
+          </div>
+          <div class="event">
+            <div class="ev-date">2025</div>
+            <div class="ev-title">赫格塞斯清除国防部法律官</div>
+            <div class="ev-desc">国防部长赫格塞斯（前Fox主持人）清除国防部法律顾问团队，称其为"jagoffs"，为更激进的军事行动扫清内部阻力。</div>
+          </div>
+          <div class="event">
+            <div class="ev-date">2025</div>
+            <div class="ev-title">ICE 国内军事化执法</div>
+            <div class="ev-desc">移民执法升级为军事化行动：化学制剂、Black Hawk直升机突袭平民区，国土安全部长在行动现场跳舞——表演式治理的极致。</div>
+          </div>
+        </div>
+
+        <div class="blockquote">
+          <div class="bq-en">"Schedule F was the wrecking ball for the administrative state."</div>
+          <div class="bq-zh">"Schedule F 是砸向行政国家的拆迁球。"——书中对这项人事改革的定性：用政治忠诚取代职业专业，动摇美国文官体系的根基。</div>
+          <div class="bq-src">—— 作者对 Schedule F 的概括性评价（译自书中论述）</div>
+        </div>
+
+        <div class="chip-row">
+          <span class="chip-label">核心概念</span>
+          <span class="chip concept" data-key="schedulef" style="border-color:var(--c-loyal);color:var(--c-loyal-dark)">Schedule F</span>
+          <span class="chip concept" data-key="deepstate" style="border-color:var(--c-loyal);color:var(--c-loyal-dark)">深层政府</span>
+          <span class="chip concept" data-key="performance" style="border-color:var(--c-loyal);color:var(--c-loyal-dark)">表演式治理</span>
+        </div>
+        <div class="chip-row">
+          <span class="chip-label">关键人物</span>
+          <span class="chip person"><a href="人物图谱.html">斯蒂芬·米勒</a></span>
+          <span class="chip person"><a href="人物图谱.html">埃隆·马斯克</a></span>
+          <span class="chip person"><a href="人物图谱.html">塔尔西·加巴德</a></span>
+          <span class="chip person"><a href="人物图谱.html">皮特·赫格塞斯</a></span>
+          <span class="chip person"><a href="人物图谱.html">小罗伯特·肯尼迪</a></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================= STAGE 4: PART IV THE LOOTING ================= -->
+    <div class="stage st-4 fade-up d-5" id="st-4">
+      <div class="stage-dot">IV</div>
+      <div class="stage-body">
+        <div class="stage-head">
+          <div class="shh-main">
+            <div class="shh-part">Part IV · The Looting</div>
+            <div class="shh-title">掠夺：对外战争</div>
+            <div class="shh-title-en">The Looting — War Abroad</div>
+            <div class="shh-chapters">第四部 · 帝国扩张（2025.9—2026）</div>
+          </div>
+          <div class="shh-time" style="background:var(--c-war-bg);color:var(--c-war-dark)">2025.9 → 2026.3</div>
+        </div>
+
+        <div class="stage-lead">
+          第四部分将报复逻辑推向国界之外：从"交易式外交"转向"掠夺式战争"。委内瑞拉的夺油计划、对贩毒集团的"炸船行动"、对伊朗的全面战争——作者称之为"唐氏门罗主义"：用武力重新控制西半球，将中俄影响力挤出美洲。
+        </div>
+
+        <div class="events">
+          <div class="event">
+            <div class="ev-date">2025.9—10</div>
+            <div class="ev-title">"炸船行动"：对外武力首秀</div>
+            <div class="ev-desc">死神无人机+地狱火导弹打击贩毒快艇，10艘被击沉，幸存者挥手求救仍遭补射。连"酷刑备忘录"作者John Yoo都公开质疑其合法性。</div>
+          </div>
+          <div class="event">
+            <div class="ev-date">2025—26</div>
+            <div class="ev-title">委内瑞拉：夺油计划</div>
+            <div class="ev-desc">CIA秘密行动以马杜罗为目标，计划夺取全球最大石油储备并更换"傀儡政权"。鲁比奥从"民主推广"的信奉者变成"马杜罗复仇者"。</div>
+          </div>
+          <div class="event">
+            <div class="ev-date">2026.2.28</div>
+            <div class="ev-title">对伊朗全面战争："史诗怒火"</div>
+            <div class="ev-desc">特朗普加入以色列对伊朗的全面战争，代号"史诗怒火"(Operation Epic Wrath)。第二任期最大的战略冒险，也是全书高潮。</div>
+          </div>
+          <div class="event">
+            <div class="ev-date">2026.3</div>
+            <div class="ev-title">战争的代价</div>
+            <div class="ev-desc">13名美军阵亡、200+受伤、花费超150亿美元、霍尔木兹海峡基本关闭、全球油价飙升——帝国的账单由士兵与全世界共同承担。</div>
+          </div>
+        </div>
+
+        <div class="blockquote">
+          <div class="bq-en">"Operation Epic Wrath"</div>
+          <div class="bq-zh">"史诗怒火行动"——作者讽刺性地指出：连战争的名字都是表演性的。"史诗"(Epic)这个词本身就是宣传话术，与战争的残酷形成刺眼对比。</div>
+          <div class="bq-src">—— 2026年对伊战争代号 · 书中评论</div>
+        </div>
+
+        <div class="blockquote">
+          <div class="bq-en">"When retribution turns outward, the logic of empire begins to consume the logic of the republic."</div>
+          <div class="bq-zh">"当报复转向国界之外，帝国的逻辑就开始吞噬共和国的逻辑。"——作者在全书尾声的总结性判断。</div>
+          <div class="bq-src">—— 尾声 · 作者核心论断（译自书中）</div>
+        </div>
+
+        <div class="chip-row">
+          <span class="chip-label">核心概念</span>
+          <span class="chip concept" data-key="monroe" style="border-color:var(--c-war);color:var(--c-war-dark)">唐氏门罗主义</span>
+          <span class="chip concept" data-key="wrath" style="border-color:var(--c-war);color:var(--c-war-dark)">史诗怒火行动</span>
+          <span class="chip concept" data-key="boat" style="border-color:var(--c-war);color:var(--c-war-dark)">炸船行动</span>
+        </div>
+        <div class="chip-row">
+          <span class="chip-label">关键人物</span>
+          <span class="chip person"><a href="人物图谱.html">唐纳德·特朗普</a></span>
+          <span class="chip person"><a href="人物图谱.html">皮特·赫格塞斯</a></span>
+          <span class="chip person"><a href="人物图谱.html">马可·鲁比奥</a></span>
+          <span class="chip person"><a href="人物图谱.html">塔尔西·加巴德</a></span>
+          <span class="chip person"><a href="人物图谱.html">尼古拉斯·马杜罗</a></span>
+          <span class="chip person"><a href="人物图谱.html">伊朗</a></span>
+          <span class="chip person"><a href="人物图谱.html">贩毒集团</a></span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- CLOSING -->
+  <div class="story-close fade-up">
+    <h3>📌 四幕合观：特朗普悖论的完整呈现</h3>
+    <p>序言埋下"被背叛"的心理原点，Part I 带着工具回归，Part II 兑现报复，Part III 清洗内部，Part IV 对外开战——<strong>每一步在当时的语境下都"合理"，但连起来就是一场失控</strong>。整条时间线反复印证同一个论点：每一次外力试图压制特朗普，都被他转化成了向上走的燃料。</p>
+  </div>
+
+</div>
+
+<footer class="site-footer">
+  数据来源：《政权更迭》(Regime Change) by Maggie Haberman &amp; Jonathan Swan — Simon &amp; Schuster, 2026 · 仅供学习研究使用
+</footer>
+
+<!-- Concept popover -->
+<div class="concept-popover" id="conceptPopover" data-pos="below">
+  <button class="cp-close" onclick="closeConceptPop()">&times;</button>
+  <div class="cp-kicker" id="cpKicker"></div>
+  <div class="cp-name" id="cpName"></div>
+  <div class="cp-en" id="cpEn"></div>
+  <div class="cp-rule"></div>
+  <div class="cp-def" id="cpDef"></div>
+  <div class="cp-example" id="cpExample"></div>
+</div>
+
+<script>
+/* ===== CONCEPT DICTIONARY ===== */
+const CONCEPTS = {
+  doge: {
+    name: '政府效率部门', en: 'DOGE (Department of Government Efficiency)',
+    cat: '制度机制',
+    def: '新设的"政府效率部门"，由非内阁成员的马斯克领导，大规模削减联邦雇员与开支——绕过传统层级，直接向总统汇报。',
+    example: '书中例证：马斯克经常绕过幕僚长怀尔斯直接联系特朗普；对科技同行评价"一流跪舔"。'
+  },
+  performance: {
+    name: '表演式治理', en: 'Performance Governance',
+    cat: '政治概念',
+    def: '政策的首要目标是"表演给观众看"而非"解决问题"——行动的符号意义大于实际效果，治理成为持续的政治剧场。',
+    example: '书中例证：ICE行动现场诺姆跳舞；"史诗怒火"战争代号；行政令签署仪式比执行更受重视。'
+  },
+  conversion: {
+    name: '皈依 vs 妥协', en: 'Conversion vs Concession',
+    cat: '政治概念',
+    def: '区分两种投降：建制派精英向特朗普主义低头时，是策略性妥协（concession）还是真正信仰转变（conversion）？书中认为鲁比奥是后者。',
+    example: '书中例证：鲁比奥从批评特朗普的"骗子"到主导马杜罗政权更迭——"不是妥协，是皈依"。'
+  },
+  ledger: {
+    name: '复仇记账本', en: 'Revenge Ledger',
+    cat: '政治概念',
+    def: '书中对米勒的称谓：把特朗普的所有私人恩怨系统化记录并转化为政策清单——谁得罪了总统，都在账本上等着清算。',
+    example: '书中例证：哈佛、律所、米利、克雷布斯的报复行动均被列为"记账本"上的待办事项。'
+  },
+  budget: {
+    name: '预算武器化', en: 'Weaponizing the Federal Budget',
+    cat: '制度机制',
+    def: '把联邦拨款、资助、合同变成政治服从的杠杆——对不听话的机构断供，对听话的机构放行，让每一分钱都变成指令。',
+    example: '书中例证：哈佛26亿冻结、90亿总额威胁；OMB主任沃特是"预算武器化"的头号操盘手。'
+  },
+  schedulef: {
+    name: 'F 条款', en: 'Schedule F',
+    cat: '制度机制',
+    def: '将数万名联邦公务员从"竞争性服务"（受保护）转为"政治任命"（可随时解雇）的行政令机制——用忠诚取代专业，摧毁行政国家。',
+    example: '书中定性："Schedule F 是砸向行政国家的拆迁球"——配合DOGE裁员，系统性清洗联邦官僚体系。'
+  },
+  deepstate: {
+    name: '深层政府', en: 'Deep State',
+    cat: '制度机制',
+    def: '特朗普阵营对职业公务员、情报界、司法部等"建制派"的统称——被视为躲在民选总统背后的"真正权力"，是需要清除的"内部敌人"。',
+    example: '书中例证：Part III全篇叙事框架；加巴德执掌17个情报机构被视为"夺回情报界"。'
+  },
+  monroe: {
+    name: '唐氏门罗主义', en: '"Monroe Doctrine" à la Trump',
+    cat: '外交军事',
+    def: '将19世纪门罗主义（西半球是美国后院）极端化：以武力重新控制西半球资源，用政权更迭、暗杀、战争排除中俄影响力。',
+    example: '书中例证：委内瑞拉夺油计划（全球最大石油储备）；贩毒集团"炸船行动"展示武力。'
+  },
+  wrath: {
+    name: '史诗怒火行动', en: 'Operation Epic Wrath',
+    cat: '外交军事',
+    def: '2026年对伊全面战争的代号。作者指出连战争命名都充满表演性——"史诗"(Epic)本身就是宣传话术。',
+    example: '书中例证：2026.2.28开战；150亿+花费；13名美军阵亡；霍尔木兹海峡基本关闭。'
+  },
+  boat: {
+    name: '炸船行动', en: 'Boat-Bombing Campaign',
+    cat: '外交军事',
+    def: '对贩毒集团快艇的无差别武力打击：死神无人机+地狱火导弹击沉10艘快艇，幸存者求救仍遭补射。',
+    example: '书中例证：连"酷刑备忘录"作者John Yoo都公开质疑其无法无天——合法性的底线被突破。'
+  },
+  imperial: {
+    name: '帝国主义总统制', en: 'Imperial Presidency',
+    cat: '制度机制',
+    def: '全书的核心概念：总统权力超越宪法制衡，行政分支吞并立法与司法功能，外交与战争决策完全个人化——"总统即国家"。',
+    example: '书中例证：特朗普同时让鲁比奥兼任国务卿与国安顾问、绕过国会发动战争、用行政令替代立法。'
+  },
+  paradox: {
+    name: '特朗普悖论', en: 'The Trump Paradox',
+    cat: '政治概念',
+    def: '全书核心论点：压制特朗普反而使其更强大——败选、起诉、刺杀都转化为政治资产，造就了更极端的"特朗普2.0"。',
+    example: '书中例证：四起起诉成为募捐信；刺杀未遂被包装为"天命"；最高法院豁免权成为法律护身符。'
+  },
+  retribution: {
+    name: '"我是你们的报复"', en: '"I am your retribution"',
+    cat: '标志性表达',
+    def: '2023年俄亥俄州集会宣言，被视为第二任期的施政纲领预告——报复从隐藏动机变成公开承诺。',
+    example: '书中例证：该口号贯穿全书，是理解Part II（报复）与Part IV（掠夺）的逻辑起点。'
+  },
+  groveling: {
+    name: '"一流跪舔"', en: '"First-class groveling"',
+    cat: '标志性表达',
+    def: '马斯克对科技巨头向特朗普朝贡行为的嘲讽——精准描述了2024年后硅谷精英与白宫的关系结构。',
+    example: '书中例证：扎克伯格从国会批评者到海湖庄园朝圣者；贝佐斯控制《华盛顿邮报》编辑立场。'
+  },
+  j6: {
+    name: '"1·6"事件', en: 'J6 / January 6',
+    cat: '标志性表达',
+    def: '2021年1月6日国会山冲击事件，特朗普政治生涯的分水岭——建制派决裂之日，也是"受迫害"叙事的起点。',
+    example: '书中例证：J6参与者成为核心选民符号；特朗普承诺赦免；科技巨头在朝贡晚宴上为"J6囚犯合唱团"起立。'
+  }
+};
+
+/* ===== POPOVER LOGIC ===== */
+const pop = document.getElementById('conceptPopover');
+
+function showConceptPop(key, anchorEl) {
+  const c = CONCEPTS[key];
+  if (!c) return;
+  document.getElementById('cpKicker').textContent = c.cat + ' · 核心概念';
+  document.getElementById('cpName').textContent = c.name;
+  document.getElementById('cpEn').textContent = c.en;
+  document.getElementById('cpDef').textContent = c.def;
+  const ex = document.getElementById('cpExample');
+  ex.innerHTML = '<div class="cp-example-label">书中例证</div>' + c.example;
+
+  // Position near the clicked chip
+  const rect = anchorEl.getBoundingClientRect();
+  const popW = 420, popH = pop.offsetHeight || 320;
+  let x = rect.left + rect.width / 2 - popW / 2;
+  x = Math.max(12, Math.min(x, window.innerWidth - popW - 12));
+
+  const spaceBelow = window.innerHeight - rect.bottom;
+  if (spaceBelow > popH + 20 || spaceBelow > rect.top) {
+    pop.dataset.pos = 'below';
+    pop.style.top = (rect.bottom + 12) + 'px';
+  } else {
+    pop.dataset.pos = 'above';
+    pop.style.top = Math.max(12, rect.top - popH - 14) + 'px';
+  }
+  pop.style.left = x + 'px';
+  pop.style.display = 'block';
+  requestAnimationFrame(() => pop.classList.add('show'));
+}
+
+function closeConceptPop() {
+  pop.classList.remove('show');
+  pop.style.display = 'none';
+}
+
+// Click on any concept chip
+document.querySelectorAll('.chip.concept[data-key]').forEach(chip => {
+  chip.addEventListener('click', e => {
+    e.stopPropagation();
+    showConceptPop(chip.dataset.key, chip);
+  });
+});
+
+// Close on outside click / ESC
+document.addEventListener('click', e => {
+  if (!pop.contains(e.target) && !e.target.closest('.chip.concept')) closeConceptPop();
+});
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeConceptPop(); });
+window.addEventListener('resize', closeConceptPop);
+</script>
+
+</body>
+</html>

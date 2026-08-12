@@ -27,13 +27,10 @@
   }
   .sh-kicker { font-size: 9.5px; font-weight: 700; letter-spacing: .16em; color: #D8B48C; text-transform: uppercase; }
   .sh-title { font-family: var(--font-serif); font-size: clamp(20px,2.6vw,28px); font-weight: 900; margin-top: 6px; }
-  .sh-sub { font-size: 11.5px; color: #A9A093; margin-top: 6px; max-width: 620px; line-height: 1.7; }
+  .sh-sub { font-size: 11.5px; color: #A9A093; margin-top: 6px; max-width: 640px; line-height: 1.7; }
 
   /* ===== STAGE NAV ===== */
-  .stage-nav {
-    display: flex; gap: 6px; flex-wrap: wrap;
-    margin-bottom: 26px;
-  }
+  .stage-nav { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 26px; }
   .stage-btn {
     font-family: inherit; font-size: 11px; font-weight: 600;
     padding: 7px 15px; border-radius: 17px;
@@ -46,7 +43,7 @@
   .stage-btn:hover { border-color: var(--c-loyal); color: var(--c-loyal-dark); transform: translateY(-1px); }
   .stage-btn .s-dot { display: inline-block; width: 7px; height: 7px; border-radius: 50%; margin-right: 6px; }
 
-  /* ===== STAGE (timeline main axis) ===== */
+  /* ===== TIMELINE ===== */
   .timeline-axis { position: relative; padding-left: 0; }
   .tl-spine {
     position: absolute; left: 27px; top: 0; bottom: 0;
@@ -54,7 +51,6 @@
     background: linear-gradient(180deg, #9A9186, var(--c-trump) 22%, var(--c-enemy) 45%, var(--c-loyal) 68%, var(--c-war) 100%);
     border-radius: 2px; opacity: .3;
   }
-
   .stage {
     position: relative;
     padding: 0 0 34px 76px;
@@ -69,8 +65,6 @@
     box-shadow: 0 0 0 5px var(--surface-base), var(--shadow-md);
     z-index: 2;
   }
-
-  /* Stage body */
   .stage-body {
     background: var(--surface-card);
     border: 1px solid var(--border-light);
@@ -91,19 +85,11 @@
     border-radius: 12px; white-space: nowrap; align-self: flex-start;
   }
   .shh-chapters { font-size: 10px; color: var(--text-tertiary); margin-top: 6px; }
+  .stage-lead { padding: 16px 26px; font-size: 12px; line-height: 1.78; color: var(--text-primary); }
 
-  .stage-lead {
-    padding: 16px 26px;
-    font-size: 12px; line-height: 1.78; color: var(--text-primary);
-  }
-
-  /* Events within stage */
+  /* ===== EVENTS ===== */
   .events { padding: 4px 26px 18px; }
-  .event {
-    border-left: 2px solid var(--border-light);
-    padding: 4px 0 14px 18px;
-    position: relative;
-  }
+  .event { border-left: 2px solid var(--border-light); padding: 4px 0 14px 18px; position: relative; }
   .event:last-child { padding-bottom: 4px; }
   .event::before {
     content: ''; position: absolute; left: -6px; top: 10px;
@@ -113,9 +99,8 @@
   .ev-date { font-size: 10.5px; font-weight: 700; letter-spacing: .02em; }
   .ev-title { font-size: 13px; font-weight: 700; margin-top: 2px; }
   .ev-desc { font-size: 11px; color: var(--text-secondary); margin-top: 5px; line-height: 1.7; }
-  .ev-zh { font-size: 10.5px; color: var(--text-tertiary); margin-top: 3px; font-style: italic; }
 
-  /* Quote block */
+  /* ===== QUOTE ===== */
   .blockquote {
     margin: 0 26px 18px;
     background: var(--surface-base);
@@ -127,7 +112,7 @@
   .bq-zh { font-size: 10.5px; color: var(--text-secondary); margin-top: 7px; line-height: 1.65; }
   .bq-src { font-size: 9px; color: var(--text-tertiary); margin-top: 7px; letter-spacing: .04em; }
 
-  /* Concept & person chips */
+  /* ===== CHIPS ===== */
   .chip-row { display: flex; gap: 6px; flex-wrap: wrap; padding: 0 26px 20px; }
   .chip-label { font-size: 9px; font-weight: 700; letter-spacing: .1em; color: var(--text-tertiary); text-transform: uppercase; align-self: center; margin-right: 2px; }
   .chip {
@@ -186,10 +171,106 @@
     border-top: 1px solid var(--border-mid);
     transform: rotate(45deg);
   }
-  .concept-popover[data-pos="below"] .cp-arrow { top: -8px; left: 50%; margin-left: -7px; transform: rotate(45deg); border-left: 1px solid var(--border-mid); border-top: 1px solid var(--border-mid); }
+  .concept-popover[data-pos="below"] .cp-arrow { top: -8px; left: 50%; margin-left: -7px; transform: rotate(45deg); }
   .concept-popover[data-pos="above"] .cp-arrow { bottom: -8px; left: 50%; margin-left: -7px; transform: rotate(225deg); }
 
-  /* Stage theme colors */
+  /* ===== PART I DEEP-DIVE (sub-sections) ===== */
+  .part1-deep { padding: 0 26px 10px; }
+  .sub-section { margin: 18px 0; border: 1px solid var(--border-light); border-radius: 14px; overflow: hidden; background: var(--surface-base); }
+  .sub-head {
+    display: flex; align-items: center; gap: 12px;
+    padding: 14px 18px;
+    cursor: pointer;
+    background: var(--surface-card);
+    border-bottom: 1px solid var(--border-light);
+    transition: background .25s;
+  }
+  .sub-head:hover { background: var(--surface-base); }
+  .sub-num {
+    font-family: var(--font-serif); font-size: 16px; font-weight: 900;
+    width: 34px; height: 34px; border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    color: #fff; flex-shrink: 0;
+  }
+  .sub-main { flex: 1; min-width: 0; }
+  .sub-title { font-size: 14.5px; font-weight: 800; color: var(--text-primary); line-height: 1.3; }
+  .sub-sub { font-size: 10px; color: var(--text-tertiary); margin-top: 2px; }
+  .sub-time { font-size: 10px; font-weight: 600; color: var(--text-secondary); white-space: nowrap; padding: 3px 9px; border-radius: 10px; background: var(--surface-base); border: 1px solid var(--border-light); }
+  .sub-chev { font-size: 11px; color: var(--text-tertiary); transition: transform .3s var(--ease-out-expo); flex-shrink: 0; }
+  .sub-section.open .sub-chev { transform: rotate(180deg); }
+  .sub-body { display: none; padding: 16px 20px 20px; }
+  .sub-section.open .sub-body { display: block; animation: fadeUp .4s var(--ease-out-expo); }
+
+  /* sub-body inner */
+  .sb-intro { font-size: 11.5px; line-height: 1.75; color: var(--text-primary); margin-bottom: 12px; }
+  .sb-h { font-size: 9.5px; font-weight: 700; letter-spacing: .1em; color: var(--text-tertiary); text-transform: uppercase; margin: 14px 0 8px; padding-bottom: 4px; border-bottom: 1px solid var(--border-light); }
+  .sb-para { font-size: 11.5px; line-height: 1.75; color: var(--text-secondary); margin-bottom: 9px; }
+  .sb-para strong { color: var(--text-primary); }
+  .sb-quote {
+    margin: 10px 0; padding: 11px 14px;
+    background: var(--surface-card);
+    border-left: 3px solid var(--c-trump);
+    border-radius: 0 9px 9px 0;
+    font-size: 11px; color: var(--text-secondary); line-height: 1.65;
+  }
+  .sb-quote .q-en { font-style: italic; font-family: var(--font-serif); font-size: 11.5px; color: var(--text-primary); }
+  .sb-quote .q-src { font-size: 8.5px; color: var(--text-tertiary); margin-top: 5px; letter-spacing: .04em; }
+
+  /* mini timeline inside sub */
+  .mini-events { margin-top: 4px; }
+  .mini-event { border-left: 2px solid var(--border-light); padding: 2px 0 11px 15px; position: relative; }
+  .mini-event::before { content:''; position: absolute; left: -5.5px; top: 7px; width: 9px; height: 9px; border-radius: 50%; background: var(--surface-card); border: 2.5px solid var(--c-trump); }
+  .me-date { font-size: 10px; font-weight: 700; color: var(--c-trump-dark); }
+  .me-title { font-size: 12px; font-weight: 700; margin-top: 1px; color: var(--text-primary); }
+  .me-desc { font-size: 10.8px; color: var(--text-secondary); margin-top: 3px; line-height: 1.65; }
+
+  /* dialogue (Zelensky clash) */
+  .dialogue { margin: 8px 0; }
+  .dl-line { display: flex; gap: 10px; padding: 7px 0; border-top: 1px dashed var(--border-light); }
+  .dl-line:first-child { border-top: none; }
+  .dl-who { flex-shrink: 0; width: 62px; font-size: 9.5px; font-weight: 800; padding-top: 2px; }
+  .dl-text { font-size: 11px; line-height: 1.65; color: var(--text-primary); }
+  .dl-text em { font-style: italic; color: var(--text-secondary); }
+  .w-trump { color: var(--c-trump-dark); }
+  .w-vance { color: var(--c-loyal-dark); }
+  .w-zel { color: var(--c-war-dark); }
+  .w-narr { color: var(--text-tertiary); }
+
+  /* person profiles (Miller / Wiles / Rubio) */
+  .person-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; margin-top: 6px; }
+  .person-card {
+    background: var(--surface-card);
+    border: 1px solid var(--border-light);
+    border-radius: 12px;
+    padding: 16px 16px 14px;
+    transition: all .3s var(--ease-out-quart);
+  }
+  .person-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+  .pc-head { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+  .pc-avatar { width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-family: var(--font-serif); font-size: 15px; font-weight: 900; color: #fff; flex-shrink: 0; }
+  .pc-name { font-size: 13px; font-weight: 800; color: var(--text-primary); line-height: 1.25; }
+  .pc-role { font-size: 9.5px; color: var(--text-tertiary); margin-top: 1px; }
+  .pc-bio { font-size: 10.5px; line-height: 1.65; color: var(--text-secondary); }
+  .pc-quote { margin-top: 8px; padding: 8px 10px; background: var(--surface-base); border-left: 2.5px solid; border-radius: 0 8px 8px 0; font-size: 9.8px; font-style: italic; color: var(--text-secondary); line-height: 1.55; }
+
+  /* 3-step mini pipeline */
+  .steps3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px; margin-top: 4px; }
+  .step3 { border-top: 2px solid var(--c-trump); padding-top: 8px; }
+  .step3 .n { font-family: var(--font-serif); font-style: italic; font-size: 11px; opacity: .5; }
+  .step3 .t { font-size: 12px; font-weight: 700; margin-top: 2px; color: var(--text-primary); }
+  .step3 .d { font-size: 10.3px; color: var(--text-secondary); margin-top: 3px; line-height: 1.55; }
+
+  /* extend note */
+  .extend-note {
+    margin: 10px 0 0; padding: 10px 13px;
+    background: var(--c-tech-bg);
+    border: 1px dashed var(--c-tech);
+    border-radius: 9px;
+    font-size: 10.5px; color: var(--c-tech-dark); line-height: 1.65;
+  }
+  .extend-note .en-label { font-weight: 800; }
+
+  /* stage theme colors */
   .st-0 .stage-dot { background: #8A8278; } .st-0 .ev-date { color: #8A8278; }
   .st-1 .stage-dot { background: var(--c-trump); } .st-1 .ev-date { color: var(--c-trump); }
   .st-1 .shh-title { color: var(--c-trump-dark); } .st-1 .shh-part { color: var(--c-trump); }
@@ -216,7 +297,8 @@
     .stage { padding-left: 56px; }
     .tl-spine { left: 20px; }
     .stage-dot { left: 5px; width: 28px; height: 28px; }
-    .stage-head, .stage-lead, .events, .chip-row, .blockquote { padding-left: 18px; padding-right: 18px; }
+    .stage-head, .stage-lead, .events, .chip-row, .blockquote, .part1-deep { padding-left: 18px; padding-right: 18px; }
+    .sub-time { display: none; }
   }
 </style>
 </head>
@@ -227,7 +309,7 @@
   <p class="site-subtitle">沿时间线读《政权更迭》· 章节阶段 × 概念 × 人物 × 原文</p>
   <div class="site-meta">
     <span class="meta-tag">5 个阶段</span>
-    <span class="meta-tag">按章节推进</span>
+    <span class="meta-tag">Part I 深度展开</span>
     <span class="meta-tag">含原文引用</span>
   </div>
 </header>
@@ -244,11 +326,11 @@
   <section class="story-hero fade-up">
     <div class="sh-kicker">Reading Path · 内容梳理</div>
     <div class="sh-title">沿着时间线，读完这本书</div>
-    <div class="sh-sub">以时间为轴、以章节为阶段，每进入一个阶段，会看到：该部分的核心事件、书中原文引用、涉及的核心概念与关键人物。点击人物标签可跳转到人物图谱查看详情。</div>
+    <div class="sh-sub">以时间为轴、以章节为阶段。其中「Part I 旋风」已深度展开为四个专题（内阁选拔 / 马斯克与 DOGE / 泽连斯基冲突 / 解放日关税），每个专题可点击展开，内含人物档案、对话实录与原文引用。</div>
   </section>
 
   <div class="stage-nav fade-up d-1">
-    <a class="stage-btn" href="#st-0"><span class="s-dot" style="background:#8A8278"></span>序言 · 败选之夜</a>
+    <a class="stage-btn" href="#st-0"><span class="s-dot" style="background:#8A8278"></span>序言</a>
     <a class="stage-btn" href="#st-1"><span class="s-dot" style="background:var(--c-trump)"></span>Part I 旋风</a>
     <a class="stage-btn" href="#st-2"><span class="s-dot" style="background:var(--c-enemy)"></span>Part II 报复</a>
     <a class="stage-btn" href="#st-3"><span class="s-dot" style="background:var(--c-loyal)"></span>Part III 内部敌人</a>
@@ -301,7 +383,7 @@
       </div>
     </div>
 
-    <!-- ================= STAGE 1: PART I CYCLONE ================= -->
+    <!-- ================= STAGE 1: PART I CYCLONE (DEEP) ================= -->
     <div class="stage st-1 fade-up d-2" id="st-1">
       <div class="stage-dot">I</div>
       <div class="stage-body">
@@ -310,62 +392,414 @@
             <div class="shh-part">Part I · The Cyclone</div>
             <div class="shh-title">旋风：回归与掌权</div>
             <div class="shh-title-en">The Cyclone — A Second Coming</div>
-            <div class="shh-chapters">第一章起 · 第二任期开局（2024.11—2025春）</div>
+            <div class="shh-chapters">第1-13章 · 第二任期开局（2024.11—2025.4）</div>
           </div>
           <div class="shh-time" style="background:var(--c-trump-bg);color:var(--c-trump-dark)">2024.11 → 2025.4</div>
         </div>
 
         <div class="stage-lead">
           第一部分描写特朗普第二任期开局的速度与疯狂：这不是一次"回归"，而是一次"升级"。带着四年的怨恨、忠诚的团队和最高法院的豁免权，他以远快于第一任期的节奏横扫一切——行政令、人事清洗、科技巨头朝贡，如旋风般席卷华盛顿。
+          以下四个专题深度展开：<strong>① 内阁选拔与三人档案；② 马斯克与 DOGE 的崛起与落幕；③ 泽连斯基白宫冲突前后；④ 解放日关税前后</strong>。点击标题展开。
         </div>
 
-        <div class="events">
-          <div class="event">
-            <div class="ev-date">2024.7</div>
-            <div class="ev-title">刺杀未遂："天命"叙事</div>
-            <div class="ev-desc">宾州巴特勒集会上遭遇刺杀，擦耳而过的子弹被迅速包装为"天选之人"的证据，进一步巩固支持者的忠诚。</div>
-          </div>
-          <div class="event">
-            <div class="ev-date">2024.11.5</div>
-            <div class="ev-title">大选胜利：完全回归</div>
-            <div class="ev-desc">以普选票+选举人票双重优势获胜。与2016年不同，这次他带回了一整套"工具箱"：忠诚团队、豁免权、经验与仇恨。</div>
-          </div>
-          <div class="event">
-            <div class="ev-date">2025.1.20</div>
-            <div class="ev-title">就职演说：清算宣言</div>
-            <div class="ev-desc">就职演说明确释放清算信号，上任首日签署创纪录数量的行政令——"旋风"正式启动。</div>
-          </div>
-          <div class="event">
-            <div class="ev-date">2025 春</div>
-            <div class="ev-title">科技巨头"朝贡"海湖庄园</div>
-            <div class="ev-desc">扎克伯格、贝佐斯、库克、皮柴伊先后赴海湖庄园示好。马斯克评价同行："一流跪舔"。</div>
-          </div>
-          <div class="event">
-            <div class="ev-date">2025 春</div>
-            <div class="ev-title">DOGE 成立 · 马斯克入局</div>
-            <div class="ev-desc">政府效率部门成立，由非内阁成员的马斯克领导，绕过传统层级直接向总统汇报，大规模削减联邦雇员。</div>
-          </div>
-        </div>
+        <!-- ============ PART I DEEP DIVE ============ -->
+        <div class="part1-deep">
 
-        <div class="blockquote">
-          <div class="bq-en">"First-class groveling."</div>
-          <div class="bq-zh">"一流跪舔。"——马斯克评价扎克伯格与贝佐斯向特朗普的示好，精准刻画了第二任期开始后硅谷精英与白宫的关系。</div>
-          <div class="bq-src">—— 引自书中马斯克的原话</div>
+          <!-- ===== SUB 1: CABINET SELECTION ===== -->
+          <div class="sub-section" id="sub1">
+            <div class="sub-head" onclick="toggleSub(this)">
+              <div class="sub-num" style="background:var(--c-trump)">01</div>
+              <div class="sub-main">
+                <div class="sub-title">内阁选拔：忠诚是唯一的"试金石"</div>
+                <div class="sub-sub">海湖庄园茶室 · 2024.11.11 · 第2章</div>
+              </div>
+              <div class="sub-time">2024.11</div>
+              <div class="sub-chev">▼</div>
+            </div>
+            <div class="sub-body">
+              <div class="sb-intro">
+                2024年11月11日，海湖庄园茶室。八台电视循环播放候选人幻灯片——照片、履历要点、上电视新闻的精彩片段。特朗普边嚼蟹肉串边定人。第一任期他常因敬畏专家而压抑本能；这一次，"他觉得自己认识每个人、懂得一切"。
+              </div>
+
+              <div class="sb-h">选人现场的几个决定性瞬间</div>
+              <div class="mini-events">
+                <div class="mini-event">
+                  <div class="me-title">鲁比奥 → 国务卿："就这么定了"</div>
+                  <div class="me-desc">幻灯片刚播到鲁比奥，特朗普脱口而出。国务卿人选像早就定好了一样。</div>
+                </div>
+                <div class="mini-event">
+                  <div class="me-title">沃尔兹 → 国安顾问："我早就在走廊里把工作给他了"</div>
+                  <div class="me-desc">问了一圈都说喜欢迈克，特朗普笑道：因为我已在走廊外把职位许给他了。全场大笑。沃尔兹是前陆军绿色贝雷帽，刺杀事件后帮竞选团队与特勤局对接。</div>
+                </div>
+                <div class="mini-event">
+                  <div class="me-title">拉特克利夫 → CIA局长："他会把它拆了吗？"</div>
+                  <div class="me-desc">第一任期靠辩护特朗普挺过通俄调查上位。上任前特朗普唯一的顾虑是"他会把CIA拆掉吗"——得到满意答复后任命。另一个加分项："这哥们长得像加里·格兰特，天生演CIA局长的料。"</div>
+                </div>
+                <div class="mini-event">
+                  <div class="me-title">加巴德 → 情报总监："她真能造成什么伤害吗？"</div>
+                  <div class="me-desc">前民主党众议员，因骂"深层政府"、私会叙利亚阿萨德被两党建制派嫌弃——恰恰是加分项。罗杰·斯通力荐。特朗普对比："鲍比是明星，图尔西想当明星。"</div>
+                </div>
+                <div class="mini-event">
+                  <div class="me-title">赫格塞斯 → 国防部长："没人比他更上镜"</div>
+                  <div class="me-desc">前福克斯主持人。特朗普的最高赞美是"上镜"，并讲了一段"硬汉被起诉、皮特为他们辩护"的故事——被辩护的正是特朗普第一任期赦免过的战犯嫌疑人（洛兰斯、戈尔斯坦、加拉格尔）。参议院可能否决时，特朗普一度想换德桑蒂斯（"我们需要剧情反转"），随后放万斯、小唐纳德、柯克去"霸凌"共和党参议员。指导原则（罗伊·科恩遗产）：<strong>绝不承认犯错</strong>。</div>
+                </div>
+                <div class="mini-event">
+                  <div class="me-title">诺姆 → 国土安全部长："她对我太好了"</div>
+                  <div class="me-desc">米勒强烈反对（"她给过我见过的史上最差采访"），但特朗普拍板——因为诺姆的密友莱万多夫斯基"对我也很好"。忠诚压倒一切，米勒当场不再多言。</div>
+                </div>
+              </div>
+
+              <div class="sb-h">J6 试金石：新的人事"政治审查"</div>
+              <div class="sb-para">
+                第二任期的职位面试多了一道必答题：<strong>"你怎么看1月6日？2020年谁赢了？"</strong>过渡团队甚至提前搜过候选人社交媒体上对国会山事件后特朗普的批评。
+                但标准完全由特朗普一人裁定：鲁比奥骂过J6是"国耻"却当上国务卿；而第一任期国安顾问<strong>奥布莱恩</strong>只因J6当天夸了彭斯，就被当场划掉——"他1月7日在发抖。他跟波佩奥一样，把他弄下去。"（"像波佩奥"是特朗普词典里的顶级侮辱：波佩奥曾轻微批评第一任期财政纪律）。
+              </div>
+              <div class="sb-para">
+                最极端的例子：副国防部长候选人麦卡锡，只因赫格塞斯顺口说"有人觉得他是米利的人"（米利=卸任参联会主席、公开说特朗普危害共和国），即告出局。特朗普："<strong>哪怕他有1%像米利，我们也不能要。</strong>"
+              </div>
+
+              <div class="sb-h">司法部"私有化"</div>
+              <div class="sb-para">
+                特朗普相信第一任期被司法部长塞申斯（回避通俄调查）和巴尔（拒绝配合"选举被窃取"阴谋）"破坏"过。这次他先以"一时兴起"提名加茨——明知加茨深陷性行为不端调查，把这当作"测试自己能做到哪一步"（他告诉幕僚加茨只有30%成功率），八天丑闻后加茨退出。最终司法部长邦迪、副司法部长布兰奇（特朗普私人律师）——<strong>"把DOJ领导层变成他的私人律所"</strong>。
+              </div>
+
+              <div class="sb-h">三个关键人物档案</div>
+              <div class="person-grid">
+                <div class="person-card">
+                  <div class="pc-head">
+                    <div class="pc-avatar" style="background:var(--c-loyal)">SM</div>
+                    <div>
+                      <div class="pc-name">斯蒂芬·米勒</div>
+                      <div class="pc-role">副幕僚长（政策）+ 国土安全顾问 · "政策大脑 / 复仇记账本"</div>
+                    </div>
+                  </div>
+                  <div class="pc-bio">
+                    特朗普主义的思想建筑师，白宫几乎所有行政令的起草人。身兼两个头衔，几乎可进任何椭圆办公室会议——"现代白宫史上最有权的政策幕僚之一"。第一任期起草穆斯林旅行禁令（行政令13769）成名；创立"美国优先法律"组织布局第二任期人事。他深信"深层政府"阴谋，组建MAGA律师团（"假OLC"）绕开官方法律审查。
+                  </div>
+                  <div class="pc-quote" style="border-left-color:var(--c-loyal)">
+                    "我意识形态够了，不需要别人给我更多意识形态——我需要人把事情办成。"
+                  </div>
+                </div>
+                <div class="person-card">
+                  <div class="pc-head">
+                    <div class="pc-avatar" style="background:var(--c-cab)">SW</div>
+                    <div>
+                      <div class="pc-name">苏西·怀尔斯</div>
+                      <div class="pc-role">白宫幕僚长 · 首位女性 · "冰女"</div>
+                    </div>
+                  </div>
+                  <div class="pc-bio">
+                    67岁，佛州政治操盘手出身（里克·斯科特2010年意外胜选背后的军师、特朗普2016年佛州负责人）。特朗普叫她"冰女"——奶奶外表下藏着刀。温和、轻声细语、极少发火，下属极度忠诚（"苏西的人"）。但她是政府运作新手（仅40年前在里根白宫短暂实习），面对米勒/沃特这些懂机器的激进派处于劣势。
+                  </div>
+                  <div class="pc-quote" style="border-left-color:var(--c-cab)">
+                    流亡期初见：助理娜塔莉·哈普给特朗普写"你是我的一切"的信，怀尔斯心想——"我这是在哪儿？"
+                  </div>
+                </div>
+                <div class="person-card">
+                  <div class="pc-head">
+                    <div class="pc-avatar" style="background:var(--c-enemy)">MR</div>
+                    <div>
+                      <div class="pc-name">马可·鲁比奥</div>
+                      <div class="pc-role">国务卿 + 国安顾问 · "皈依者"</div>
+                    </div>
+                  </div>
+                  <div class="pc-bio">
+                    古巴调酒师之子，茶党明星，曾梦想"带流亡大军推翻卡斯特罗"。2013年"八人帮"移民改革失败（米勒参与扼杀，称他"病态"）。2016年与特朗普互骂"手的大小"，第一任期逐步靠拢，2024副总统落选仍保持优雅。如今的他从不说教、等特朗普问才答、天天逗总统开心——<strong>不是妥协，是皈依</strong>。
+                  </div>
+                  <div class="pc-quote" style="border-left-color:var(--c-enemy)">
+                    "Rubio的转变代表建制派向特朗普主义的全面投降——是皈依(conversion)，非妥协。"
+                  </div>
+                </div>
+              </div>
+
+              <div class="sb-quote">
+                <div class="q-en">"Even if he's one percent Milley, we can't have that."</div>
+                <div class="q-src">—— 特朗普，第2章："哪怕他有1%像米利，我们也不能要。"</div>
+              </div>
+
+              <div class="chip-row" style="padding:0">
+                <span class="chip-label">概念</span>
+                <span class="chip concept" data-key="j6test" style="border-color:var(--c-trump);color:var(--c-trump-dark)">J6 试金石</span>
+                <span class="chip concept" data-key="fakeolc" style="border-color:var(--c-trump);color:var(--c-trump-dark)">假 OLC</span>
+              </div>
+              <div class="chip-row" style="padding:0">
+                <span class="chip-label">人物</span>
+                <span class="chip person"><a href="人物图谱.html">斯蒂芬·米勒</a></span>
+                <span class="chip person"><a href="人物图谱.html">苏西·怀尔斯</a></span>
+                <span class="chip person"><a href="人物图谱.html">马可·鲁比奥</a></span>
+                <span class="chip person"><a href="人物图谱.html">皮特·赫格塞斯</a></span>
+                <span class="chip person"><a href="人物图谱.html">塔尔西·加巴德</a></span>
+              </div>
+            </div>
+          </div>
+
+          <!-- ===== SUB 2: MUSK & DOGE ===== -->
+          <div class="sub-section" id="sub2">
+            <div class="sub-head" onclick="toggleSub(this)">
+              <div class="sub-num" style="background:var(--c-tech)">02</div>
+              <div class="sub-main">
+                <div class="sub-title">马斯克与 DOGE：从"给密码"到"谁赢了"</div>
+                <div class="sub-sub">2023秋 — 2025.4 · 第5、9、12、13章</div>
+              </div>
+              <div class="sub-time">2023—2025</div>
+              <div class="sub-chev">▼</div>
+            </div>
+            <div class="sub-body">
+              <div class="sb-intro">
+                DOGE（政府效率部门）是第二任期最戏剧性的权力实验：一个世界首富，以"特殊政府雇员"身份，绕过国会与内阁，半夜闯入财政部支付系统"砍预算"——最终在六周内从"天才"沦为"失控的疯子"，被特朗普亲手剪掉翅膀。
+              </div>
+
+              <div class="sb-h">崛起：从硅谷晚宴到 $3 亿献金</div>
+              <div class="steps3">
+                <div class="step3">
+                  <div class="n">2023 秋</div>
+                  <div class="t">"把密码给我"</div>
+                  <div class="d">硅谷晚宴（为拉马斯瓦米募款），马斯克向一屋子人说：拆"行政国家"主要是技术问题，他收购推特后裁员80%，"把密码给我，我把政府砍到规模"。</div>
+                </div>
+                <div class="step3">
+                  <div class="n">2024.7—11</div>
+                  <div class="t">全力押注特朗普</div>
+                  <div class="d">特朗普被定罪后发声；刺杀未遂后立即背书；此后四个月几乎放下公司事务助选，花费超3亿美元——史上最大单笔政治献金。</div>
+                </div>
+                <div class="step3">
+                  <div class="n">2024.8.19</div>
+                  <div class="t">DOGE 命名</div>
+                  <div class="d">网友建议借用"狗狗币"（Dogecoin）梗命名政府效率部门，马斯克："完美的名字。"9月5日纳入特朗普竞选纲领。</div>
+                </div>
+              </div>
+
+              <div class="sb-h">权力巅峰（2025.2）：无监督的"半夜拆政府"</div>
+              <div class="sb-para">
+                马斯克以<strong>"特殊政府雇员"</strong>身份领导DOGE（不是正式官员——盟友认为这能把他从《信息自由法》公开记录中"包起来"）。他接管了2014年因奥巴马医改网站事故设立的"美国数字服务局"，成为总统行政办公室下的独立实体；自己却占用艾森豪威尔行政大楼的"战争部长套房"，放DOGE标志、MAGA帽和一台RGB游戏电脑。
+              </div>
+              <div class="sb-para">
+                就职后几周，40多人团队试图进入至少7个政府数据库——包括财政部支付系统、社保局、IRS。白宫多数人毫不知情："<strong>埃隆基本上在运营一家创业公司，我们看不到他们每天在干什么，都是事后才知道。他没有老板。</strong>"特朗普的算计：马斯克是"<strong>热盾</strong>"——吸收裁员骂声；"他不能当总统，他在南非出生。"
+              </div>
+              <div class="sb-para">
+                最狠的一击是<strong>摧毁USAID</strong>：1月底冻结外援后，马斯克发现款项还在流动，遂"把USAID砍成碎片"。代价是叙利亚关押数千ISIS战士的Al Hol拘留营断粮断燃料、濒临崩溃；豁免获批钱也不动——"他们把支付系统的电线从墙上拔了"。
+              </div>
+
+              <div class="sb-h">冲突引爆：三场正面交锋</div>
+              <div class="mini-events">
+                <div class="mini-event">
+                  <div class="me-date">2025.2.22</div>
+                  <div class="me-title">"你上周干了什么？"邮件风波</div>
+                  <div class="me-desc">特朗普发帖要马斯克"更激进"，三小时后数十万联邦雇员收到邮件：48小时内列5项本周成果，之后每周一交，不回复"视为辞职"。怀尔斯暴怒却打不通马斯克电话；空军一号上马斯克当面攻击鲁比奥"没拆干净USAID"。</div>
+                </div>
+                <div class="mini-event">
+                  <div class="me-date">2025.3.6</div>
+                  <div class="me-title">内阁会议大摊牌</div>
+                  <div class="me-desc">马斯克当众质问鲁比奥"你没解雇任何人！"，鲁比奥反击（1500名国务院官员提前退休）；又呛交通部长达菲（DOGE要裁空管员）；退伍军人事务部长柯林斯争取"精准裁员"。特朗普旁观良久后宣布：<strong>部长们负责，马斯克只能建议</strong>。会后发帖：下一阶段用"手术刀"而非"斧头"。</div>
+                </div>
+                <div class="mini-event">
+                  <div class="me-date">2025.4 中</div>
+                  <div class="me-title">贝森特"肉搏"与落幕</div>
+                  <div class="me-desc">马斯克擅自解雇IRS临时局长、自派代理 → 财长贝森特（依法监管IRS）爆发"去你妈的！"；走出椭圆办公室后马斯克用肩膀撞了贝森特。特朗普得知后的第一反应："<strong>谁赢了？</strong>"</div>
+                </div>
+              </div>
+
+              <div class="sb-h">结局：从电锯到手术刀</div>
+              <div class="sb-para">
+                马斯克在白宫的权力巅峰仅维持约六周（2025年2月）。3月6日内阁摊牌后，特朗普剪掉他的翅膀；下一届内阁会议直接说"明年有选举，不能再这么裁员了"。特朗普私下已在告诉幕僚：马斯克在白宫的日子快结束了。但整件事留下的制度冲击是结构性的：<strong>一个未经选举、不受问责的亿万富翁，曾一度实际控制美国政府的支出闸门</strong>。
+              </div>
+
+              <div class="extend-note">
+                <span class="en-label">📌 延展 ·</span> DOGE并非宪法内设机构，其合法性始终存疑：以"特殊政府雇员"身份（一年最多任职130天）规避了官员任命程序与财产披露，接管支付系统也被批评为"行政权僭越国会拨款权"。书中这一章被认为是"帝国总统制"最直白的制度实验。
+              </div>
+
+              <div class="sb-quote">
+                <div class="q-en">"This is our one &amp; only chance to restore democracy from the dictatorship of the bureaucracy. It is now or never."</div>
+                <div class="q-src">—— 马斯克，第5章："这是我们从官僚暴政中恢复民主的唯一机会，要么现在，要么永远没机会。"</div>
+              </div>
+
+              <div class="chip-row" style="padding:0">
+                <span class="chip-label">概念</span>
+                <span class="chip concept" data-key="doge" style="border-color:var(--c-tech);color:var(--c-tech-dark)">DOGE</span>
+                <span class="chip concept" data-key="hotsheild" style="border-color:var(--c-tech);color:var(--c-tech-dark)">热盾</span>
+              </div>
+              <div class="chip-row" style="padding:0">
+                <span class="chip-label">人物</span>
+                <span class="chip person"><a href="人物图谱.html">埃隆·马斯克</a></span>
+                <span class="chip person"><a href="人物图谱.html">苏西·怀尔斯</a></span>
+                <span class="chip person"><a href="人物图谱.html">马可·鲁比奥</a></span>
+                <span class="chip person"><a href="人物图谱.html">斯科特·贝森特</a></span>
+              </div>
+            </div>
+          </div>
+
+          <!-- ===== SUB 3: ZELENSKY CLASH ===== -->
+          <div class="sub-section" id="sub3">
+            <div class="sub-head" onclick="toggleSub(this)">
+              <div class="sub-num" style="background:var(--c-enemy)">03</div>
+              <div class="sub-main">
+                <div class="sub-title">泽连斯基白宫冲突：49分钟的摊牌</div>
+                <div class="sub-sub">2025.1.30 — 2.28 · 第4、7、9章</div>
+              </div>
+              <div class="sub-time">2025.1—2</div>
+              <div class="sub-chev">▼</div>
+            </div>
+            <div class="sub-body">
+              <div class="sb-intro">
+                2月28日椭圆办公室的公开冲突不是突发事件，而是一条持续一个月的施压线的终点：从凯洛格的"滑铁卢"，到维特科夫独自赴莫斯科见普京，再到贝森特飞基辅逼签"矿物协议"——特朗普要的不是和平，是"把钱要回来"。
+              </div>
+
+              <div class="sb-h">前奏①：凯洛格的滑铁卢（1.30）</div>
+              <div class="sb-para">
+                特朗普的乌克兰特使、80岁的凯洛格准备六块泡沫板演示稿进椭圆办公室，得到的却是羞辱：特朗普反复贬低泽连斯基（"他是糟糕的谈判者""乌克兰是地球上最腐败的国家""我不太喜欢乌克兰，除了他们的女人——她们老赢环球小姐"），甚至同情俄罗斯立场（"这一切都回到北约"）。最后特朗普下令："<strong>你团队里谁都不许跟俄罗斯人谈，因为我们在做交易。</strong>"——凯洛格不知道，工作早已被秘密给了维特科夫。
+              </div>
+
+              <div class="sb-h">前奏②：维特科夫的莫斯科之行（2.11）</div>
+              <div class="sb-para">
+                纽约房地产商维特科夫（特朗普1980年代的律师、老友，无外交经验）经沙特王储MBS引荐，独自飞莫斯科见了普京近3小时。普京送他一份"礼物"：<strong>特朗普在巴特勒刺杀现场流血挥拳的油画</strong>，外加一份美俄能源商业合作"合约清单"。次日特朗普与普京通话90分钟（四年来首次）：普京拍马屁"没想到你能赢"，特朗普直接问"你是要整个乌克兰还是一部分"，普京答"不需要全部"。
+              </div>
+
+              <div class="sb-h">前奏③：贝森特基辅逼签（2.12）</div>
+              <div class="sb-para">
+                财长贝森特带着矿物协议飞基辅，要求泽连斯基当场签字：乌克兰未来<strong>50%的国有资源收入归美国</strong>，美方<strong>零安全承诺</strong>。泽连斯基拒绝："这是对主权的攻击，这是敲诈。"两人对骂45分钟。随后2月17-18日利雅得会谈——乌克兰根本没被邀请；泽连斯基抱怨"不想让人背着我们做决定"，特朗普回骂他是"<strong>独裁者</strong>"、还怪乌克兰挑起战争。白宫摊牌已是必然。
+              </div>
+
+              <div class="sb-h">正片：2.28 椭圆办公室 · 49分钟</div>
+              <div class="sb-para">
+                本应是签字仪式，但安全保证问题悬而未决（乌莎·万斯审乌方修改稿后称"糟透了"）。记者提问环节，冲突爆发：
+              </div>
+              <div class="dialogue">
+                <div class="dl-line"><div class="dl-who w-zel">泽连斯基</div><div class="dl-text">普京是"杀手和恐怖分子"……矿物协议是"很好的开始"，但"不足以阻止这个人"。</div></div>
+                <div class="dl-line"><div class="dl-who w-trump">特朗普</div><div class="dl-text">美国"本不该让这一切发生"，拜登不知道"自己在干什么"；自己若没连任，乌克兰冲突可能演变成第三次世界大战。</div></div>
+                <div class="dl-line"><div class="dl-who w-narr">记者</div><div class="dl-text">波兰记者：波兰人担心特朗普总统与普京走得太近。</div></div>
+                <div class="dl-line"><div class="dl-who w-vance">万斯</div><div class="dl-text">"四年来美国有个总统在记者会上对普京放狠话，然后普京入侵了乌克兰……通往和平与繁荣的道路是<em>外交</em>。"</div></div>
+                <div class="dl-line"><div class="dl-who w-zel">泽连斯基</div><div class="dl-text">"你说的哪种外交，JD？""你去过乌克兰吗？来一次。""你们有美丽的大海，现在感觉不到，将来会感觉到的。"</div></div>
+                <div class="dl-line"><div class="dl-who w-trump">特朗普</div><div class="dl-text">"<strong>别告诉我们该有什么感受！</strong>你现在没有牌！""你是在拿第三次世界大战赌博！你在赌上数百万人的性命！"</div></div>
+                <div class="dl-line"><div class="dl-who w-vance">万斯</div><div class="dl-text">"<strong>这次会面你道过一次谢吗？</strong>"</div></div>
+                <div class="dl-line"><div class="dl-who w-zel">泽连斯基</div><div class="dl-text">"很多次。"</div></div>
+              </div>
+
+              <div class="sb-h">余波：三个世界的反应</div>
+              <div class="steps3">
+                <div class="step3">
+                  <div class="n">白宫</div>
+                  <div class="t">"让他走"</div>
+                  <div class="d">不签了。特朗普对核心圈说"我看他不想和平，让他走"；乌方想挽回被拒。特朗普事后评价："比《学徒》还好看。"</div>
+                </div>
+                <div class="step3">
+                  <div class="n">欧洲</div>
+                  <div class="t">"我们孤立无援"</div>
+                  <div class="d">欧洲大使们称这是"转折点"，对美信任崩塌；一位欧洲高官短信："结束了，我们孤立无援。"</div>
+                </div>
+                <div class="step3">
+                  <div class="n">莫斯科</div>
+                  <div class="t">"终于被扇了"</div>
+                  <div class="d">拉夫罗夫夸特朗普"常识"；梅德韦杰夫："无礼的猪终于被扇了。"俄方狂欢。</div>
+                </div>
+              </div>
+
+              <div class="extend-note">
+                <span class="en-label">📌 延展 ·</span> 这次冲突的根源不是"沟通失误"，而是结构性错位：泽连斯基要的是"安全保证"（防再入侵），特朗普要的是"回收援助"（$5000亿矿物协议、无安全承诺）。作者点明：在特朗普的新交易秩序里，"盟友"的价签是明码标价的——这也解释了为何欧洲盟友如此绝望。
+              </div>
+
+              <div class="sb-quote">
+                <div class="q-en">"It is over and we are alone."</div>
+                <div class="q-src">—— 一位欧洲高级官员的短信，第9章："结束了，我们孤立无援。"</div>
+              </div>
+
+              <div class="chip-row" style="padding:0">
+                <span class="chip-label">概念</span>
+                <span class="chip concept" data-key="transactional" style="border-color:var(--c-enemy);color:var(--c-enemy-dark)">交易式外交</span>
+              </div>
+              <div class="chip-row" style="padding:0">
+                <span class="chip-label">人物</span>
+                <span class="chip person"><a href="人物图谱.html">唐纳德·特朗普</a></span>
+                <span class="chip person"><a href="人物图谱.html">J·D·万斯</a></span>
+                <span class="chip person"><a href="人物图谱.html">马可·鲁比奥</a></span>
+                <span class="chip person"><a href="人物图谱.html">斯蒂芬·米勒</a></span>
+              </div>
+            </div>
+          </div>
+
+          <!-- ===== SUB 4: LIBERATION DAY ===== -->
+          <div class="sub-section" id="sub4">
+            <div class="sub-head" onclick="toggleSub(this)">
+              <div class="sub-num" style="background:var(--c-war)">04</div>
+              <div class="sub-main">
+                <div class="sub-title">解放日关税：一场"从心里写出来"的豪赌</div>
+                <div class="sub-sub">2025.1.31 — 4.6 · 第10、13章</div>
+              </div>
+              <div class="sub-time">2025.1—4</div>
+              <div class="sub-chev">▼</div>
+            </div>
+            <div class="sub-body">
+              <div class="sb-intro">
+                从1月31日的"第一枪"到4月2日的"解放日"，再到4月6日的90天暂停——这场全球贸易战在六周内把世界带到金融危机边缘，最终以特朗普"眨眼"收场。全程没有听证、没有专家咨询，公式是"从心里写出来的"。
+              </div>
+
+              <div class="sb-h">前奏：镀金时代的执念与第一枪</div>
+              <div class="sb-para">
+                特朗普的经济理想是"镀金时代"（1870-1913）的关税政策，精神偶像是麦金莱总统——"我是关税人，站在关税平台上"。他亲自动手给白宫壁炉贴金饰，管那些金瓮叫"现金"。1月31日，他借"芬太尼和非法移民"的紧急事由签署行政令：加拿大25%、墨西哥25%、中国加10%。现场即兴：会上发现漏了中国——"<strong>他们在哪？加个10%。</strong>"幕僚（米勒、鲁比奥、贝森特）劝缓，统统驳回。
+              </div>
+
+              <div class="sb-h">解放日（4.2）：史上最激进的关税</div>
+              <div class="sb-para">
+                对所有国家征收10%基准关税 + "对等"附加关税。计算公式（纳瓦罗草拟）：对某国贸易逆差 ÷ 进口总额 ÷ 2——特朗普在<strong>宣布前一夜才最终敲定</strong>。对比：1930年斯穆特-霍利关税历经18个月国会辩论、1000名经济学家警告仍酿成灾难；这次<strong>没有听证、没有专家、没有成本测算</strong>。
+              </div>
+              <div class="sb-para">
+                会上的荒诞一幕（3.26）：特朗普吼"娜塔莉，给我真实数字！"——助理<strong>娜塔莉·哈普当场谷歌</strong>；商务部长卢特尼克递上USTR数字被骂"都是狗屁"；众议长约翰逊被拉来当挡箭牌，死活不肯站特朗普身边宣布关税（"我不想显得是我的主意"）。卢特尼克警告"市场要崩了，你会成为崩盘的责任人"，特朗普："<strong>行，我担着。那又怎样？</strong>"
+              </div>
+
+              <div class="sb-h">崩盘：$2 万亿蒸发</div>
+              <div class="sb-para">
+                4月2日后，标普500单日蒸发超2万亿美元；道指两日跌近10%（"像心脏病患者的ECG"）；最可怕的是<strong>股债双杀</strong>——连国债都被抛售，投资者在逃离美国。贝森特求美联储主席鲍威尔发声救市，鲍威尔拒绝："想稳市场，总统自己改政策。"中国报复34%，特朗普威胁再加50%；马斯克发米尔顿·弗里德曼视频劝自由贸易；戴蒙警告衰退"很可能"；达里奥警告"一生一次"的体系崩溃。
+              </div>
+
+              <div class="sb-h">眨眼：4.6 的90天暂停</div>
+              <div class="sb-para">
+                4月6日空军一号上，贝森特苦劝："市场马上开盘……你得转向谈判，因为你在融化。"特朗普："短期的，斯科特，暂时的。"转头又骂卢特尼克"你以前是个杀手，现在你软了，你是懦夫"——卢特尼克几个月后回击："<strong>我是你每月250亿的懦夫。</strong>"
+              </div>
+              <div class="sb-para">
+                当晚特朗普宣布：暂停关税90天，<strong>中国除外，升至125%</strong>。市场当日暴涨近10%，团队忙着说"这本来就是计划"——特朗普却当众拆台："<strong>这是今早才想到的……我们从心里写出来的，没经过律师。</strong>"白宫内部被这次"自愿走到金融灾难边缘"吓坏了。
+              </div>
+
+              <div class="extend-note">
+                <span class="en-label">📌 延展 ·</span> 关税公式本身（逆差÷进口÷2）被经济学家普遍批评为"伪科学"——它不衡量关税对价格的传导、不区分商品类别，本质是把"逆差当罪证"。作者认为，关税对特朗普的真正意义既不是收入也不是谈判筹码，而是<strong>纯粹的权力展示</strong>——"拿来欺负与经济和国家安全无关的事情上的外国领导人"。
+              </div>
+
+              <div class="sb-quote">
+                <div class="q-en">"We wrote it up from our hearts, right?… It was written from the heart."</div>
+                <div class="q-src">—— 特朗普，第13章：解释90天暂停"是从心里写出来的，没经过律师"。</div>
+              </div>
+
+              <div class="chip-row" style="padding:0">
+                <span class="chip-label">概念</span>
+                <span class="chip concept" data-key="liberation" style="border-color:var(--c-war);color:var(--c-war-dark)">解放日</span>
+                <span class="chip concept" data-key="gilded" style="border-color:var(--c-war);color:var(--c-war-dark)">镀金时代执念</span>
+              </div>
+              <div class="chip-row" style="padding:0">
+                <span class="chip-label">人物</span>
+                <span class="chip person"><a href="人物图谱.html">唐纳德·特朗普</a></span>
+                <span class="chip person"><a href="人物图谱.html">霍华德·卢特尼克</a></span>
+                <span class="chip person"><a href="人物图谱.html">斯科特·贝森特</a></span>
+              </div>
+            </div>
+          </div>
+
         </div>
+        <!-- ============ /PART I DEEP DIVE ============ -->
 
         <div class="chip-row">
           <span class="chip-label">核心概念</span>
           <span class="chip concept" data-key="doge" style="border-color:var(--c-trump);color:var(--c-trump-dark)">DOGE</span>
           <span class="chip concept" data-key="performance" style="border-color:var(--c-trump);color:var(--c-trump-dark)">表演式治理</span>
           <span class="chip concept" data-key="conversion" style="border-color:var(--c-trump);color:var(--c-trump-dark)">皈依 vs 妥协</span>
+          <span class="chip concept" data-key="j6test" style="border-color:var(--c-trump);color:var(--c-trump-dark)">J6 试金石</span>
+          <span class="chip concept" data-key="liberation" style="border-color:var(--c-trump);color:var(--c-trump-dark)">解放日</span>
         </div>
         <div class="chip-row">
           <span class="chip-label">关键人物</span>
           <span class="chip person"><a href="人物图谱.html">唐纳德·特朗普</a></span>
-          <span class="chip person"><a href="人物图谱.html">苏西·怀尔斯</a></span>
           <span class="chip person"><a href="人物图谱.html">斯蒂芬·米勒</a></span>
+          <span class="chip person"><a href="人物图谱.html">苏西·怀尔斯</a></span>
+          <span class="chip person"><a href="人物图谱.html">马可·鲁比奥</a></span>
           <span class="chip person"><a href="人物图谱.html">埃隆·马斯克</a></span>
           <span class="chip person"><a href="人物图谱.html">J·D·万斯</a></span>
+          <span class="chip person"><a href="人物图谱.html">斯科特·贝森特</a></span>
           <span class="chip person"><a href="人物图谱.html">马克·扎克伯格</a></span>
           <span class="chip person"><a href="人物图谱.html">杰夫·贝佐斯</a></span>
         </div>
@@ -598,19 +1032,24 @@
 </div>
 
 <script>
+/* ===== SUB-SECTION TOGGLE ===== */
+function toggleSub(head) {
+  head.parentElement.classList.toggle('open');
+}
+
 /* ===== CONCEPT DICTIONARY ===== */
 const CONCEPTS = {
   doge: {
     name: '政府效率部门', en: 'DOGE (Department of Government Efficiency)',
     cat: '制度机制',
-    def: '新设的"政府效率部门"，由非内阁成员的马斯克领导，大规模削减联邦雇员与开支——绕过传统层级，直接向总统汇报。',
-    example: '书中例证：马斯克经常绕过幕僚长怀尔斯直接联系特朗普；对科技同行评价"一流跪舔"。'
+    def: '新设的"政府效率部门"，由非内阁成员的马斯克以"特殊政府雇员"身份领导，绕过传统层级直接向总统汇报，大规模削减联邦雇员与开支——曾实际控制财政部支付系统。',
+    example: '书中例证：马斯克团队夜半进入支付系统；"你上周干了什么"邮件风波；3.6内阁摊牌后权力被剪。'
   },
   performance: {
     name: '表演式治理', en: 'Performance Governance',
     cat: '政治概念',
     def: '政策的首要目标是"表演给观众看"而非"解决问题"——行动的符号意义大于实际效果，治理成为持续的政治剧场。',
-    example: '书中例证：ICE行动现场诺姆跳舞；"史诗怒火"战争代号；行政令签署仪式比执行更受重视。'
+    example: '书中例证：ICE行动现场诺姆跳舞；"史诗怒火"战争代号；耶稣画像拍卖；"比《学徒》还好看"。'
   },
   conversion: {
     name: '皈依 vs 妥协', en: 'Conversion vs Concession',
@@ -689,6 +1128,42 @@ const CONCEPTS = {
     cat: '标志性表达',
     def: '2021年1月6日国会山冲击事件，特朗普政治生涯的分水岭——建制派决裂之日，也是"受迫害"叙事的起点。',
     example: '书中例证：J6参与者成为核心选民符号；特朗普承诺赦免；科技巨头在朝贡晚宴上为"J6囚犯合唱团"起立。'
+  },
+  j6test: {
+    name: 'J6 试金石', en: 'The January 6 Litmus Test',
+    cat: '制度机制',
+    def: '第二任期人事选拔的新"政治审查"：职位面试必问"你怎么看1月6日""2020年谁赢了"，过渡团队甚至提前搜索候选人社交媒体——忠诚与否以J6立场为标尺。',
+    example: '书中例证：奥布莱恩因称赞彭斯被踢出；麦卡锡因"1%像米利"出局；而骂过J6的鲁比奥却当上国务卿——标准由特朗普一人裁定。'
+  },
+  fakeolc: {
+    name: '假 OLC', en: 'The "Fake OLC"',
+    cat: '制度机制',
+    def: '米勒信不过拜登政府留下的法律顾问办公室（OLC），组建一个MAGA律师核心圈来审核所有行政令草案——绕过官方法律审查，让激进政策得以快速出台。',
+    example: '书中例证：过渡期用Excel追踪100+条行政令，每条链接竞选承诺；"假OLC"取代真实法律审查。'
+  },
+  hotsheild: {
+    name: '热盾', en: 'Heat Shield',
+    cat: '政治概念',
+    def: '特朗普对马斯克的定位：让他吸收所有裁员骂声与负面报道，总统本人保持"高冷"。马斯克支持率暴跌，正好当挡箭牌。',
+    example: '书中例证：特朗普私下说马斯克的"融化中的支持率使他成为有用的热盾"；"他不能当总统，他在南非出生"。'
+  },
+  transactional: {
+    name: '交易式外交', en: 'Transactional Diplomacy',
+    cat: '外交军事',
+    def: '外交政策以"交易/回报"为唯一逻辑：援助要折算成资源协议，盟友关系明码标价，安全承诺与商业利益捆绑——缺乏长期战略与价值观维度。',
+    example: '书中例证：对乌克兰要"回收援助"（$5000亿矿物协议、零安全承诺）；对泽连斯基"你没钱了，你需要做一笔交易"。'
+  },
+  liberation: {
+    name: '解放日', en: 'Liberation Day (April 2, 2025)',
+    cat: '经济政策',
+    def: '2025年4月2日，特朗普以"国家紧急状态"对所有国家征收10%基准关税+"对等"附加关税——公式为"对某国逆差÷进口额÷2"（纳瓦罗草拟、宣布前夜才定）。',
+    example: '书中例证：标普单日蒸发$2万亿；道指两日跌近10%；股债双杀；4.6宣布暂停90天、中国升至125%。'
+  },
+  gilded: {
+    name: '镀金时代执念', en: 'The Gilded Age Fixation',
+    cat: '经济政策',
+    def: '特朗普的经济理想：以19世纪末"镀金时代"（1870-1913）关税政策为模板，精神偶像是麦金莱总统——"我是关税人，站在关税平台上"。',
+    example: '书中例证：他亲手给白宫壁炉贴金饰，管金瓮叫"现金"；关税公式未经听证、无专家咨询，被批"伪科学"。'
   }
 };
 
@@ -705,7 +1180,6 @@ function showConceptPop(key, anchorEl) {
   const ex = document.getElementById('cpExample');
   ex.innerHTML = '<div class="cp-example-label">书中例证</div>' + c.example;
 
-  // Position near the clicked chip
   const rect = anchorEl.getBoundingClientRect();
   const popW = 420, popH = pop.offsetHeight || 320;
   let x = rect.left + rect.width / 2 - popW / 2;

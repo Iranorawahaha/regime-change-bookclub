@@ -300,6 +300,190 @@
     .stage-head, .stage-lead, .events, .chip-row, .blockquote, .part1-deep { padding-left: 18px; padding-right: 18px; }
     .sub-time { display: none; }
   }
+
+  /* ============ PART I 贯穿线索 ============ */
+  .cycle-after {
+    margin: 0 30px 30px 78px;
+    padding: 24px 30px;
+    background: linear-gradient(180deg, #FAF7F0 0%, #F2EDE2 100%);
+    border: 1px solid #D5CDB8;
+    border-left: 4px solid #C4653A;
+    border-radius: 12px;
+    box-shadow: var(--shadow-md);
+    position: relative;
+  }
+  .cycle-after::before {
+    content: 'CYCLE';
+    position: absolute;
+    top: -10px; left: 24px;
+    font-size: 9px; font-weight: 800; letter-spacing: 0.18em;
+    color: #fff; background: #C4653A;
+    padding: 2px 10px; border-radius: 4px;
+  }
+  .cycle-head {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding-bottom: 14px;
+    border-bottom: 1px dashed #C8BEA6;
+    margin-bottom: 16px;
+  }
+  .cycle-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 36px;
+    font-weight: 900;
+    color: #C4653A;
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+  .cycle-title {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 22px;
+    font-weight: 800;
+    color: #2A1E13;
+    letter-spacing: -0.01em;
+    margin-bottom: 4px;
+  }
+  .cycle-sub {
+    font-size: 12px;
+    color: #7A6E58;
+    letter-spacing: 0.02em;
+  }
+  .cycle-lead {
+    font-size: 14px;
+    line-height: 1.75;
+    color: #3D3326;
+    margin-bottom: 18px;
+    padding: 12px 16px;
+    background: rgba(196,101,58,0.06);
+    border-radius: 8px;
+  }
+  .cycle-block {
+    margin-top: 16px;
+    padding: 16px 18px;
+    background: var(--surface-card);
+    border-radius: 10px;
+    border: 1px solid #E5DDC9;
+  }
+  .cycle-block-head {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding-bottom: 10px;
+    margin-bottom: 12px;
+    border-bottom: 1px solid #EDE6D2;
+  }
+  .cb-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 17px;
+    font-weight: 900;
+    color: #fff;
+    padding: 3px 10px;
+    border-radius: 4px;
+    letter-spacing: 0.02em;
+  }
+  .cb-title {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 15.5px;
+    font-weight: 800;
+    color: #2A1E13;
+  }
+  .cycle-block-body .cb-paragraph {
+    font-size: 13px;
+    line-height: 1.78;
+    color: #3D3326;
+    margin-bottom: 10px;
+  }
+  .cb-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 12px 0;
+    font-size: 12.5px;
+    background: var(--surface-base);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .cb-table th, .cb-table td {
+    padding: 10px 12px;
+    text-align: left;
+    border-bottom: 1px solid #E5DDC9;
+    vertical-align: top;
+    line-height: 1.6;
+  }
+  .cb-table th {
+    background: #2A1E13;
+    color: #EEDFC7;
+    font-weight: 700;
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .cb-table tbody tr:last-child td { border-bottom: none; }
+  .cb-table tbody tr:hover { background: rgba(196,101,58,0.04); }
+  .cb-table td:first-child {
+    font-weight: 800;
+    color: #C4653A;
+    width: 80px;
+    text-align: center;
+  }
+  .cb-duel {
+    margin: 10px 0;
+    padding: 12px 14px;
+    background: var(--surface-base);
+    border-radius: 8px;
+    border-left: 3px solid #C4653A;
+  }
+  .duel-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 6px;
+    flex-wrap: wrap;
+  }
+  .duel-tag {
+    font-family: 'Playfair Display', serif;
+    font-size: 11px;
+    font-weight: 800;
+    color: #C4653A;
+    background: rgba(196,101,58,0.12);
+    padding: 3px 8px;
+    border-radius: 4px;
+    letter-spacing: 0.04em;
+  }
+  .duel-side {
+    font-size: 13px;
+    font-weight: 700;
+    color: #2A1E13;
+  }
+  .duel-vs {
+    font-family: 'Playfair Display', serif;
+    font-size: 14px;
+    font-weight: 900;
+    color: #C4653A;
+    font-style: italic;
+  }
+  .duel-desc {
+    font-size: 12.5px;
+    line-height: 1.7;
+    color: #5C534A;
+    margin: 0;
+    padding-left: 8px;
+  }
+  .cb-tags {
+    margin-top: 12px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .cycle-foot {
+    margin-top: 16px;
+    padding-top: 14px;
+    border-top: 1px dashed #C8BEA6;
+    font-size: 12px;
+    color: #7A6E58;
+    text-align: center;
+    letter-spacing: 0.02em;
+  }
 </style>
 </head>
 <body>
@@ -346,39 +530,73 @@
         <div class="stage-head">
           <div class="shh-main">
             <div class="shh-part">Prologue · 序言</div>
-            <div class="shh-title">败选之夜：海湖庄园</div>
-            <div class="shh-title-en">Mar-a-Lago, November 2020</div>
-            <div class="shh-chapters">开篇场景 · 全书叙事的原点</div>
+            <div class="shh-title">新年夜：海湖庄园大宴会厅</div>
+            <div class="shh-title-en">Mar-a-Lago, New Year's Eve 2026</div>
+            <div class="shh-chapters">开篇场景 · 全书叙事的倒叙终点</div>
           </div>
-          <div class="shh-time" style="background:#EFECE6;color:#5C534A">2020.11</div>
+          <div class="shh-time" style="background:#EFECE6;color:#5C534A">2026.1.1</div>
         </div>
 
         <div class="stage-lead">
-          全书以一个极具画面感的场景开场：2020年选举夜，海湖庄园的派对从狂欢走向死寂。特朗普拒绝接受失败，"被窃取的选举"叙事从此诞生——这个叙事构成了他此后一切政治行为的心理原点。
+          全书以一个极具画面感的场景开场：2026 年新年夜，海湖庄园的<strong>唐纳德·J·特朗普大宴会厅</strong>（Donald J. Trump Grand Ballroom）金碧辉煌——皮草、黑地毯、烛光、弦乐四重奏，一众 MAGA 名流齐聚，迎接"世界和平"的新年愿望。<strong>48 小时后</strong>，美国将抓捕委内瑞拉独裁者马杜罗；<strong>几周后</strong>，明尼苏达联邦特工将射杀两名美国人；<strong>不到两个月</strong>，特朗普将把美国带入中东战争。三大伏笔，由此埋下。
         </div>
 
         <div class="events">
           <div class="event">
-            <div class="ev-date">2020.11.3 夜</div>
-            <div class="ev-title">选举夜从狂欢到死寂</div>
-            <div class="ev-desc">支持者聚集在海湖庄园等待胜利，随着计票推进，气氛逐渐冷却。特朗普在镜头前宣称"我们实际上赢了"，拒绝承认败选。</div>
+            <div class="ev-date">2026.1.1 · 0:01</div>
+            <div class="ev-title">入场："独行侠"主题曲响起</div>
+            <div class="ev-desc">佛州棕榈滩罕见冷锋降至华氏 40 多度，貂皮大衣成群。当特朗普携梅拉尼娅（银色亮片长裙）步入宴会厅，音乐从《星条旗永不落》和《天佑美国》切换为罗西尼的<strong>《威廉·退尔序曲》</strong>——1950 年代电视剧《独行侠》主题曲。特朗普心情极好，<em>"第一年展示了罗斯福以来最赤裸的行政权力展示。"</em></div>
           </div>
           <div class="event">
-            <div class="ev-date">2020.11—2021.1</div>
-            <div class="ev-title">"被窃取的选举"叙事成型</div>
-            <div class="ev-desc">团队推动"选举欺诈"指控，法律挑战接连失败，但叙事已深深植入支持者心中——为2021年1月6日国会山事件埋下伏笔。</div>
+            <div class="ev-date">2026.1.1 · 宴会厅</div>
+            <div class="ev-title">群像：MAGA 核心圈的新年夜</div>
+            <div class="ev-desc">
+              • <strong>Marco Rubio</strong>（国务卿 + 国安顾问 双职）：对着手机唱 Pitbull 的《Fireball》，在椅子上跳起舞来<br>
+              • <strong>Stephen Miller</strong>（瘦燕尾服）：跟着 Vanilla Ice 嘴动《Ice Ice Baby》，看起来"僵硬而隐约痛苦"<br>
+              • <strong>Kristi Noem</strong>（国土安全部长）：跳得全情投入，被网友称为<strong>"ICE Barbie"</strong>，两个月后被解雇<br>
+              • <strong>Susie Wiles</strong>（幕僚长）：300 英里外 Ponte Vedra Beach 的家中，新装 SCIF 监控行动<br>
+              • <strong>Todd Blanche</strong>：私人律师转副总检察长——特朗普个人利益与联邦执法机器融合的象征<br>
+              • <strong>Benjamin Netanyahu + Sara</strong>：两天前曾私下游说特朗普更大规模的中东军事干预<br>
+              • 嘉宾：Eric & Lara Trump、Dan Scavino、Jeanine Pirro（华盛顿特区联邦检察官）、Rudy Giuliani（白色晚礼服，"前时代的幽灵"）
+            </div>
+          </div>
+          <div class="event">
+            <div class="ev-date">2026.1.1 · 晚</div>
+            <div class="ev-title">暗流：马杜罗行动 48 小时倒计时</div>
+            <div class="ev-desc">喧闹之下，Trump 与 Rubio 密谋数周、堪称<strong>"一代人最大胆的美军行动之一"</strong>正在逼近——抓捕委内瑞拉独裁者 Nicolás Maduro。因天气和 Maduro 的夜生活习惯，行动已被迫推迟数次。</div>
+          </div>
+          <div class="event">
+            <div class="ev-date">2026.1.1 · 高潮</div>
+            <div class="ev-title">耶稣画像拍卖：275 万美元</div>
+            <div class="ev-desc">"speed painter" 现场作画，音乐切换为 Leonard Cohen 的《Hallelujah》。起拍价 <strong>$100,000</strong>，Trump 当起拍卖师："这些人有的是现金——Hussain？"（点名阿联酋亿万富翁 Hussain Sajwani，出价 $550,000）。Trump 宣布要在画上签名 → 价值飙升 → 最终<strong>$2.75 million</strong>成交（一对戴高顶礼帽的全黑着装夫妇）。一半捐 St. Jude Children's Research Hospital，一半给当地治安官办公室。Trump 指获胜者丈夫："Get this guy's number!"</div>
+          </div>
+          <div class="event">
+            <div class="ev-date">2026.1.1 · 突然转折</div>
+            <div class="ev-title">明尼苏达 $180 亿插曲</div>
+            <div class="ev-desc">演讲中 Trump 突然插入："能想象吗？索马里移民盗走<strong>$180 亿</strong>。那才是我们正在了解的事。"——话音刚落便想起场合：<em>"除此之外，我们要过好年了。"</em>几周后，这个数字将升级为全国丑闻（详见第二部分）。</div>
           </div>
         </div>
 
         <div class="blockquote">
-          <div class="bq-en">"I alone can fix it."</div>
-          <div class="bq-zh">"只有我能解决它。"——特朗普最核心的自我定位，也解释了为什么他无法接受失败：在他的世界里，失败意味着"被系统背叛"。</div>
-          <div class="bq-src">—— 书中反复引用的特朗普标志性话语（贯穿全书）</div>
+          <div class="bq-en">"Peace on earth."</div>
+          <div class="bq-zh">"愿世界和平。"——特朗普对新年愿望的回答，<strong>说这话的 48 小时后，他下令抓捕一个主权国家的领导人；不到两个月，他将对中东宣战</strong>。这是全书最大的反讽，也是理解"特朗普悖论"的最佳入口。</div>
+          <div class="bq-src">—— 2026 新年夜回答记者提问时（"愿世界和平"，New Year's resolution）</div>
         </div>
 
         <div class="chip-row">
           <span class="chip-label">人物</span>
           <span class="chip person"><a href="人物图谱.html">唐纳德·特朗普</a></span>
+          <span class="chip person"><a href="人物图谱.html">马可·鲁比奥</a></span>
+          <span class="chip person"><a href="人物图谱.html">斯蒂芬·米勒</a></span>
+          <span class="chip person"><a href="人物图谱.html">苏西·怀尔斯</a></span>
+          <span class="chip person"><a href="人物图谱.html">克里斯蒂·诺姆</a></span>
+          <span class="chip person"><a href="人物图谱.html">本雅明·内塔尼亚胡</a></span>
+        </div>
+        <div class="chip-row">
+          <span class="chip-label">概念</span>
+          <span class="chip concept" data-key="paradox">特朗普悖论</span>
+          <span class="chip concept" data-key="imperial">帝国主义总统制</span>
+          <span class="chip concept" data-key="performance">表演式治理</span>
         </div>
       </div>
     </div>
@@ -803,6 +1021,120 @@
           <span class="chip person"><a href="人物图谱.html">马克·扎克伯格</a></span>
           <span class="chip person"><a href="人物图谱.html">杰夫·贝佐斯</a></span>
         </div>
+      </div>
+    </div>
+
+    <!-- ================= PART I 贯穿线索 ================= -->
+    <div class="cycle-after fade-up d-3" id="cycle-after">
+      <div class="cycle-head">
+        <div class="cycle-num">十五</div>
+        <div class="cycle-main">
+          <div class="cycle-title">贯穿 Part I 的关键线索</div>
+          <div class="cycle-sub">三个理解"旋风"的钥匙 · 把 13 章压缩成 3 条主线</div>
+        </div>
+      </div>
+
+      <div class="cycle-lead">
+        第一部分有 13 章、约 200 个具体场景，看似纷繁，但读完会发现<strong>三条线索贯穿始终</strong>：选人标准看忠诚、权力向外扩张、内部同时撕裂。抓住这三条，全书骨架一目了然。
+      </div>
+
+      <!-- ===== 15.1 忠诚试金石 ===== -->
+      <div class="cycle-block">
+        <div class="cycle-block-head">
+          <div class="cb-num" style="background:var(--c-trump)">15.1</div>
+          <div class="cb-title">忠诚的"试金石"：J6 作为政治身份证</div>
+        </div>
+        <div class="cycle-block-body">
+          <p class="cb-paragraph">内阁选拔必问<strong>"你怎么看 1 月 6 日"</strong>——这不是闲聊，是政治忠诚度测试。奥布莱恩在任内公开称颂彭斯坚守 J6 当晚，被踢出候选人名单；前众议院议长麦卡锡因一句<em>"只有 1% 的人认为特朗普像米利将军那样称职"</em>，同样出局。</p>
+          <p class="cb-paragraph">但<strong>忠诚也有例外</strong>：鲁比奥 2016 年骂过 J6 暴徒、称其为"暴民"，却照样当上国务卿——因为 Trump 赦免了一切，赦免令本身重写了政治身份证：<em>"特朗普自己的解释，才是最终裁决。"</em></p>
+          <p class="cb-paragraph">J6 不仅是一个政治事件，更是一个<strong>筛选器</strong>。筛选结果：奥布莱恩出局 → <strong>鲁比奥入局</strong>。此外，J6 全面赦免约 1,500 人后，Trump 还计划在白宫<strong>"招待"这些"人质"</strong>——把司法变成恩典，把恩典变成权力货币。</p>
+          <div class="cb-tags">
+            <span class="chip concept" data-key="j6test">J6 试金石</span>
+            <span class="chip concept" data-key="performance">表演式治理</span>
+            <span class="chip concept" data-key="paradox">特朗普悖论</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== 15.2 权力三重扩张 ===== -->
+      <div class="cycle-block">
+        <div class="cycle-block-head">
+          <div class="cb-num" style="background:var(--c-loyal)">15.2</div>
+          <div class="cb-title">权力的三重扩张：法律 / 经济 / 主权边界</div>
+        </div>
+        <div class="cycle-block-body">
+          <p class="cb-paragraph">第一部分的时间跨度只有<strong>五个月</strong>（2024.11—2025.4），但权力已在三个维度同时扩张：</p>
+          <table class="cb-table">
+            <thead>
+              <tr><th>维度</th><th>第一年的具体表现</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>法律</strong></td>
+                <td>140+ 行政令连发；<span class="chip concept" data-key="fakeolc" style="cursor:pointer">"紧急状态"被重新定义</span>、米勒主导的"假 OLC"；Trump 援引 <em>"我是免疫的"</em>（最高法院 2024 年豁免权裁决）作为行事护身符。</td>
+              </tr>
+              <tr>
+                <td><strong>经济</strong></td>
+                <td><span class="chip concept" data-key="liberation" style="cursor:pointer">解放日全球 10%+ 对等关税</span>；<strong>$5,000 亿</strong>矿物协议（乌方已签、Trump 自称"将军"）；<span class="chip concept" data-key="gilded" style="cursor:pointer">镀金时代叙事</span>——白宫装修狂魔、奢华外交。</td>
+              </tr>
+              <tr>
+                <td><strong>主权 / 边界</strong></td>
+                <td><strong>萨尔瓦多</strong>CECOT 监狱交易（把第三国变成美国监狱的延伸）；<strong>委内瑞拉</strong>"第 51 州"言论（抓 Maduro 已箭在弦上）；<strong>接管加沙</strong>宣言（"美国拥有它"）。</td>
+              </tr>
+            </tbody>
+          </table>
+          <p class="cb-paragraph">这三条并非平行——它们<strong>互相加固</strong>：法律扩权 → 关税制裁他国 → 主权延伸到第三国领土。短短五个月，第二任期已不再是"少总统"，而是一个<strong>把宪法边界不断推后的"行动机器"</strong>。</p>
+        </div>
+      </div>
+
+      <!-- ===== 15.3 内斗三大主线 ===== -->
+      <div class="cycle-block">
+        <div class="cycle-block-head">
+          <div class="cb-num" style="background:var(--c-enemy)">15.3</div>
+          <div class="cb-title">内斗的三大主线：激进 vs 稳健、电锯 vs 手术刀、华尔街 vs 街头</div>
+        </div>
+        <div class="cycle-block-body">
+          <p class="cb-paragraph">权力场不是铁板一块。Part I 表面上看是 Trump 一人横扫一切，实际有<strong>三场权力内斗</strong>贯穿全书：</p>
+          <div class="cb-duel">
+            <div class="duel-row">
+              <div class="duel-tag">主线一</div>
+              <div class="duel-side"><strong>米勒</strong>（激进派 / 政策大脑）</div>
+              <div class="duel-vs">vs</div>
+              <div class="duel-side"><strong>怀尔斯</strong>（稳健派 / 幕僚长）</div>
+            </div>
+            <p class="duel-desc">米勒推动激进政策（大规模驱逐、行政令连发），怀尔斯试图<strong>"踩刹车"</strong>。但"刹车片"正在磨损——Trump 几乎总是站在米勒一边。</p>
+          </div>
+          <div class="cb-duel">
+            <div class="duel-row">
+              <div class="duel-tag">主线二</div>
+              <div class="duel-side"><strong>马斯克</strong>（DOGE / 电锯派）</div>
+              <div class="duel-vs">vs</div>
+              <div class="duel-side"><strong>内阁</strong>（财政 / 外交 / 国防）</div>
+            </div>
+            <p class="duel-desc">马斯克的"电锯改革"冲击财政部、外交、军方。<strong>3.6 内阁摊牌</strong>、<strong>贝森特"肉搏"</strong>（关税邮件风波）是高潮。结局：Trump 选择<em>"手术刀 vs 斧头"</em>——马斯克被剪掉翅膀、退场。</p>
+          </div>
+          <div class="cb-duel">
+            <div class="duel-row">
+              <div class="duel-tag">主线三</div>
+              <div class="duel-side"><strong>卢特尼克</strong>（商务部长 / 商人直觉）</div>
+              <div class="duel-vs">vs</div>
+              <div class="duel-side"><strong>贝森特</strong>（财长 / 华尔街老手）</div>
+            </div>
+            <p class="duel-desc">$5,000 亿乌方<strong>矿物协议之争</strong>、<strong>解放日关税劝谏</strong>——卢特尼克凭直觉和"Trump 思维"，贝森特凭 30 年华尔街经验。贝森特最终胜出，但代价是<em>"释放日"</em>的短暂崩盘。</p>
+          </div>
+          <p class="cb-paragraph"><strong>理解这三场斗争，比记住任何单章故事更重要</strong>——它们决定了 Part I 的速度、Part II 的方向、Part IV 的边界。</p>
+          <div class="cb-tags">
+            <span class="chip person"><a href="人物图谱.html">斯蒂芬·米勒</a></span>
+            <span class="chip person"><a href="人物图谱.html">苏西·怀尔斯</a></span>
+            <span class="chip person"><a href="人物图谱.html">埃隆·马斯克</a></span>
+            <span class="chip person"><a href="人物图谱.html">斯科特·贝森特</a></span>
+            <span class="chip person"><a href="人物图谱.html">霍华德·卢特尼克</a></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="cycle-foot">
+        <em>📌 这三条线索将在 Part II—IV 中继续延伸、变形、加剧——它们不是孤立现象，而是 Trump 时代"美国第二次建国"工程的三大支柱。</em>
       </div>
     </div>
 

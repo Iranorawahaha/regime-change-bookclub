@@ -228,6 +228,42 @@
   }
   .pp-goto:hover { color: var(--c-loyal-dark); border-color: var(--c-loyal-dark); }
 
+  /* ===== FOLD-BLOCK (可折叠展开) ===== */
+  .fold-block {
+    margin: 14px 0 18px;
+    border: 1px solid var(--border-light);
+    border-radius: 12px;
+    background: var(--surface-card);
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+  }
+  .fold-head {
+    display: flex; align-items: center; gap: 12px;
+    padding: 14px 18px;
+    cursor: pointer;
+    background: linear-gradient(90deg, rgba(196,101,58,0.08) 0%, rgba(196,101,58,0.03) 70%, transparent 100%);
+    border-left: 4px solid var(--c-trump);
+    transition: all .25s var(--ease-out-quart);
+  }
+  .fold-head:hover { background: linear-gradient(90deg, rgba(196,101,58,0.14) 0%, rgba(196,101,58,0.06) 70%, transparent 100%); }
+  .fold-num {
+    font-family: var(--font-serif);
+    font-size: 20px; font-weight: 900;
+    color: #fff;
+    background: var(--c-trump);
+    width: 34px; height: 34px; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    box-shadow: 0 2px 4px rgba(196,101,58,0.3);
+  }
+  .fold-title { font-size: 17px; font-weight: 800; color: var(--text-primary); letter-spacing: -0.005em; }
+  .fold-hint { font-size: 12px; color: var(--text-tertiary); flex: 1; }
+  .fold-chev { font-size: 14px; color: var(--c-trump); transition: transform .3s var(--ease-out-expo); flex-shrink: 0; }
+  .fold-block.open .fold-chev { transform: rotate(180deg); }
+  .fold-body { display: none; padding: 14px 18px 18px; }
+  .fold-block.open .fold-body { display: block; animation: fadeUp .35s var(--ease-out-expo); }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+
   /* ===== PART I DEEP-DIVE (sub-sections) ===== */
   .part1-deep { padding: 0 26px 10px; }
   .sub-section { margin: 18px 0; border: 1px solid var(--border-light); border-radius: 14px; overflow: hidden; background: var(--surface-base); }
@@ -826,7 +862,7 @@
               <div class="person-grid">
                 <div class="person-card">
                   <div class="pc-head">
-                    <div class="pc-avatar" style="background:var(--c-loyal)">🧠</div>
+                    <div class="pc-avatar" style="background:var(--c-loyal)"><img src="assets/people/miller.jpg" alt="米勒"></div>
                     <div>
                       <div class="pc-name">斯蒂芬·米勒</div>
                       <div class="pc-role">副幕僚长（政策）+ 国土安全顾问 · "政策大脑 / 复仇记账本"</div>
@@ -841,7 +877,7 @@
                 </div>
                 <div class="person-card">
                   <div class="pc-head">
-                    <div class="pc-avatar" style="background:var(--c-cab)">🧊</div>
+                    <div class="pc-avatar" style="background:var(--c-cab)"><img src="assets/people/wiles.jpg" alt="怀尔斯"></div>
                     <div>
                       <div class="pc-name">苏西·怀尔斯</div>
                       <div class="pc-role">白宫幕僚长 · 首位女性 · "冰女"</div>
@@ -872,6 +908,14 @@
               </div>
 
               <div class="sb-h">本届内阁组成图（2025-2026）</div>
+              <div class="fold-block" id="fold-cabinet">
+                <div class="fold-head" onclick="toggleFold(this)">
+                  <span class="fold-num">①</span>
+                  <span class="fold-title">本届内阁组成图</span>
+                  <span class="fold-hint">点击展开 · 22位核心成员 + 官方肖像 + 派别</span>
+                  <span class="fold-chev">▼</span>
+                </div>
+                <div class="fold-body">
               <div class="sb-para" style="margin-bottom:10px">
                 2024年11月7日至12月4日，特朗普在不到一个月内宣布全部 22 个需参议院确认的内阁及内阁级职位人选。本届内阁的用人底色：<strong>忠诚优先于专业</strong>——"先过滤、再招人"，保守派智库提前准备了数千名经过意识形态审查的候选人名单。下图为核心成员（照片来自白宫官网官方肖像，其余以图标示意）。
               </div>
@@ -1004,7 +1048,7 @@
                     <span class="cm-faction faction-other">建制派</span>
                   </div>
                   <div class="cab-member">
-                    <div class="cm-photo">🗡️</div>
+                    <div class="cm-photo"><img src="assets/people/gabbard.jpg" alt="加巴德"></div>
                     <div class="cm-name">加巴德</div>
                     <div class="cm-post">国家情报总监 · 52-48</div>
                     <span class="cm-faction faction-loyal">忠诚圈</span>
@@ -1018,8 +1062,18 @@
                   <span class="lg-item" style="margin-left:auto">📷 照片：白宫官网官方肖像</span>
                 </div>
               </div>
+                </div><!-- fold-body -->
+              </div><!-- fold-block -->
 
               <div class="sb-h">两任期内阁对比：从"成人房间"到"忠诚内阁"</div>
+              <div class="fold-block" id="fold-compare">
+                <div class="fold-head" onclick="toggleFold(this)">
+                  <span class="fold-num">②</span>
+                  <span class="fold-title">两任期内阁对比</span>
+                  <span class="fold-hint">点击展开 · 用人逻辑 / 构成 / 票数 / 稳定性 / 关系 五维度</span>
+                  <span class="fold-chev">▼</span>
+                </div>
+                <div class="fold-body">
               <table class="cmp-table">
                 <thead>
                   <tr><th style="width:70px">维度</th><th>第一任期（2017-2021）</th><th>第二任期（2025-）</th></tr>
@@ -1055,6 +1109,8 @@
               <div class="extend-note" style="margin-top:10px">
                 <span class="en-label">📌 延展：</span>第二任期的"忠诚优先"并非凭空出现——2020 年败选后，特朗普和团队花了四年梳理"谁是叛徒、谁可信任"，并把最高法院豁免权、四起起诉转化为政治资产。组阁逻辑的变化，是"特朗普悖论"在人事领域的直接体现。
               </div>
+                </div><!-- fold-body -->
+              </div><!-- fold-block -->
 
               <div class="sb-quote">
                 <div class="q-en">"Even if he's one percent Milley, we can't have that."</div>
@@ -1790,6 +1846,11 @@
 <script>
 /* ===== SUB-SECTION TOGGLE ===== */
 function toggleSub(head) {
+  head.parentElement.classList.toggle('open');
+}
+
+/* ===== FOLD-BLOCK TOGGLE (轻量折叠) ===== */
+function toggleFold(head) {
   head.parentElement.classList.toggle('open');
 }
 

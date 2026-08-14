@@ -124,6 +124,7 @@
   .chip.person { background: var(--surface-card); }
   .chip:hover { transform: translateY(-1px); box-shadow: var(--shadow-sm); }
   .chip.concept:hover { filter: brightness(.94); box-shadow: var(--shadow-md); }
+  .chip.person:hover { filter: brightness(.94); box-shadow: var(--shadow-md); border-color: var(--c-loyal); }
   .chip.person a { text-decoration: none; color: inherit; }
   .chip.person a:hover { text-decoration: underline; }
 
@@ -173,6 +174,59 @@
   }
   .concept-popover[data-pos="below"] .cp-arrow { top: -8px; left: 50%; margin-left: -7px; transform: rotate(45deg); }
   .concept-popover[data-pos="above"] .cp-arrow { bottom: -8px; left: 50%; margin-left: -7px; transform: rotate(225deg); }
+
+  /* ===== PERSON POPOVER ===== */
+  .person-popover {
+    position: fixed; z-index: 1200;
+    width: min(440px, calc(100vw - 40px));
+    max-height: 72vh; overflow-y: auto;
+    background: var(--surface-card);
+    border: 1px solid var(--border-mid);
+    border-radius: 16px;
+    box-shadow: 0 20px 60px rgba(26,22,18,.24);
+    padding: 22px 24px 18px;
+    display: none;
+    animation: popIn .3s var(--ease-out-expo);
+  }
+  .person-popover.show { display: block; }
+  .pp-head { display: flex; align-items: flex-start; gap: 14px; }
+  .pp-avatar {
+    width: 52px; height: 52px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 900;
+    color: #fff; flex-shrink: 0;
+    box-shadow: inset 0 -2px 6px rgba(0,0,0,.15);
+  }
+  .pp-namebox { flex: 1; }
+  .pp-name { font-family: var(--font-serif); font-size: 18px; font-weight: 900; color: var(--text-primary); line-height: 1.25; }
+  .pp-en { font-size: 11px; color: var(--text-tertiary); font-style: italic; margin-top: 2px; }
+  .pp-role {
+    display: inline-block; margin-top: 7px;
+    font-size: 10.5px; font-weight: 700;
+    padding: 3px 10px; border-radius: 12px;
+    background: var(--surface-base); border: 1px solid var(--border-light);
+    color: var(--text-secondary);
+  }
+  .pp-rule { width: 100%; height: 1px; background: var(--border-light); margin: 14px 0; }
+  .pp-section-label { font-size: 8.5px; font-weight: 700; letter-spacing: .1em; color: var(--text-tertiary); text-transform: uppercase; margin-bottom: 5px; }
+  .pp-summary { font-size: 12.5px; color: var(--text-primary); line-height: 1.78; }
+  .pp-actions { margin-top: 12px; }
+  .pp-actions ul { margin: 6px 0 0; padding-left: 18px; }
+  .pp-actions li { font-size: 11.5px; color: var(--text-secondary); line-height: 1.7; }
+  .pp-relation {
+    margin-top: 13px; padding: 10px 14px;
+    background: var(--surface-base);
+    border-left: 3px solid var(--c-loyal);
+    border-radius: 0 9px 9px 0;
+    font-size: 11px; color: var(--text-secondary); line-height: 1.65;
+  }
+  .pp-relation-label { font-size: 8.5px; font-weight: 700; letter-spacing: .1em; color: var(--text-tertiary); text-transform: uppercase; margin-bottom: 4px; }
+  .pp-goto {
+    display: inline-block; margin-top: 13px;
+    font-size: 10.5px; font-weight: 700; color: var(--c-loyal);
+    text-decoration: none; border-bottom: 1px dashed var(--c-loyal);
+  }
+  .pp-goto:hover { color: var(--c-loyal-dark); border-color: var(--c-loyal-dark); }
 
   /* ===== PART I DEEP-DIVE (sub-sections) ===== */
   .part1-deep { padding: 0 26px 10px; }
@@ -248,10 +302,58 @@
   .person-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
   .pc-head { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
   .pc-avatar { width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-family: var(--font-serif); font-size: 15px; font-weight: 900; color: #fff; flex-shrink: 0; }
+  .pc-avatar img { width: 100%; height: 100%; object-fit: cover; border-radius: 10px; }
   .pc-name { font-size: 13px; font-weight: 800; color: var(--text-primary); line-height: 1.25; }
   .pc-role { font-size: 9.5px; color: var(--text-tertiary); margin-top: 1px; }
   .pc-bio { font-size: 10.5px; line-height: 1.65; color: var(--text-secondary); }
   .pc-quote { margin-top: 8px; padding: 8px 10px; background: var(--surface-base); border-left: 2.5px solid; border-radius: 0 8px 8px 0; font-size: 9.8px; font-style: italic; color: var(--text-secondary); line-height: 1.55; }
+
+  /* ===== CABINET MAP ===== */
+  .cabinet-map { margin-top: 8px; }
+  .cabinet-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(118px, 1fr));
+    gap: 10px;
+  }
+  .cab-member {
+    background: var(--surface-card);
+    border: 1px solid var(--border-light);
+    border-radius: 12px;
+    padding: 12px 10px 10px;
+    text-align: center;
+    transition: all .25s var(--ease-out-quart);
+  }
+  .cab-member:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); border-color: var(--c-loyal); }
+  .cm-photo {
+    width: 64px; height: 64px; border-radius: 50%;
+    margin: 0 auto 8px;
+    overflow: hidden;
+    background: var(--surface-base);
+    border: 2px solid var(--border-light);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 26px;
+  }
+  .cm-photo img { width: 100%; height: 100%; object-fit: cover; }
+  .cm-name { font-size: 11px; font-weight: 800; color: var(--text-primary); line-height: 1.3; }
+  .cm-post { font-size: 8.8px; color: var(--text-tertiary); margin-top: 2px; line-height: 1.35; }
+  .cm-faction {
+    display: inline-block; margin-top: 6px;
+    font-size: 8.2px; font-weight: 700;
+    padding: 2px 8px; border-radius: 10px;
+  }
+  .faction-loyal { background: rgba(74,66,144,.12); color: #4A4290; }
+  .faction-maga { background: rgba(196,101,58,.12); color: #C4653A; }
+  .faction-tech { background: rgba(27,96,136,.12); color: #1B6088; }
+  .faction-other { background: rgba(90,83,74,.10); color: #5C534A; }
+  .cabinet-legend { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px; font-size: 9.5px; color: var(--text-secondary); }
+  .cabinet-legend .lg-item { display: flex; align-items: center; gap: 4px; }
+
+  /* two-term comparison table */
+  .cmp-table { width: 100%; border-collapse: collapse; margin-top: 8px; font-size: 10.5px; background: var(--surface-base); border-radius: 10px; overflow: hidden; }
+  .cmp-table th, .cmp-table td { padding: 9px 11px; text-align: left; border-bottom: 1px solid var(--border-light); vertical-align: top; line-height: 1.6; }
+  .cmp-table th { background: #2A1E13; color: #EEDFC7; font-weight: 700; font-size: 10px; letter-spacing: .05em; }
+  .cmp-table tbody tr:last-child td { border-bottom: none; }
+  .cmp-table .col-term { font-weight: 800; white-space: nowrap; }
 
   /* 3-step mini pipeline */
   .steps3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px; margin-top: 4px; }
@@ -567,12 +669,12 @@
 
         <div class="chip-row">
           <span class="chip-label">人物</span>
-          <span class="chip person"><a href="人物图谱.html">唐纳德·特朗普</a></span>
-          <span class="chip person"><a href="人物图谱.html">马可·鲁比奥</a></span>
-          <span class="chip person"><a href="人物图谱.html">斯蒂芬·米勒</a></span>
-          <span class="chip person"><a href="人物图谱.html">苏西·怀尔斯</a></span>
-          <span class="chip person"><a href="人物图谱.html">克里斯蒂·诺姆</a></span>
-          <span class="chip person"><a href="人物图谱.html">本雅明·内塔尼亚胡</a></span>
+          <span class="chip person" data-key="trump" style="cursor:pointer">唐纳德·特朗普</span>
+          <span class="chip person" data-key="rubio" style="cursor:pointer">马可·鲁比奥</span>
+          <span class="chip person" data-key="miller" style="cursor:pointer">斯蒂芬·米勒</span>
+          <span class="chip person" data-key="wiles" style="cursor:pointer">苏西·怀尔斯</span>
+          <span class="chip person" data-key="noem" style="cursor:pointer">克里斯蒂·诺姆</span>
+          <span class="chip person" data-key="netanyahu" style="cursor:pointer">本雅明·内塔尼亚胡</span>
         </div>
         <div class="chip-row">
           <span class="chip-label">概念</span>
@@ -658,16 +760,19 @@
                 最极端的例子：副国防部长候选人麦卡锡，只因赫格塞斯顺口说"有人觉得他是米利的人"（米利=卸任参联会主席、公开说特朗普危害共和国），即告出局。特朗普："<strong>哪怕他有1%像米利，我们也不能要。</strong>"
               </div>
 
-              <div class="sb-h">司法部"私有化"</div>
+              <div class="sb-h">司法部"私有化"：DOJ 成为总统的私人律所</div>
               <div class="sb-para">
-                特朗普相信第一任期被司法部长塞申斯（回避通俄调查）和巴尔（拒绝配合"选举被窃取"阴谋）"破坏"过。这次他先以"一时兴起"提名加茨——明知加茨深陷性行为不端调查，把这当作"测试自己能做到哪一步"（他告诉幕僚加茨只有30%成功率），八天丑闻后加茨退出。最终司法部长邦迪、副司法部长布兰奇（特朗普私人律师）——<strong>"把DOJ领导层变成他的私人律所"</strong>。
+                <strong>DOJ 是什么？</strong> DOJ（Department of Justice，美国司法部）是联邦政府最高执法与检察机构，负责联邦刑事起诉、民权执法、反垄断、情报法律监督等，下属 FBI、缉毒局、烟酒枪炮管理局等。其独立性被视为美国法治的基石——司法部长理论上应对总统"说不"。
+              </div>
+              <div class="sb-para">
+                特朗普相信第一任期被两任司法部长"破坏"过：<strong>塞申斯</strong>（回避通俄调查，被骂两年后解雇）和<strong>巴尔</strong>（拒绝配合"选举被窃取"阴谋）。这次他先以"一时兴起"提名<strong>加茨</strong>——明知加茨深陷性行为不端调查，把这当作"测试自己能做到哪一步"（他告诉幕僚加茨只有30%成功率），八天丑闻后加茨退出。最终司法部长<strong>邦迪</strong>、副司法部长<strong>布兰奇</strong>（特朗普私人律师）——<strong>"把DOJ领导层变成他的私人律所"</strong>。布兰奇甚至保留着私人执业时代的诉讼客户关系，总统的个人法律利益与联邦执法机器彻底融合。
               </div>
 
               <div class="sb-h">三个关键人物档案</div>
               <div class="person-grid">
                 <div class="person-card">
                   <div class="pc-head">
-                    <div class="pc-avatar" style="background:var(--c-loyal)">SM</div>
+                    <div class="pc-avatar" style="background:var(--c-loyal)">🧠</div>
                     <div>
                       <div class="pc-name">斯蒂芬·米勒</div>
                       <div class="pc-role">副幕僚长（政策）+ 国土安全顾问 · "政策大脑 / 复仇记账本"</div>
@@ -682,7 +787,7 @@
                 </div>
                 <div class="person-card">
                   <div class="pc-head">
-                    <div class="pc-avatar" style="background:var(--c-cab)">SW</div>
+                    <div class="pc-avatar" style="background:var(--c-cab)">🧊</div>
                     <div>
                       <div class="pc-name">苏西·怀尔斯</div>
                       <div class="pc-role">白宫幕僚长 · 首位女性 · "冰女"</div>
@@ -697,7 +802,7 @@
                 </div>
                 <div class="person-card">
                   <div class="pc-head">
-                    <div class="pc-avatar" style="background:var(--c-enemy)">MR</div>
+                    <div class="pc-avatar" style="background:var(--c-enemy)"><img src="assets/people/rubio.jpg" alt="马可·鲁比奥"></div>
                     <div>
                       <div class="pc-name">马可·鲁比奥</div>
                       <div class="pc-role">国务卿 + 国安顾问 · "皈依者"</div>
@@ -712,6 +817,191 @@
                 </div>
               </div>
 
+              <div class="sb-h">本届内阁组成图（2025-2026）</div>
+              <div class="sb-para" style="margin-bottom:10px">
+                2024年11月7日至12月4日，特朗普在不到一个月内宣布全部 22 个需参议院确认的内阁及内阁级职位人选。本届内阁的用人底色：<strong>忠诚优先于专业</strong>——"先过滤、再招人"，保守派智库提前准备了数千名经过意识形态审查的候选人名单。下图为核心成员（照片来自白宫官网官方肖像，其余以图标示意）。
+              </div>
+              <div class="cabinet-map">
+                <div class="cabinet-grid">
+                  <div class="cab-member">
+                    <div class="cm-photo"><img src="assets/people/trump.jpg" alt="特朗普"></div>
+                    <div class="cm-name">特朗普</div>
+                    <div class="cm-post">总统 · 唯一决策者</div>
+                    <span class="cm-faction faction-maga">核心</span>
+                  </div>
+                  <div class="cab-member">
+                    <div class="cm-photo"><img src="assets/people/vance.jpg" alt="万斯"></div>
+                    <div class="cm-name">J.D.万斯</div>
+                    <div class="cm-post">副总统 · MAGA 接班人</div>
+                    <span class="cm-faction faction-loyal">忠诚圈</span>
+                  </div>
+                  <div class="cab-member">
+                    <div class="cm-photo"><img src="assets/people/rubio.jpg" alt="鲁比奥"></div>
+                    <div class="cm-name">鲁比奥</div>
+                    <div class="cm-post">国务卿+国安顾问 · 99-0 全票</div>
+                    <span class="cm-faction faction-loyal">忠诚圈</span>
+                  </div>
+                  <div class="cab-member">
+                    <div class="cm-photo"><img src="assets/people/hegseth.jpg" alt="赫格塞斯"></div>
+                    <div class="cm-name">赫格塞斯</div>
+                    <div class="cm-post">国防部长 · 51-50 惊险过关</div>
+                    <span class="cm-faction faction-loyal">忠诚圈</span>
+                  </div>
+                  <div class="cab-member">
+                    <div class="cm-photo"><img src="assets/people/bessent.jpg" alt="贝森特"></div>
+                    <div class="cm-name">贝森特</div>
+                    <div class="cm-post">财政部长 · 68-29</div>
+                    <span class="cm-faction faction-other">华尔街派</span>
+                  </div>
+                  <div class="cab-member">
+                    <div class="cm-photo"><img src="assets/people/lutnick.jpg" alt="卢特尼克"></div>
+                    <div class="cm-name">卢特尼克</div>
+                    <div class="cm-post">商务部长 · 商人直觉派</div>
+                    <span class="cm-faction faction-maga">激进派</span>
+                  </div>
+                  <div class="cab-member">
+                    <div class="cm-photo"><img src="assets/people/rfk.jpg" alt="肯尼迪"></div>
+                    <div class="cm-name">肯尼迪</div>
+                    <div class="cm-post">卫生部长 · 52-48 涉险</div>
+                    <span class="cm-faction faction-other">反建制</span>
+                  </div>
+                  <div class="cab-member">
+                    <div class="cm-photo"><img src="assets/people/blanche.jpg" alt="布兰奇"></div>
+                    <div class="cm-name">布兰奇</div>
+                    <div class="cm-post">司法部长 · 总统前私人律师</div>
+                    <span class="cm-faction faction-maga">私人律师团</span>
+                  </div>
+                  <div class="cab-member">
+                    <div class="cm-photo"><img src="assets/people/mullin.jpg" alt="马林"></div>
+                    <div class="cm-name">马林</div>
+                    <div class="cm-post">国土安全部长 · 继诺姆</div>
+                    <span class="cm-faction faction-loyal">忠诚圈</span>
+                  </div>
+                  <div class="cab-member">
+                    <div class="cm-photo"><img src="assets/people/ratcliffe.jpg" alt="拉特克利夫"></div>
+                    <div class="cm-name">拉特克利夫</div>
+                    <div class="cm-post">CIA 局长 · 74-25</div>
+                    <span class="cm-faction faction-loyal">忠诚圈</span>
+                  </div>
+                  <div class="cab-member">
+                    <div class="cm-photo"><img src="assets/people/vought.jpg" alt="沃特"></div>
+                    <div class="cm-name">沃特</div>
+                    <div class="cm-post">OMB 主任 · 预算武器化</div>
+                    <span class="cm-faction faction-loyal">忠诚圈</span>
+                  </div>
+                  <div class="cab-member">
+                    <div class="cm-photo"><img src="assets/people/burgum.jpg" alt="伯古姆"></div>
+                    <div class="cm-name">伯古姆</div>
+                    <div class="cm-post">内政部长 · 79-18</div>
+                    <span class="cm-faction faction-other">建制派</span>
+                  </div>
+                  <div class="cab-member">
+                    <div class="cm-photo"><img src="assets/people/rollins.jpg" alt="罗林斯"></div>
+                    <div class="cm-name">罗林斯</div>
+                    <div class="cm-post">农业部长 · 72-28</div>
+                    <span class="cm-faction faction-other">建制派</span>
+                  </div>
+                  <div class="cab-member">
+                    <div class="cm-photo"><img src="assets/people/mcmahon.jpg" alt="麦克马洪"></div>
+                    <div class="cm-name">麦克马洪</div>
+                    <div class="cm-post">教育部长 · 51-45</div>
+                    <span class="cm-faction faction-other">建制派</span>
+                  </div>
+                  <div class="cab-member">
+                    <div class="cm-photo"><img src="assets/people/duffy.jpg" alt="达菲"></div>
+                    <div class="cm-name">达菲</div>
+                    <div class="cm-post">交通部长 · 77-22</div>
+                    <span class="cm-faction faction-other">建制派</span>
+                  </div>
+                  <div class="cab-member">
+                    <div class="cm-photo"><img src="assets/people/wright.jpg" alt="赖特"></div>
+                    <div class="cm-name">赖特</div>
+                    <div class="cm-post">能源部长 · 59-38</div>
+                    <span class="cm-faction faction-other">建制派</span>
+                  </div>
+                  <div class="cab-member">
+                    <div class="cm-photo"><img src="assets/people/collins.jpg" alt="柯林斯"></div>
+                    <div class="cm-name">柯林斯</div>
+                    <div class="cm-post">退伍军人部长 · 77-23</div>
+                    <span class="cm-faction faction-other">建制派</span>
+                  </div>
+                  <div class="cab-member">
+                    <div class="cm-photo"><img src="assets/people/turner.jpg" alt="特纳"></div>
+                    <div class="cm-name">特纳</div>
+                    <div class="cm-post">住房部长 · 57-42</div>
+                    <span class="cm-faction faction-other">建制派</span>
+                  </div>
+                  <div class="cab-member">
+                    <div class="cm-photo"><img src="assets/people/zeldin.jpg" alt="泽尔丁"></div>
+                    <div class="cm-name">泽尔丁</div>
+                    <div class="cm-post">环保署长 · 56-42</div>
+                    <span class="cm-faction faction-other">建制派</span>
+                  </div>
+                  <div class="cab-member">
+                    <div class="cm-photo"><img src="assets/people/greer.jpg" alt="格里尔"></div>
+                    <div class="cm-name">格里尔</div>
+                    <div class="cm-post">贸易代表 · 关税执行</div>
+                    <span class="cm-faction faction-maga">激进派</span>
+                  </div>
+                  <div class="cab-member">
+                    <div class="cm-photo"><img src="assets/people/loeffler.jpg" alt="洛夫勒"></div>
+                    <div class="cm-name">洛夫勒</div>
+                    <div class="cm-post">小企业局长 · 51-49</div>
+                    <span class="cm-faction faction-other">建制派</span>
+                  </div>
+                  <div class="cab-member">
+                    <div class="cm-photo">🗡️</div>
+                    <div class="cm-name">加巴德</div>
+                    <div class="cm-post">国家情报总监 · 52-48</div>
+                    <span class="cm-faction faction-loyal">忠诚圈</span>
+                  </div>
+                </div>
+                <div class="cabinet-legend">
+                  <span class="lg-item"><span class="cm-faction faction-maga">核心</span> 特朗普本人</span>
+                  <span class="lg-item"><span class="cm-faction faction-loyal">忠诚圈</span> 第一任期即跟随</span>
+                  <span class="lg-item"><span class="cm-faction faction-other">建制派</span> 前政客/商界</span>
+                  <span class="lg-item"><span class="cm-faction faction-maga">激进派</span> 商人直觉</span>
+                  <span class="lg-item" style="margin-left:auto">📷 照片：白宫官网官方肖像</span>
+                </div>
+              </div>
+
+              <div class="sb-h">两任期内阁对比：从"成人房间"到"忠诚内阁"</div>
+              <table class="cmp-table">
+                <thead>
+                  <tr><th style="width:70px">维度</th><th>第一任期（2017-2021）</th><th>第二任期（2025-）</th></tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="col-term">用人逻辑</td>
+                    <td><strong>先招人、再过滤</strong>——广纳建制派、商界、军界名人，边干边"试错"，不合则解雇</td>
+                    <td><strong>先过滤、再招人</strong>——保守派智库提前准备数千名意识形态审查过的候选人，只招忠诚者</td>
+                  </tr>
+                  <tr>
+                    <td class="col-term">内阁构成</td>
+                    <td>"成人房间"(Adults in the Room)：蒂勒森（埃克森美孚CEO）、马蒂斯（四星上将）、姆努钦（高盛）、凯利（上将）——被视为替特朗普"兜底"的建制派</td>
+                    <td>忠诚内阁：前福克斯主播赫格塞斯、私人律师布兰奇、前民主党人加巴德、反疫苗活动家肯尼迪——"成人房间"从一开始就不存在</td>
+                  </tr>
+                  <tr>
+                    <td class="col-term">确认票数</td>
+                    <td>多数以两党共识通过（如马蒂斯 98-1）</td>
+                    <td>分化剧烈：鲁比奥 99-0 全票，但赫格塞斯 51-50（副总统破平局）、肯尼迪 52-48、加巴德 52-48 险胜</td>
+                  </tr>
+                  <tr>
+                    <td class="col-term">人事稳定性</td>
+                    <td>第一年 2 个内阁职位换人、35% 高级幕僚更替；多人被"推特解雇"</td>
+                    <td>第一年内阁零换人，高级幕僚更替率降至 29%；离职多为"提拔"而非驱逐</td>
+                  </tr>
+                  <tr>
+                    <td class="col-term">与总统关系</td>
+                    <td>敢说"不"的人多：马蒂斯因撤军辞职、科恩反对贸易战辞职、塞申斯被骂两年后解雇</td>
+                    <td>无人公开顶撞；标准从"忠诚"升级为"能否成为攻击性工具"——诺姆、邦迪仍因"忠诚得不够彻底"出局</td>
+                  </tr>
+                </tbody>
+              </table>
+              <div class="extend-note" style="margin-top:10px">
+                <span class="en-label">📌 延展：</span>第二任期的"忠诚优先"并非凭空出现——2020 年败选后，特朗普和团队花了四年梳理"谁是叛徒、谁可信任"，并把最高法院豁免权、四起起诉转化为政治资产。组阁逻辑的变化，是"特朗普悖论"在人事领域的直接体现。
+              </div>
+
               <div class="sb-quote">
                 <div class="q-en">"Even if he's one percent Milley, we can't have that."</div>
                 <div class="q-src">—— 特朗普，第2章："哪怕他有1%像米利，我们也不能要。"</div>
@@ -724,11 +1014,11 @@
               </div>
               <div class="chip-row" style="padding:0">
                 <span class="chip-label">人物</span>
-                <span class="chip person"><a href="人物图谱.html">斯蒂芬·米勒</a></span>
-                <span class="chip person"><a href="人物图谱.html">苏西·怀尔斯</a></span>
-                <span class="chip person"><a href="人物图谱.html">马可·鲁比奥</a></span>
-                <span class="chip person"><a href="人物图谱.html">皮特·赫格塞斯</a></span>
-                <span class="chip person"><a href="人物图谱.html">塔尔西·加巴德</a></span>
+                <span class="chip person" data-key="miller" style="cursor:pointer">斯蒂芬·米勒</span>
+                <span class="chip person" data-key="wiles" style="cursor:pointer">苏西·怀尔斯</span>
+                <span class="chip person" data-key="rubio" style="cursor:pointer">马可·鲁比奥</span>
+                <span class="chip person" data-key="hegseth" style="cursor:pointer">皮特·赫格塞斯</span>
+                <span class="chip person" data-key="gabbard" style="cursor:pointer">塔尔西·加巴德</span>
               </div>
             </div>
           </div>
@@ -819,10 +1109,10 @@
               </div>
               <div class="chip-row" style="padding:0">
                 <span class="chip-label">人物</span>
-                <span class="chip person"><a href="人物图谱.html">埃隆·马斯克</a></span>
-                <span class="chip person"><a href="人物图谱.html">苏西·怀尔斯</a></span>
-                <span class="chip person"><a href="人物图谱.html">马可·鲁比奥</a></span>
-                <span class="chip person"><a href="人物图谱.html">斯科特·贝森特</a></span>
+                <span class="chip person" data-key="musk" style="cursor:pointer">埃隆·马斯克</span>
+                <span class="chip person" data-key="wiles" style="cursor:pointer">苏西·怀尔斯</span>
+                <span class="chip person" data-key="rubio" style="cursor:pointer">马可·鲁比奥</span>
+                <span class="chip person" data-key="bessent" style="cursor:pointer">斯科特·贝森特</span>
               </div>
             </div>
           </div>
@@ -907,10 +1197,10 @@
               </div>
               <div class="chip-row" style="padding:0">
                 <span class="chip-label">人物</span>
-                <span class="chip person"><a href="人物图谱.html">唐纳德·特朗普</a></span>
-                <span class="chip person"><a href="人物图谱.html">J·D·万斯</a></span>
-                <span class="chip person"><a href="人物图谱.html">马可·鲁比奥</a></span>
-                <span class="chip person"><a href="人物图谱.html">斯蒂芬·米勒</a></span>
+                <span class="chip person" data-key="trump" style="cursor:pointer">唐纳德·特朗普</span>
+                <span class="chip person" data-key="vance" style="cursor:pointer">J·D·万斯</span>
+                <span class="chip person" data-key="rubio" style="cursor:pointer">马可·鲁比奥</span>
+                <span class="chip person" data-key="miller" style="cursor:pointer">斯蒂芬·米勒</span>
               </div>
             </div>
           </div>
@@ -973,9 +1263,9 @@
               </div>
               <div class="chip-row" style="padding:0">
                 <span class="chip-label">人物</span>
-                <span class="chip person"><a href="人物图谱.html">唐纳德·特朗普</a></span>
-                <span class="chip person"><a href="人物图谱.html">霍华德·卢特尼克</a></span>
-                <span class="chip person"><a href="人物图谱.html">斯科特·贝森特</a></span>
+                <span class="chip person" data-key="trump" style="cursor:pointer">唐纳德·特朗普</span>
+                <span class="chip person" data-key="lutnick" style="cursor:pointer">霍华德·卢特尼克</span>
+                <span class="chip person" data-key="bessent" style="cursor:pointer">斯科特·贝森特</span>
               </div>
             </div>
           </div>
@@ -993,15 +1283,15 @@
         </div>
         <div class="chip-row">
           <span class="chip-label">关键人物</span>
-          <span class="chip person"><a href="人物图谱.html">唐纳德·特朗普</a></span>
-          <span class="chip person"><a href="人物图谱.html">斯蒂芬·米勒</a></span>
-          <span class="chip person"><a href="人物图谱.html">苏西·怀尔斯</a></span>
-          <span class="chip person"><a href="人物图谱.html">马可·鲁比奥</a></span>
-          <span class="chip person"><a href="人物图谱.html">埃隆·马斯克</a></span>
-          <span class="chip person"><a href="人物图谱.html">J·D·万斯</a></span>
-          <span class="chip person"><a href="人物图谱.html">斯科特·贝森特</a></span>
-          <span class="chip person"><a href="人物图谱.html">马克·扎克伯格</a></span>
-          <span class="chip person"><a href="人物图谱.html">杰夫·贝佐斯</a></span>
+          <span class="chip person" data-key="trump" style="cursor:pointer">唐纳德·特朗普</span>
+          <span class="chip person" data-key="miller" style="cursor:pointer">斯蒂芬·米勒</span>
+          <span class="chip person" data-key="wiles" style="cursor:pointer">苏西·怀尔斯</span>
+          <span class="chip person" data-key="rubio" style="cursor:pointer">马可·鲁比奥</span>
+          <span class="chip person" data-key="musk" style="cursor:pointer">埃隆·马斯克</span>
+          <span class="chip person" data-key="vance" style="cursor:pointer">J·D·万斯</span>
+          <span class="chip person" data-key="bessent" style="cursor:pointer">斯科特·贝森特</span>
+          <span class="chip person" data-key="zuck" style="cursor:pointer">马克·扎克伯格</span>
+          <span class="chip person" data-key="bezos" style="cursor:pointer">杰夫·贝佐斯</span>
         </div>
       </div>
     </div>
@@ -1106,11 +1396,11 @@
           </div>
           <p class="cb-paragraph"><strong>理解这三场斗争，比记住任何单章故事更重要</strong>——它们决定了 Part I 的速度、Part II 的方向、Part IV 的边界。</p>
           <div class="cb-tags">
-            <span class="chip person"><a href="人物图谱.html">斯蒂芬·米勒</a></span>
-            <span class="chip person"><a href="人物图谱.html">苏西·怀尔斯</a></span>
-            <span class="chip person"><a href="人物图谱.html">埃隆·马斯克</a></span>
-            <span class="chip person"><a href="人物图谱.html">斯科特·贝森特</a></span>
-            <span class="chip person"><a href="人物图谱.html">霍华德·卢特尼克</a></span>
+            <span class="chip person" data-key="miller" style="cursor:pointer">斯蒂芬·米勒</span>
+            <span class="chip person" data-key="wiles" style="cursor:pointer">苏西·怀尔斯</span>
+            <span class="chip person" data-key="musk" style="cursor:pointer">埃隆·马斯克</span>
+            <span class="chip person" data-key="bessent" style="cursor:pointer">斯科特·贝森特</span>
+            <span class="chip person" data-key="lutnick" style="cursor:pointer">霍华德·卢特尼克</span>
           </div>
         </div>
       </div>
@@ -1174,12 +1464,12 @@
         </div>
         <div class="chip-row">
           <span class="chip-label">关键人物</span>
-          <span class="chip person"><a href="人物图谱.html">唐纳德·特朗普</a></span>
-          <span class="chip person"><a href="人物图谱.html">斯蒂芬·米勒</a></span>
-          <span class="chip person"><a href="人物图谱.html">马克·米利</a></span>
-          <span class="chip person"><a href="人物图谱.html">克里斯·克雷布斯</a></span>
-          <span class="chip person"><a href="人物图谱.html">哈佛大学</a></span>
-          <span class="chip person"><a href="人物图谱.html">宝维斯律所</a></span>
+          <span class="chip person" data-key="trump" style="cursor:pointer">唐纳德·特朗普</span>
+          <span class="chip person" data-key="miller" style="cursor:pointer">斯蒂芬·米勒</span>
+          <span class="chip person" data-key="milley" style="cursor:pointer">马克·米利</span>
+          <span class="chip person" data-key="krebs" style="cursor:pointer">克里斯·克雷布斯</span>
+          <span class="chip person" data-key="harvard" style="cursor:pointer">哈佛大学</span>
+          <span class="chip person" data-key="paulweiss" style="cursor:pointer">宝维斯律所</span>
         </div>
       </div>
     </div>
@@ -1239,11 +1529,11 @@
         </div>
         <div class="chip-row">
           <span class="chip-label">关键人物</span>
-          <span class="chip person"><a href="人物图谱.html">斯蒂芬·米勒</a></span>
-          <span class="chip person"><a href="人物图谱.html">埃隆·马斯克</a></span>
-          <span class="chip person"><a href="人物图谱.html">塔尔西·加巴德</a></span>
-          <span class="chip person"><a href="人物图谱.html">皮特·赫格塞斯</a></span>
-          <span class="chip person"><a href="人物图谱.html">小罗伯特·肯尼迪</a></span>
+          <span class="chip person" data-key="miller" style="cursor:pointer">斯蒂芬·米勒</span>
+          <span class="chip person" data-key="musk" style="cursor:pointer">埃隆·马斯克</span>
+          <span class="chip person" data-key="gabbard" style="cursor:pointer">塔尔西·加巴德</span>
+          <span class="chip person" data-key="hegseth" style="cursor:pointer">皮特·赫格塞斯</span>
+          <span class="chip person" data-key="rfk" style="cursor:pointer">小罗伯特·肯尼迪</span>
         </div>
       </div>
     </div>
@@ -1309,13 +1599,13 @@
         </div>
         <div class="chip-row">
           <span class="chip-label">关键人物</span>
-          <span class="chip person"><a href="人物图谱.html">唐纳德·特朗普</a></span>
-          <span class="chip person"><a href="人物图谱.html">皮特·赫格塞斯</a></span>
-          <span class="chip person"><a href="人物图谱.html">马可·鲁比奥</a></span>
-          <span class="chip person"><a href="人物图谱.html">塔尔西·加巴德</a></span>
-          <span class="chip person"><a href="人物图谱.html">尼古拉斯·马杜罗</a></span>
-          <span class="chip person"><a href="人物图谱.html">伊朗</a></span>
-          <span class="chip person"><a href="人物图谱.html">贩毒集团</a></span>
+          <span class="chip person" data-key="trump" style="cursor:pointer">唐纳德·特朗普</span>
+          <span class="chip person" data-key="hegseth" style="cursor:pointer">皮特·赫格塞斯</span>
+          <span class="chip person" data-key="rubio" style="cursor:pointer">马可·鲁比奥</span>
+          <span class="chip person" data-key="gabbard" style="cursor:pointer">塔尔西·加巴德</span>
+          <span class="chip person" data-key="maduro" style="cursor:pointer">尼古拉斯·马杜罗</span>
+          <span class="chip person" data-key="iran" style="cursor:pointer">伊朗</span>
+          <span class="chip person" data-key="cartels" style="cursor:pointer">贩毒集团</span>
         </div>
       </div>
     </div>
@@ -1343,6 +1633,25 @@
   <div class="cp-rule"></div>
   <div class="cp-def" id="cpDef"></div>
   <div class="cp-example" id="cpExample"></div>
+</div>
+
+<!-- Person popover -->
+<div class="person-popover" id="personPopover" data-pos="below">
+  <button class="cp-close" onclick="closePersonPop()">&times;</button>
+  <div class="pp-head">
+    <div class="pp-avatar" id="ppAvatar">?</div>
+    <div class="pp-namebox">
+      <div class="pp-name" id="ppName"></div>
+      <div class="pp-en" id="ppEn"></div>
+      <div class="pp-role" id="ppRole"></div>
+    </div>
+  </div>
+  <div class="pp-rule"></div>
+  <div class="pp-section-label">人物概述</div>
+  <div class="pp-summary" id="ppSummary"></div>
+  <div class="pp-actions" id="ppActions"></div>
+  <div class="pp-relation" id="ppRelation"></div>
+  <a class="pp-goto" id="ppGoto" href="人物图谱.html">在人物图谱中查看完整关系 →</a>
 </div>
 
 <script>
@@ -1481,6 +1790,98 @@ const CONCEPTS = {
   }
 };
 
+/* ===== PERSON DICTIONARY ===== */
+const PEOPLE = {
+  trump: { cn:'唐纳德·特朗普', en:'Donald J. Trump', role:'总统（第二任期）', color:'#C4653A',
+    summary:'本书中心人物。第二任期的特朗普比第一任期更不受约束、更无情、更"帝国主义化"。2020 败选与四起刑事起诉不但没有摧毁他，反而成为最强大的政治资产。',
+    actions:['2024.11 胜选回归','就职首日签发 100+ 行政令','2026.2.28 对伊朗开战'],
+    relation:'唯一决策者：所有人围绕他运转，他掌握最终解释权。' },
+  miller: { cn:'斯蒂芬·米勒', en:'Stephen Miller', role:'副幕僚长 · 政策大脑', color:'#4A4290',
+    summary:'特朗普主义的思想建筑师，2016 竞选起即为核心政策顾问，起草几乎所有行政令，书中称其为"复仇记账本"(revenge ledger)。',
+    actions:['起草所有行政令（含 Schedule F）','设计大规模移民驱逐方案','推动国内军事化政策'],
+    relation:'思想供给者：特朗普提供方向与愤怒，米勒将其转化为白纸黑字。' },
+  wiles: { cn:'苏西·怀尔斯', en:'Susie Wiles', role:'白宫幕僚长', color:'#4A4290',
+    summary:'白宫幕僚长，团队中唯一敢对特朗普说"不"的人。控制信息流、管理媒体曝光节奏，与米勒的较量中节节败退。',
+    actions:['管理白宫日常运营','控制媒体曝光节奏','组织海湖庄园科技晚宴'],
+    relation:'日常管控：唯一能约束特朗普的人，但"刹车片"正在磨损。' },
+  rubio: { cn:'马可·鲁比奥', en:'Marco Rubio', role:'国务卿 + 国安顾问（双职）', color:'#4A4290',
+    summary:'全书最具戏剧性的人物弧光：2016 称特朗普为"骗子"，2024 副总统候选人落选，最终以国务卿+国安顾问双职回归。',
+    actions:['同时担任国务卿与国安顾问','主导委内瑞拉政权更迭计划','包装对伊朗战争的合法性'],
+    relation:'皈依者(conversion)而非妥协：给特朗普的冲动披上"政策外衣"。' },
+  hegseth: { cn:'皮特·赫格塞斯', en:'Pete Hegseth', role:'国防部长', color:'#4A4290',
+    summary:'前 Fox News 主持人，无传统军方背景。书中描述其观看"处决视频"，清除国防部法律官并称之为 jagoffs。',
+    actions:['清除国防部法律顾问团队','推动 ICE 化学制剂+黑鹰突袭','执行炸船行动与伊朗全面战争'],
+    relation:'战争机器：指哪打哪，不问理由。' },
+  noem: { cn:'克里斯蒂·诺姆', en:'Kristi Noem', role:'国土安全部长', color:'#4A4290',
+    summary:'负责执行大规模移民驱逐行动。书中刻画其"表演式治理"形象——在 ICE 行动现场跳舞，把执法现场变成政治宣传舞台。',
+    actions:['指挥 ICE 大规模驱逐行动','行动现场表演性出镜','推动国内军事化执法'],
+    relation:'执行者：把移民执法变成政治剧场。' },
+  netanyahu: { cn:'本雅明·内塔尼亚胡', en:'Benjamin Netanyahu', role:'以色列总理', color:'#4A4290',
+    summary:'以色列总理，特朗普在中东政策上"不可或缺的伙伴"，同时也是 MAGA 圈子内部争议的焦点。',
+    actions:['新年夜私下游说更大规模军事干预','配合"接管加沙"计划','推动对伊朗开战'],
+    relation:'地缘盟友：推动特朗普最激进的中东政策。' },
+  musk: { cn:'埃隆·马斯克', en:'Elon Musk', role:'DOGE 负责人（非内阁）', color:'#1B6088',
+    summary:'领导新成立的"政府效率部门"（DOGE），以特殊政府雇员身份绕过传统层级直接向总统汇报，大规模削减联邦雇员与开支。',
+    actions:['领导 DOGE 削减联邦雇员','与米勒结盟推行 Schedule F','控制财政部支付系统','"你上周干了什么"邮件风波'],
+    relation:'特殊盟友：独立权力基础的外部力量，后因与内阁冲突被"剪翅膀"。' },
+  vance: { cn:'J·D·万斯', en:'JD Vance', role:'副总统', color:'#1B6088',
+    summary:'从写作《乡下人的悲歌》批评特朗普文化的人，变成最忠诚的副总统，代表 MAGA 新一代领导人。',
+    actions:['协调参议院推进特朗普议程','国际场合代表特朗普','媒体上捍卫特朗普政策'],
+    relation:'政治继承人：MAGA 的下一代掌舵人。' },
+  gabbard: { cn:'塔尔西·加巴德', en:'Tulsi Gabbard', role:'国家情报总监（DNI）', color:'#1B6088',
+    summary:'前民主党众议员转投特朗普后获美国情报系统最高文职职位——领导 17 个情报机构，震惊整个情报界。',
+    actions:['领导 17 个情报机构','重塑情报界政治效忠模式','为委内瑞拉秘密行动提供情报支持'],
+    relation:'情报主管：为行动寻找"情报依据"。' },
+  rfk: { cn:'小罗伯特·肯尼迪', en:'Robert F. Kennedy Jr.', role:'卫生部长', color:'#1B6088',
+    summary:'著名反疫苗活动家、肯尼迪家族成员，任命为卫生部长引发巨大争议。',
+    actions:['改革 FDA/CDC 人事政策','质疑疫苗安全','推动"医疗自由"议程'],
+    relation:'颠覆性任命：用局外人摧毁建制派领地。' },
+  bessent: { cn:'斯科特·贝森特', en:'Scott Bessent', role:'财政部长', color:'#1B6088',
+    summary:'华尔街对冲基金经理出身，特朗普第二任期的财政部长。在关税政策上与卢特尼克角力，主张谨慎渐进，代表"华尔街老手"路线。',
+    actions:['主导财政政策与关税谈判','与马斯克"肉搏"（关税邮件风波）','解放日关税后的市场救火队长'],
+    relation:'建制派技术官僚：用专业与经验对冲激进派。' },
+  lutnick: { cn:'霍华德·卢特尼克', en:'Howard Lutnick', role:'商务部长', color:'#1B6088',
+    summary:'Cantor Fitzgerald 首席执行官出身，特朗普任命的商务部长。商人直觉驱动的激进派，在关税与矿物协议上与贝森特争锋。',
+    actions:['推动激进关税议程','$5000 亿矿物协议之争','主张对华强硬'],
+    relation:'商人直觉派：为特朗普的贸易冲动提供"执行火力"。' },
+  zuck: { cn:'马克·扎克伯格', en:'Mark Zuckerberg', role:'Meta CEO', color:'#9A6B28',
+    summary:'Meta CEO，国会作证时公开批评特朗普，2024 年后主动赴海湖庄园朝贡，承诺不限内容、支付 $25M 和解金。',
+    actions:['主动赴海湖庄园晚宴','支付 $25M 赔偿金','解除账号限制'],
+    relation:'被迫效忠：商业利益压倒一切。' },
+  bezos: { cn:'杰夫·贝佐斯', en:'Jeff Bezos', role:'亚马逊创始人 · 华邮老板', color:'#9A6B28',
+    summary:'亚马逊创始人、《华盛顿邮报》老板。报道多次激怒特朗普，贝佐斯亲赴海湖庄园修复关系。',
+    actions:['控制华邮编辑立场','寻求国防合同/云计算订单','参加海湖庄园科技晚宴'],
+    relation:'利益交换：最古老的华盛顿游戏。' },
+  milley: { cn:'马克·米利', en:'Mark Milley', role:'前参联会主席', color:'#A63D2E',
+    summary:'前参联会主席，第一任期多次与特朗普公开冲突。卸任后遭遇系统性报复：撤肖像、取消安保、可能面临军事法庭调查。',
+    actions:['第一任期多次公开冲突','被撤销五角大楼肖像','安保待遇被完全取消'],
+    relation:'个人恩怨：不忠诚=必须受惩罚。' },
+  krebs: { cn:'克里斯·克雷布斯', en:'Chris Krebs', role:'前网络安全官员', color:'#A63D2E',
+    summary:'前 CISA 局长，因证实 2020 年选举安全被解雇。第二任期面临 DOJ 调查，可能被控"叛国罪"。',
+    actions:['证实 2020 选举安全（说真话）','因此被解雇','面临 DOJ 刑事调查'],
+    relation:'真相的代价：专业判断 vs 政治忠诚二选一。' },
+  harvard: { cn:'哈佛大学', en:'Harvard University', role:'顶尖学府', color:'#A63D2E',
+    summary:'最大的机构报复目标之一：冻结 $26 亿联邦资助，面临 $90 亿总额威胁，被威胁取消免税资格。',
+    actions:['首批 $26 亿冻结','$90 亿总威胁','威胁取消免税','已起诉反击'],
+    relation:'意识形态敌人：精英大学=深层政府的象征。' },
+  paulweiss: { cn:'宝维斯律所', en:'Paul, Weiss', role:'顶级律所', color:'#A63D2E',
+    summary:'代表特别检察官杰克·史密斯的顶级律所。被行政令威胁客户业务后，被迫承诺 $4000 万"公益服务"自保。',
+    actions:['代理杰克·史密斯工作','$4000 万"自愿和解"','其他律所纷纷效仿投降'],
+    relation:'杀鸡儆猴：震慑整个法律行业。' },
+  maduro: { cn:'尼古拉斯·马杜罗', en:'Nicolás Maduro', role:'委内瑞拉总统', color:'#1A7A5E',
+    summary:'CIA 秘密行动目标。计划夺取全球最大石油储备并更换傀儡领导人，鲁比奥主导此行动。',
+    actions:['CIA 收集行踪','石油田夺取计划','政权更迭方案','鲁比奥外交孤立'],
+    relation:'赫格塞斯军事执行，鲁比奥外交包装。' },
+  iran: { cn:'伊朗', en:'Islamic Republic of Iran', role:'敌对国家', color:'#1A7A5E',
+    summary:'2026.2.28 特朗普加入以色列对伊朗全面战争。截至 3 月：13 名美军阵亡、200+ 受伤、$150 亿+花费、霍尔木兹海峡关闭。',
+    actions:['2026.2.28 开战','$150 亿+军费','霍尔木兹海峡关闭','油价飙升'],
+    relation:'最大对外冒险，赫格塞斯执行。' },
+  cartels: { cn:'贩毒集团', en:'Drug Cartels', role:'跨国犯罪组织', color:'#1A7A5E',
+    summary:'"炸船行动"(Boat-Bombing Campaign)目标。死神无人机+地狱火导弹打击快艇，幸存者求救仍遭补射——连"酷刑备忘录"作者 John Yoo 都认为无法无天。',
+    actions:['死神无人机猎杀快艇','地狱火导弹攻击','重新定义恐怖分子','2025.9-10 击沉 10 艘快艇'],
+    relation:'"唐氏门罗主义"实践：西半球武力震慑中俄。' }
+};
+
 /* ===== POPOVER LOGIC ===== */
 const pop = document.getElementById('conceptPopover');
 
@@ -1525,12 +1926,70 @@ document.querySelectorAll('.chip.concept[data-key]').forEach(chip => {
   });
 });
 
+/* ===== PERSON POPOVER LOGIC ===== */
+const ppop = document.getElementById('personPopover');
+
+function showPersonPop(key, anchorEl) {
+  const p = PEOPLE[key];
+  if (!p) return;
+  document.getElementById('ppName').textContent = p.cn;
+  document.getElementById('ppEn').textContent = p.en;
+  document.getElementById('ppRole').textContent = p.role;
+  document.getElementById('ppAvatar').textContent = p.cn.charAt(0);
+  document.getElementById('ppAvatar').style.background = p.color;
+  document.getElementById('ppSummary').textContent = p.summary;
+
+  const act = document.getElementById('ppActions');
+  if (p.actions && p.actions.length) {
+    act.style.display = 'block';
+    act.innerHTML = '<div class="pp-section-label">关键行为</div><ul>' +
+      p.actions.map(a => `<li>${a}</li>`).join('') + '</ul>';
+  } else {
+    act.style.display = 'none';
+  }
+  const rel = document.getElementById('ppRelation');
+  rel.innerHTML = '<div class="pp-relation-label">与特朗普的关系</div>' + p.relation;
+
+  const rect = anchorEl.getBoundingClientRect();
+  const popW = 440, popH = ppop.offsetHeight || 360;
+  let x = rect.left + rect.width / 2 - popW / 2;
+  x = Math.max(12, Math.min(x, window.innerWidth - popW - 12));
+  const spaceBelow = window.innerHeight - rect.bottom;
+  if (spaceBelow > popH + 20 || spaceBelow > rect.top) {
+    ppop.dataset.pos = 'below';
+    ppop.style.top = (rect.bottom + 12) + 'px';
+  } else {
+    ppop.dataset.pos = 'above';
+    ppop.style.top = Math.max(12, rect.top - popH - 14) + 'px';
+  }
+  ppop.style.left = x + 'px';
+  ppop.style.display = 'block';
+  requestAnimationFrame(() => ppop.classList.add('show'));
+  closeConceptPop();
+}
+
+function closePersonPop() {
+  ppop.classList.remove('show');
+  ppop.style.display = 'none';
+}
+
+// Click on any person chip
+document.querySelectorAll('.chip.person[data-key]').forEach(chip => {
+  chip.addEventListener('click', e => {
+    e.stopPropagation();
+    showPersonPop(chip.dataset.key, chip);
+  });
+});
+
 // Close on outside click / ESC
 document.addEventListener('click', e => {
   if (!pop.contains(e.target) && !e.target.closest('.chip.concept')) closeConceptPop();
+  if (!ppop.contains(e.target) && !e.target.closest('.chip.person')) closePersonPop();
 });
-document.addEventListener('keydown', e => { if (e.key === 'Escape') closeConceptPop(); });
-window.addEventListener('resize', closeConceptPop);
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') { closeConceptPop(); closePersonPop(); }
+});
+window.addEventListener('resize', () => { closeConceptPop(); closePersonPop(); });
 </script>
 
 </body>

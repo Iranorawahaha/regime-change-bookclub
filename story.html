@@ -380,6 +380,133 @@
   .w-zel { color: var(--c-war-dark); }
   .w-narr { color: var(--text-tertiary); }
 
+  /* ===== 泽连斯基专题增强 ===== */
+  /* 前奏时间线（水平压力递进） */
+  .prelude-track {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 0;
+    margin-top: 8px;
+    position: relative;
+  }
+  .prelude-step {
+    background: var(--surface-card);
+    border: 1px solid var(--border-light);
+    border-radius: 10px;
+    padding: 12px 13px 11px;
+    position: relative;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+  }
+  .prelude-step::after {
+    content: '→';
+    position: absolute; right: -13px; top: 50%;
+    transform: translateY(-50%);
+    color: var(--c-enemy);
+    font-weight: 900; font-size: 14px;
+    z-index: 2;
+  }
+  .prelude-step:last-child::after { display: none; }
+  .pl-date {
+    display: inline-block;
+    font-size: 10.5px; font-weight: 800;
+    color: #fff; background: var(--c-enemy);
+    padding: 2px 9px; border-radius: 9px;
+    letter-spacing: 0.02em;
+  }
+  .pl-role { font-size: 13.5px; font-weight: 800; color: var(--text-primary); margin-top: 6px; line-height: 1.35; }
+  .pl-desc { font-size: 12px; color: var(--text-secondary); margin-top: 4px; line-height: 1.6; }
+  .prelude-track .pl-verdict {
+    margin-top: 7px; font-size: 11px; font-weight: 700;
+    padding: 3px 9px; border-radius: 6px;
+    display: inline-block;
+    background: rgba(166,61,46,0.10); color: var(--c-enemy-dark);
+  }
+
+  /* 对阵卡片（椭圆办公室双方） */
+  .lineup {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 10px;
+    align-items: stretch;
+    margin: 10px 0;
+  }
+  .lineup-side {
+    background: var(--surface-card);
+    border: 1px solid var(--border-light);
+    border-radius: 10px;
+    padding: 11px 13px;
+  }
+  .lineup-side.us { border-left: 3px solid var(--c-trump); }
+  .lineup-side.ukr { border-left: 3px solid var(--c-war); }
+  .lu-head { font-size: 12px; font-weight: 900; letter-spacing: 0.04em; margin-bottom: 7px; }
+  .lineup-side.us .lu-head { color: var(--c-trump-dark); }
+  .lineup-side.ukr .lu-head { color: var(--c-war-dark); }
+  .lu-person { font-size: 11.5px; color: var(--text-secondary); line-height: 1.75; }
+  .lu-person strong { color: var(--text-primary); font-weight: 700; }
+  .lu-vs {
+    align-self: center;
+    font-family: var(--font-serif); font-style: italic;
+    font-size: 22px; font-weight: 900;
+    color: var(--c-enemy);
+    padding: 0 2px;
+  }
+
+  /* 对话剧本卡片（正片） */
+  .dl-card {
+    background: var(--surface-card);
+    border: 1px solid var(--border-light);
+    border-radius: 10px;
+    padding: 11px 14px;
+    margin-bottom: 8px;
+    transition: all .2s var(--ease-out-quart);
+  }
+  .dl-card:hover { box-shadow: var(--shadow-sm); border-color: var(--border-mid); }
+  .dl-card .dl-meta {
+    display: flex; align-items: center; gap: 8px;
+    margin-bottom: 5px;
+  }
+  .dl-avatar {
+    width: 24px; height: 24px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: 900; color: #fff;
+    flex-shrink: 0;
+  }
+  .dl-speaker { font-size: 12px; font-weight: 800; color: var(--text-primary); }
+  .dl-tag {
+    font-size: 9px; font-weight: 700;
+    padding: 1.5px 8px; border-radius: 8px;
+    letter-spacing: 0.05em;
+  }
+  .dl-tag.heat { background: rgba(166,61,46,0.14); color: var(--c-enemy-dark); }
+  .dl-tag.calm { background: rgba(26,122,94,0.12); color: var(--c-war-dark); }
+  .dl-tag.note { background: rgba(90,83,74,0.12); color: var(--text-secondary); }
+  .dl-card .dl-text { font-size: 13.5px; line-height: 1.68; color: var(--text-primary); }
+
+  /* 视频卡片 */
+  .video-card {
+    display: flex; align-items: center; gap: 14px;
+    margin: 12px 0;
+    padding: 13px 16px;
+    background: linear-gradient(90deg, rgba(166,61,46,0.08), rgba(166,61,46,0.02) 70%);
+    border: 1px solid rgba(166,61,46,0.25);
+    border-radius: 12px;
+    text-decoration: none;
+    transition: all .25s var(--ease-out-quart);
+  }
+  .video-card:hover { box-shadow: var(--shadow-md); transform: translateY(-1px); border-color: var(--c-enemy); }
+  .vc-play {
+    width: 44px; height: 44px; border-radius: 50%;
+    background: var(--c-enemy);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    color: #fff; font-size: 16px;
+    box-shadow: 0 2px 8px rgba(166,61,46,0.35);
+  }
+  .vc-main { flex: 1; min-width: 0; }
+  .vc-title { font-size: 13.5px; font-weight: 800; color: var(--text-primary); line-height: 1.4; }
+  .vc-sub { font-size: 11.5px; color: var(--text-secondary); margin-top: 3px; line-height: 1.5; }
+  .vc-ext { font-size: 10.5px; font-weight: 700; color: var(--c-enemy); white-space: nowrap; }
+
   /* person profiles (Miller / Wiles / Rubio) */
   .person-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; margin-top: 6px; }
   .person-card {
@@ -1303,37 +1430,148 @@
             </div>
             <div class="sub-body">
               <div class="sb-intro">
-                2月28日椭圆办公室的公开冲突不是突发事件，而是一条持续一个月的施压线的终点：从凯洛格的"滑铁卢"，到维特科夫独自赴莫斯科见普京，再到贝森特飞基辅逼签"矿物协议"——特朗普要的不是和平，是"把钱要回来"。
+                2月28日椭圆办公室的公开冲突不是突发事件，而是一条持续一个月的施压线的终点：从凯洛格的"滑铁卢"，到维特科夫独自赴莫斯科见普京，再到贝森特飞基辅逼签"矿物协议"——特朗普要的不是和平，是"把钱要回来"。<br><br>
+                <strong>一句话看懂：</strong>泽连斯基要"安全保证"（防再入侵），特朗普要"回收援助"（$5000亿矿物协议、零安全承诺）——双方要的不是同一个东西，冲突是结构性的。
               </div>
 
-              <div class="sb-h">前奏①：凯洛格的滑铁卢（1.30）</div>
-              <div class="sb-para">
-                特朗普的乌克兰特使、80岁的凯洛格准备六块泡沫板演示稿进椭圆办公室，得到的却是羞辱：特朗普反复贬低泽连斯基（"他是糟糕的谈判者""乌克兰是地球上最腐败的国家""我不太喜欢乌克兰，除了他们的女人——她们老赢环球小姐"），甚至同情俄罗斯立场（"这一切都回到北约"）。最后特朗普下令："<strong>你团队里谁都不许跟俄罗斯人谈，因为我们在做交易。</strong>"——凯洛格不知道，工作早已被秘密给了维特科夫。
+              <div class="sb-h">前奏：一条持续一个月的施压线</div>
+              <div class="prelude-track">
+                <div class="prelude-step">
+                  <span class="pl-date">1.30</span>
+                  <div class="pl-role">凯洛格 · 滑铁卢</div>
+                  <div class="pl-desc">80岁的乌克兰特使带着六块演示板进椭圆办公室，却被特朗普当众羞辱贬低泽连斯基，并下令"你团队谁都不许跟俄罗斯人谈"。</div>
+                  <span class="pl-verdict">⚡ 出局</span>
+                </div>
+                <div class="prelude-step">
+                  <span class="pl-date">2.11</span>
+                  <div class="pl-role">维特科夫 · 莫斯科密会</div>
+                  <div class="pl-desc">特朗普的老友、无外交经验的房地产商维特科夫独自飞莫斯科见普京近3小时，收到"流血挥拳油画"礼物，打开美俄直通渠道。</div>
+                  <span class="pl-verdict">🔗 另起炉灶</span>
+                </div>
+                <div class="prelude-step">
+                  <span class="pl-date">2.12</span>
+                  <div class="pl-role">贝森特 · 基辅逼签</div>
+                  <div class="pl-desc">财长带着矿物协议飞基辅要求当场签字：未来50%国有资源收入归美国、零安全承诺。泽连斯基拒签："这是敲诈。"对骂45分钟。</div>
+                  <span class="pl-verdict">💥 决裂加深</span>
+                </div>
+                <div class="prelude-step">
+                  <span class="pl-date">2.17-18</span>
+                  <div class="pl-role">利雅得 · 排除乌克兰</div>
+                  <div class="pl-desc">美俄在沙特会谈，乌克兰根本没被邀请。特朗普回骂泽连斯基是"独裁者"、怪乌克兰挑起战争。白宫摊牌已成必然。</div>
+                  <span class="pl-verdict">⛔ 谈判孤立</span>
+                </div>
               </div>
 
-              <div class="sb-h">前奏②：维特科夫的莫斯科之行（2.11）</div>
-              <div class="sb-para">
-                纽约房地产商维特科夫（特朗普1980年代的律师、老友，无外交经验）经沙特王储MBS引荐，独自飞莫斯科见了普京近3小时。普京送他一份"礼物"：<strong>特朗普在巴特勒刺杀现场流血挥拳的油画</strong>，外加一份美俄能源商业合作"合约清单"。次日特朗普与普京通话90分钟（四年来首次）：普京拍马屁"没想到你能赢"，特朗普直接问"你是要整个乌克兰还是一部分"，普京答"不需要全部"。
-              </div>
-
-              <div class="sb-h">前奏③：贝森特基辅逼签（2.12）</div>
-              <div class="sb-para">
-                财长贝森特带着矿物协议飞基辅，要求泽连斯基当场签字：乌克兰未来<strong>50%的国有资源收入归美国</strong>，美方<strong>零安全承诺</strong>。泽连斯基拒绝："这是对主权的攻击，这是敲诈。"两人对骂45分钟。随后2月17-18日利雅得会谈——乌克兰根本没被邀请；泽连斯基抱怨"不想让人背着我们做决定"，特朗普回骂他是"<strong>独裁者</strong>"、还怪乌克兰挑起战争。白宫摊牌已是必然。
+              <div class="sb-h">正片前：椭圆办公室的两张桌</div>
+              <div class="lineup">
+                <div class="lineup-side us">
+                  <div class="lu-head">🇺🇸 美方</div>
+                  <div class="lu-person"><strong>特朗普</strong> 总统（心情不佳——嫌矿物协议"不够划算"）<br><strong>万斯</strong> 副总统（乌克兰问题上的长期怀疑者）<br><strong>鲁比奥</strong> 国务卿<br><strong>赫格塞斯</strong> 国防部长<br><strong>贝森特</strong> 财长</div>
+                </div>
+                <div class="lu-vs">VS</div>
+                <div class="lineup-side ukr">
+                  <div class="lu-head">🇺🇦 乌方</div>
+                  <div class="lu-person"><strong>泽连斯基</strong> 总统（身着标志性深色战地装）<br><strong>叶尔马克</strong> 总统办公室主任<br><strong>斯特凡尼希娜</strong> 副总理<br><strong>西比哈</strong> 外长</div>
+                </div>
               </div>
 
               <div class="sb-h">正片：2.28 椭圆办公室 · 49分钟</div>
               <div class="sb-para">
-                本应是签字仪式，但安全保证问题悬而未决（乌莎·万斯审乌方修改稿后称"糟透了"）。记者提问环节，冲突爆发：
+                本应是签字仪式，但安全保证问题悬而未决——乌莎·万斯审阅乌方修改稿后称"糟透了"。会议前特朗普已在私下对团队发火：嫌矿物协议框架"不够划算"。记者提问环节，冲突在镜头前爆发：
               </div>
-              <div class="dialogue">
-                <div class="dl-line"><div class="dl-who w-zel">泽连斯基</div><div class="dl-text">普京是"杀手和恐怖分子"……矿物协议是"很好的开始"，但"不足以阻止这个人"。</div></div>
-                <div class="dl-line"><div class="dl-who w-trump">特朗普</div><div class="dl-text">美国"本不该让这一切发生"，拜登不知道"自己在干什么"；自己若没连任，乌克兰冲突可能演变成第三次世界大战。</div></div>
-                <div class="dl-line"><div class="dl-who w-narr">记者</div><div class="dl-text">波兰记者：波兰人担心特朗普总统与普京走得太近。</div></div>
-                <div class="dl-line"><div class="dl-who w-vance">万斯</div><div class="dl-text">"四年来美国有个总统在记者会上对普京放狠话，然后普京入侵了乌克兰……通往和平与繁荣的道路是<em>外交</em>。"</div></div>
-                <div class="dl-line"><div class="dl-who w-zel">泽连斯基</div><div class="dl-text">"你说的哪种外交，JD？""你去过乌克兰吗？来一次。""你们有美丽的大海，现在感觉不到，将来会感觉到的。"</div></div>
-                <div class="dl-line"><div class="dl-who w-trump">特朗普</div><div class="dl-text">"<strong>别告诉我们该有什么感受！</strong>你现在没有牌！""你是在拿第三次世界大战赌博！你在赌上数百万人的性命！"</div></div>
-                <div class="dl-line"><div class="dl-who w-vance">万斯</div><div class="dl-text">"<strong>这次会面你道过一次谢吗？</strong>"</div></div>
-                <div class="dl-line"><div class="dl-who w-zel">泽连斯基</div><div class="dl-text">"很多次。"</div></div>
+
+              <div class="dl-card">
+                <div class="dl-meta">
+                  <div class="dl-avatar" style="background:var(--c-war)">泽</div>
+                  <span class="dl-speaker">泽连斯基</span>
+                  <span class="dl-tag calm">克制 · 试图说服</span>
+                </div>
+                <div class="dl-text">普京是"杀手和恐怖分子"……矿物协议是"很好的开始"，但<strong>"不足以阻止这个人"</strong>。</div>
+              </div>
+              <div class="dl-card">
+                <div class="dl-meta">
+                  <div class="dl-avatar" style="background:var(--c-trump)">特</div>
+                  <span class="dl-speaker">特朗普</span>
+                  <span class="dl-tag note">自辩 · 转移焦点</span>
+                </div>
+                <div class="dl-text">美国"本不该让这一切发生"，拜登不知道"自己在干什么"；自己若没连任，乌克兰冲突可能演变成第三次世界大战。</div>
+              </div>
+              <div class="dl-card">
+                <div class="dl-meta">
+                  <div class="dl-avatar" style="background:var(--c-cab)">记</div>
+                  <span class="dl-speaker">波兰记者</span>
+                  <span class="dl-tag note">提问</span>
+                </div>
+                <div class="dl-text">波兰人担心特朗普总统与普京走得太近。</div>
+              </div>
+              <div class="dl-card">
+                <div class="dl-meta">
+                  <div class="dl-avatar" style="background:var(--c-loyal)">万</div>
+                  <span class="dl-speaker">万斯</span>
+                  <span class="dl-tag note">插话 · 火上浇油</span>
+                </div>
+                <div class="dl-text">"四年来美国有个总统在记者会上对普京放狠话，然后普京入侵了乌克兰……通往和平与繁荣的道路是<em>外交</em>。"</div>
+              </div>
+              <div class="dl-card">
+                <div class="dl-meta">
+                  <div class="dl-avatar" style="background:var(--c-war)">泽</div>
+                  <span class="dl-speaker">泽连斯基</span>
+                  <span class="dl-tag heat">回击 · 反诘</span>
+                </div>
+                <div class="dl-text">"你说的哪种外交，JD？""你去过乌克兰吗？来一次。""你们有美丽的大海，现在感觉不到，将来会感觉到的。"</div>
+              </div>
+              <div class="dl-card">
+                <div class="dl-meta">
+                  <div class="dl-avatar" style="background:var(--c-trump)">特</div>
+                  <span class="dl-speaker">特朗普</span>
+                  <span class="dl-tag heat">爆发 · 怒斥</span>
+                </div>
+                <div class="dl-text">"<strong>别告诉我们该有什么感受！</strong>你现在没有牌！""你是在拿第三次世界大战赌博！你在赌上数百万人的性命！"（声音几乎变成喊叫）</div>
+              </div>
+              <div class="dl-card">
+                <div class="dl-meta">
+                  <div class="dl-avatar" style="background:var(--c-loyal)">万</div>
+                  <span class="dl-speaker">万斯</span>
+                  <span class="dl-tag heat">补刀</span>
+                </div>
+                <div class="dl-text">"<strong>这次会面你道过一次谢吗？</strong>"</div>
+              </div>
+              <div class="dl-card">
+                <div class="dl-meta">
+                  <div class="dl-avatar" style="background:var(--c-war)">泽</div>
+                  <span class="dl-speaker">泽连斯基</span>
+                  <span class="dl-tag calm">冷静回答</span>
+                </div>
+                <div class="dl-text">"很多次。"</div>
+              </div>
+              <div class="dl-card">
+                <div class="dl-meta">
+                  <div class="dl-avatar" style="background:var(--c-loyal)">万</div>
+                  <span class="dl-speaker">万斯</span>
+                  <span class="dl-tag heat">步步紧逼</span>
+                </div>
+                <div class="dl-text">"不，<strong>这次会面</strong>——你说过谢谢吗？你在椭圆形办公室当着美国媒体的面跟总统对簿公堂，这是不尊重。"</div>
+              </div>
+              <div class="dl-card">
+                <div class="dl-meta">
+                  <div class="dl-avatar" style="background:var(--c-narr,var(--text-tertiary))">场</div>
+                  <span class="dl-speaker">会场插曲</span>
+                  <span class="dl-tag note">肢体冲突信号</span>
+                </div>
+                <div class="dl-text">泽连斯基皱眉、翻白眼、扬起手臂，轻声嘀咕了一句斯拉夫语脏话——特朗普称其为"不尊重"；乌方大使马尔卡罗娃在角落以手掩面，几乎落泪。</div>
+              </div>
+
+              <a class="video-card" href="https://www.youtube.com/watch?v=e0E2ZTonQJU" target="_blank" rel="noopener">
+                <div class="vc-play">▶</div>
+                <div class="vc-main">
+                  <div class="vc-title">完整现场视频：特朗普 × 万斯 × 泽连斯基 · 椭圆办公室交锋</div>
+                  <div class="vc-sub">49分21秒 · 白宫官方发布完整版 · 含冲突全程及散场。讲解时如需引用原话，点击跳转 YouTube 播放。</div>
+                </div>
+                <div class="vc-ext">YouTube ↗</div>
+              </a>
+
+              <div class="sb-para" style="margin-top:10px">
+                <strong>散场时刻：</strong>约50分钟时特朗普对记者说"今天的内容足够了，这些足够保证你们的收视率"，记者哄笑；会后原定的联合记者会与矿产协议签字仪式全部取消。特朗普在 Truth Social 上发文："泽连斯基不尊重美国……等他准备好和平了再回来。"下午1:40，泽连斯基离开白宫，午餐未用，车队在雨中驶离。
               </div>
 
               <div class="sb-h">余波：三个世界的反应</div>

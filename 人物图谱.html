@@ -166,7 +166,7 @@
 <div class="canvas-wrapper">
   <div class="graph-container">
     <!-- SVG Graph -->
-    <svg class="graph-svg" viewBox="0 0 720 1000" xmlns="http://www.w3.org/2000/svg" role="img" id="mainSvg">
+    <svg class="graph-svg" viewBox="0 0 720 1130" xmlns="http://www.w3.org/2000/svg" role="img" id="mainSvg">
       <defs>
         <!-- Arrow markers for each relation type -->
         <marker id="arr-lead" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
@@ -230,6 +230,24 @@
         <line x1="585" y1="222" x2="175" y2="562" stroke="#1A7A5E" stroke-width=".9" stroke-dasharray="5,3" class="conn-line" data-from="hegseth" data-to="maduro"/>
         <line x1="585" y1="222" x2="360" y2="562" stroke="#1A7A5E" stroke-width=".9" stroke-dasharray="5,3" class="conn-line" data-from="hegseth" data-to="iran"/>
         <line x1="585" y1="222" x2="545" y2="562" stroke="#1A7A5E" stroke-width=".9" stroke-dasharray="5,3" class="conn-line" data-from="hegseth" data-to="cartels"/>
+
+        <!-- Trump → Cabinet economics/justice (lead) -->
+        <line x1="330" y1="112" x2="93" y2="706" stroke="#4A4290" stroke-width="1" marker-end="url(#arr-lead)" class="conn-line" data-from="trump" data-to="bessent"/>
+        <line x1="345" y1="115" x2="227" y2="706" stroke="#4A4290" stroke-width="1" marker-end="url(#arr-lead)" class="conn-line" data-from="trump" data-to="lutnick"/>
+        <line x1="375" y1="115" x2="361" y2="706" stroke="#4A4290" stroke-width="1" marker-end="url(#arr-lead)" class="conn-line" data-from="trump" data-to="blanche"/>
+        <line x1="390" y1="112" x2="495" y2="706" stroke="#4A4290" stroke-width="1" marker-end="url(#arr-lead)" class="conn-line" data-from="trump" data-to="ratcliffe"/>
+
+        <!-- Trump → Diplomacy/conflict line -->
+        <line x1="315" y1="116" x2="93" y2="760" stroke="#7A7268" stroke-width=".9" stroke-dasharray="4,2" marker-end="url(#arr-lead)" class="conn-line" data-from="trump" data-to="kellogg"/>
+        <line x1="345" y1="116" x2="227" y2="760" stroke="#4A4290" stroke-width="1" marker-end="url(#arr-lead)" class="conn-line" data-from="trump" data-to="witkoff"/>
+        <line x1="360" y1="116" x2="361" y2="760" stroke="#1A7A5E" stroke-width="1" marker-end="url(#arr-war)" class="conn-line" data-from="trump" data-to="zelensky"/>
+        <line x1="385" y1="116" x2="495" y2="760" stroke="#4A4290" stroke-width=".9" stroke-dasharray="4,2" marker-end="url(#arr-lead)" class="conn-line" data-from="trump" data-to="putin"/>
+
+        <!-- Intra-row dynamics -->
+        <line x1="156" y1="730" x2="164" y2="730" stroke="#7A7268" stroke-width=".8" stroke-dasharray="3,2" class="conn-line" data-from="bessent" data-to="lutnick"/>
+        <line x1="93" y1="706" x2="114" y2="320" stroke="#7A7268" stroke-width=".8" stroke-dasharray="3,2" class="conn-line" data-from="bessent" data-to="musk"/>
+        <line x1="405" y1="222" x2="361" y2="760" stroke="#1A7A5E" stroke-width=".8" stroke-dasharray="4,2" class="conn-line" data-from="rubio" data-to="zelensky"/>
+        <line x1="290" y1="784" x2="432" y2="784" stroke="#7A7268" stroke-width=".8" stroke-dasharray="3,2" class="conn-line" data-from="witkoff" data-to="putin"/>
       </g>
 
       <!-- ============ LAYER 1: INNER CIRCLE ============ -->
@@ -380,52 +398,96 @@
         <text x="629" y="686" text-anchor="middle" font-size="8" fill="#5F5E5A">Miles Taylor · "匿名"作者</text>
       </g>
 
+      <!-- ===== ROW 2: 内阁经济/司法新成员 ===== -->
+      <g id="node-bessent" class="node-group" data-id="bessent" onclick="showDetail('bessent')">
+        <rect x="30" y="706" width="126" height="48" rx="8" fill="#DFECF5" stroke="#1B6088" stroke-width=".8" filter="url(#shadow)" class="node-rect"/>
+        <text x="93" y="727" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="11" font-weight="700" fill="#042C53">斯科特·贝森特</text>
+        <text x="93" y="742" text-anchor="middle" font-size="8" fill="#0C447C">Bessent · 财政部长</text>
+      </g>
+      <g id="node-lutnick" class="node-group" data-id="lutnick" onclick="showDetail('lutnick')">
+        <rect x="164" y="706" width="126" height="48" rx="8" fill="#DFECF5" stroke="#1B6088" stroke-width=".8" filter="url(#shadow)" class="node-rect"/>
+        <text x="227" y="727" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="11" font-weight="700" fill="#042C53">霍华德·卢特尼克</text>
+        <text x="227" y="742" text-anchor="middle" font-size="8" fill="#0C447C">Lutnick · 商务部长</text>
+      </g>
+      <g id="node-blanche" class="node-group" data-id="blanche" onclick="showDetail('blanche')">
+        <rect x="298" y="706" width="126" height="48" rx="8" fill="#DFECF5" stroke="#1B6088" stroke-width=".8" filter="url(#shadow)" class="node-rect"/>
+        <text x="361" y="727" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="11" font-weight="700" fill="#042C53">托德·布兰奇</text>
+        <text x="361" y="742" text-anchor="middle" font-size="8" fill="#0C447C">Blanche · 司法部长</text>
+      </g>
+      <g id="node-ratcliffe" class="node-group" data-id="ratcliffe" onclick="showDetail('ratcliffe')">
+        <rect x="432" y="706" width="126" height="48" rx="8" fill="#DFECF5" stroke="#1B6088" stroke-width=".8" filter="url(#shadow)" class="node-rect"/>
+        <text x="495" y="727" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="11" font-weight="700" fill="#042C53">约翰·拉特克利夫</text>
+        <text x="495" y="742" text-anchor="middle" font-size="8" fill="#0C447C">Ratcliffe · 中情局长</text>
+      </g>
+
+      <!-- ===== ROW 3: 外交冲突线（泽连斯基危机） ===== -->
+      <g id="node-kellogg" class="node-group" data-id="kellogg" onclick="showDetail('kellogg')">
+        <rect x="30" y="760" width="126" height="48" rx="8" fill="#F1EFE8" stroke="#B4B2A9" stroke-width=".8" filter="url(#shadow)" class="node-rect"/>
+        <text x="93" y="781" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="11" font-weight="700" fill="#2C2C2A">基思·凯洛格</text>
+        <text x="93" y="796" text-anchor="middle" font-size="8" fill="#5F5E5A">Kellogg · 乌克兰特使</text>
+      </g>
+      <g id="node-witkoff" class="node-group" data-id="witkoff" onclick="showDetail('witkoff')">
+        <rect x="164" y="760" width="126" height="48" rx="8" fill="#F1EFE8" stroke="#B4B2A9" stroke-width=".8" filter="url(#shadow)" class="node-rect"/>
+        <text x="227" y="781" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="11" font-weight="700" fill="#2C2C2A">史蒂夫·维特科夫</text>
+        <text x="227" y="796" text-anchor="middle" font-size="8" fill="#5F5E5A">Witkoff · 密友特使</text>
+      </g>
+      <g id="node-zelensky" class="node-group" data-id="zelensky" onclick="showDetail('zelensky')">
+        <rect x="298" y="760" width="126" height="48" rx="8" fill="#DFF0EA" stroke="#1A7A5E" stroke-width=".8" filter="url(#shadow)" class="node-rect"/>
+        <text x="361" y="781" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="11" font-weight="700" fill="#04342C">泽连斯基</text>
+        <text x="361" y="796" text-anchor="middle" font-size="8" fill="#085041">Zelensky · 乌克兰总统</text>
+      </g>
+      <g id="node-putin" class="node-group" data-id="putin" onclick="showDetail('putin')">
+        <rect x="432" y="760" width="126" height="48" rx="8" fill="#FAE5E0" stroke="#A63D2E" stroke-width=".8" filter="url(#shadow)" class="node-rect"/>
+        <text x="495" y="781" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="11" font-weight="700" fill="#501313">弗拉基米尔·普京</text>
+        <text x="495" y="796" text-anchor="middle" font-size="8" fill="#791F1F">Putin · 俄罗斯总统</text>
+      </g>
+
       <!-- ============ KEY RELATIONSHIP DYNAMICS SECTION ============ -->
-      <text x="360" y="726" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="13" font-weight="700" fill="#1A1612">关键关系动态</text>
+      <text x="360" y="844" text-anchor="middle" font-family="'Noto Sans SC',sans-serif" font-size="13" font-weight="700" fill="#1A1612">关键关系动态</text>
 
       <!-- Miller vs Wiles -->
-      <rect x="36" y="740" width="320" height="82" rx="8" fill="#FCECE6" stroke="#D85A30" stroke-width=".5"/>
-      <text x="52" y="758" font-family="'Noto Sans SC',sans-serif" font-size="10.5" font-weight="700" fill="#712B13">Miller vs Wiles：激进 vs 稳健</text>
-      <text x="52" y="774" font-size="9.5" fill="#993C1D">Miller推动极端政策（大规模驱逐、国内军事化），Wiles试图控制节奏。</text>
-      <text x="52" y="790" font-size="9" fill="#B86A4A">核心张力：Trump最终几乎总是站在Miller一边。</text>
-      <text x="52" y="808" font-size="8.5" fill="#B86A4A" font-style:italic">"白宫内最后的刹车片正在磨损殆尽"</text>
+      <rect x="36" y="858" width="320" height="82" rx="8" fill="#FCECE6" stroke="#D85A30" stroke-width=".5"/>
+      <text x="52" y="876" font-family="'Noto Sans SC',sans-serif" font-size="10.5" font-weight="700" fill="#712B13">Miller vs Wiles：激进 vs 稳健</text>
+      <text x="52" y="892" font-size="9.5" fill="#993C1D">Miller推动极端政策（大规模驱逐、国内军事化），Wiles试图控制节奏。</text>
+      <text x="52" y="908" font-size="9" fill="#B86A4A">核心张力：Trump最终几乎总是站在Miller一边。</text>
+      <text x="52" y="926" font-size="8.5" fill="#B86A4A" font-style:italic">"白宫内最后的刹车片正在磨损殆尽"</text>
 
       <!-- Rubio's transformation -->
-      <rect x="364" y="740" width="320" height="82" rx="8" fill="#E6F1FB" stroke="#378ADD" stroke-width=".5"/>
-      <text x="380" y="758" font-family="'Noto Sans SC',sans-serif" font-size="10.5" font-weight="700" fill="#0C447C">Rubio 的"皈依"轨迹</text>
-      <text x="380" y="774" font-size="9.5" fill="#185FA5">2016批评Trump → 2024竞选对手落选 → 国务卿+国安顾问双职</text>
-      <text x="380" y="790" font-size="9" fill="#4A8CD6">从"民主推广理想主义者"变为"马杜罗复仇者"。</text>
-      <text x="380" y="808" font-size="8.5" fill="#4A8CD6" font-style:italic">"不是妥协(concession)，是皈依(conversion)"</text>
+      <rect x="364" y="858" width="320" height="82" rx="8" fill="#E6F1FB" stroke="#378ADD" stroke-width=".5"/>
+      <text x="380" y="876" font-family="'Noto Sans SC',sans-serif" font-size="10.5" font-weight="700" fill="#0C447C">Rubio 的"皈依"轨迹</text>
+      <text x="380" y="892" font-size="9.5" fill="#185FA5">2016批评Trump → 2024竞选对手落选 → 国务卿+国安顾问双职</text>
+      <text x="380" y="908" font-size="9" fill="#4A8CD6">从"民主推广理想主义者"变为"马杜罗复仇者"。</text>
+      <text x="380" y="926" font-size="8.5" fill="#4A8CD6" font-style:italic">"不是妥协(concession)，是皈依(conversion)"</text>
 
       <!-- Musk wild card -->
-      <rect x="36" y="832" width="320" height="70" rx="8" fill="#FAEDA6" stroke="#BA7517" stroke-width=".5"/>
-      <text x="52" y="850" font-family="'Noto Sans SC',sans-serif" font-size="10.5" font-weight="700" fill="#633806">Elon Musk：局外人 × 局内人</text>
-      <text x="52" y="866" font-size="9.5" fill="#854F0B">DOGE负责人但非内阁成员。与Miller结盟削减联邦雇员。</text>
-      <text x="52" y="882" font-size="9" fill="#A6853A">经常绕过Wiles直接汇报。评价同行："一流跪舔(groveling)"</text>
+      <rect x="36" y="950" width="320" height="70" rx="8" fill="#FAEDA6" stroke="#BA7517" stroke-width=".5"/>
+      <text x="52" y="968" font-family="'Noto Sans SC',sans-serif" font-size="10.5" font-weight="700" fill="#633806">Elon Musk：局外人 × 局内人</text>
+      <text x="52" y="984" font-size="9.5" fill="#854F0B">DOGE负责人但非内阁成员。与Miller结盟削减联邦雇员。</text>
+      <text x="52" y="1000" font-size="9" fill="#A6853A">经常绕过Wiles直接汇报。评价同行："一流跪舔(groveling)"</text>
 
       <!-- Hegseth war philosophy -->
-      <rect x="364" y="832" width="320" height="70" rx="8" fill="#FCEAEA" stroke="#E24B4A" stroke-width=".5"/>
-      <text x="380" y="850" font-family="'Noto Sans SC',sans-serif" font-size="10.5" font-weight="700" fill="#791F1F">Hegseth 的战争哲学</text>
-      <text x="380" y="866" font-size="9.5" fill="#A63D2E">清除国防部法律官(jagoffs)，支持无差别轰炸贩毒快艇。</text>
-      <text x="380" y="882" font-size="9" fill="#D48080">推动ICE使用化学制剂+Black Hawk突袭平民区</text>
+      <rect x="364" y="950" width="320" height="70" rx="8" fill="#FCEAEA" stroke="#E24B4A" stroke-width=".5"/>
+      <text x="380" y="968" font-family="'Noto Sans SC',sans-serif" font-size="10.5" font-weight="700" fill="#791F1F">Hegseth 的战争哲学</text>
+      <text x="380" y="984" font-size="9.5" fill="#A63D2E">清除国防部法律官(jagoffs)，支持无差别轰炸贩毒快艇。</text>
+      <text x="380" y="1000" font-size="9" fill="#D48080">推动ICE使用化学制剂+Black Hawk突袭平民区</text>
 
       <!-- Key quote at bottom -->
-      <rect x="80" y="918" width="560" height="24" rx="5" fill="#FDE8DD" fill-opacity=".5" stroke="#C4653A" stroke-width=".3"/>
-      <text x="360" y="934" text-anchor="middle" font-size="9.5" fill="#712B13" font-style:italic">"Trump不再需要中间人 —— 报复不再是隐秘任务，而是公开的驱动力。"</text>
+      <rect x="80" y="1036" width="560" height="24" rx="5" fill="#FDE8DD" fill-opacity=".5" stroke="#C4653A" stroke-width=".3"/>
+      <text x="360" y="1052" text-anchor="middle" font-size="9.5" fill="#712B13" font-style:italic">"Trump不再需要中间人 —— 报复不再是隐秘任务，而是公开的驱动力。"</text>
 
       <!-- Legend -->
-      <rect x="36" y="952" width="648" height="38" rx="8" fill="#F5F3EF" stroke="#DDD6CC" stroke-width=".5"/>
-      <text x="52" y="974" font-size="8.5" font-weight="700" fill="#5C534A">图例:</text>
-      <rect x="82" y="964" width="12" height="12" rx="3" fill="#FDE8DD" stroke="#C4653A" stroke-width=".5"/><text x="98" y="974" font-size="8.5" fill="#5C534A">核心</text>
-      <rect x="132" y="964" width="12" height="12" rx="3" fill="#E8E4F4" stroke="#4A4290" stroke-width=".5"/><text x="148" y="974" font-size="8.5" fill="#5C534A">忠诚圈</text>
-      <rect x="192" y="964" width="12" height="12" rx="3" fill="#DFECF5" stroke="#1B6088" stroke-width=".5"/><text x="208" y="974" font-size="8.5" fill="#5C534A">内阁</text>
-      <rect x="242" y="964" width="12" height="12" rx="3" fill="#FBF0DC" stroke="#9A6B28" stroke-width=".5"/><text x="258" y="974" font-size="8.5" fill="#5C534A">朝贡</text>
-      <rect x="292" y="964" width="12" height="12" rx="3" fill="#FAE5E0" stroke="#A63D2E" stroke-width=".5"/><text x="308" y="974" font-size="8.5" fill="#5C534A">报复</text>
-      <rect x="342" y="964" width="12" height="12" rx="3" fill="#DFF0EA" stroke="#1A7A5E" stroke-width=".5"/><text x="358" y="974" font-size="8.5" fill="#5C534A">战争</text>
-      <line x1="400" y1="970" x2="428" y2="970" stroke="#4A4290" stroke-width="1" marker-end="url(#arr-lead)"/><text x="434" y="974" font-size="8.5" fill="#5C534A">领导</text>
-      <line x1="465" y1="970" x2="493" y2="970" stroke="#9A6B28" stroke-width="1" stroke-dasharray="3,2" marker-end="url(#arr-tribute)"/><text x="499" y="974" font-size="8.5" fill="#5C534A">朝贡</text>
-      <line x1="530" y1="970" x2="558" y2="970" stroke="#A63D2E" stroke-width="1" marker-end="url(#arr-retrib)"/><text x="564" y="974" font-size="8.5" fill="#5C534A">报复</text>
-      <line x1="595" y1="970" x2="623" y2="970" stroke="#1A7A5E" stroke-width=".9" stroke-dasharray="5,3"/><text x="629" y="974" font-size="8.5" fill="#5C534A">战争</text>
+      <rect x="36" y="1070" width="648" height="38" rx="8" fill="#F5F3EF" stroke="#DDD6CC" stroke-width=".5"/>
+      <text x="52" y="1092" font-size="8.5" font-weight="700" fill="#5C534A">图例:</text>
+      <rect x="82" y="1082" width="12" height="12" rx="3" fill="#FDE8DD" stroke="#C4653A" stroke-width=".5"/><text x="98" y="1092" font-size="8.5" fill="#5C534A">核心</text>
+      <rect x="132" y="1082" width="12" height="12" rx="3" fill="#E8E4F4" stroke="#4A4290" stroke-width=".5"/><text x="148" y="1092" font-size="8.5" fill="#5C534A">忠诚圈</text>
+      <rect x="192" y="1082" width="12" height="12" rx="3" fill="#DFECF5" stroke="#1B6088" stroke-width=".5"/><text x="208" y="1092" font-size="8.5" fill="#5C534A">内阁</text>
+      <rect x="242" y="1082" width="12" height="12" rx="3" fill="#FBF0DC" stroke="#9A6B28" stroke-width=".5"/><text x="258" y="1092" font-size="8.5" fill="#5C534A">朝贡</text>
+      <rect x="292" y="1082" width="12" height="12" rx="3" fill="#FAE5E0" stroke="#A63D2E" stroke-width=".5"/><text x="308" y="1092" font-size="8.5" fill="#5C534A">报复</text>
+      <rect x="342" y="1082" width="12" height="12" rx="3" fill="#DFF0EA" stroke="#1A7A5E" stroke-width=".5"/><text x="358" y="1092" font-size="8.5" fill="#5C534A">战争</text>
+      <line x1="400" y1="970" x2="428" y2="970" stroke="#4A4290" stroke-width="1" marker-end="url(#arr-lead)"/><text x="434" y="1092" font-size="8.5" fill="#5C534A">领导</text>
+      <line x1="465" y1="970" x2="493" y2="970" stroke="#9A6B28" stroke-width="1" stroke-dasharray="3,2" marker-end="url(#arr-tribute)"/><text x="499" y="1092" font-size="8.5" fill="#5C534A">朝贡</text>
+      <line x1="530" y1="970" x2="558" y2="970" stroke="#A63D2E" stroke-width="1" marker-end="url(#arr-retrib)"/><text x="564" y="1092" font-size="8.5" fill="#5C534A">报复</text>
+      <line x1="595" y1="970" x2="623" y2="970" stroke="#1A7A5E" stroke-width=".9" stroke-dasharray="5,3"/><text x="629" y="1092" font-size="8.5" fill="#5C534A">战争</text>
     </svg>
   </div>
 </div>
@@ -555,7 +617,47 @@ const NODES = {
     summary:'前国土安全部高级官员，以"匿名"身份撰写《纽约时报》批评特朗普的文章，著有《警告》(A Warning)。第二任期面临"叛国罪"调查与安全许可吊销。',
     keyActions:['撰写"匿名"批评文章','出版《警告》一书','面临叛国罪调查'],
     quotes:['说真话的匿名者被追查——批评总统成了需要隐藏身份的事'],
-    relation:'反叛者样本：被以"叛国罪"威慑' }
+    relation:'反叛者样本：被以"叛国罪"威慑' },
+  bessent: { cn:'斯科特·贝森特', en:'Scott Bessent', role:'财政部长', roleEn:'华尔街老手 / 关税内斗主角', badge:'华尔街派', layer:'cab',
+    summary:'华尔街对冲基金经理出身，特朗普第二任期的财政部长。在关税政策上与卢特尼克角力，主张谨慎渐进；马斯克擅闯其管辖的IRS引发"肉搏"。',
+    keyActions:['基辅逼签矿物协议（泽连斯基拒签）','与马斯克"肉搏"（IRS风波）','90天暂停前苦劝特朗普转向'],
+    quotes:['"市场马上开盘……你得转向谈判，因为你在融化。"'],
+    relation:'建制派技术官僚：用专业对冲激进派，最终在关税内斗中胜出' },
+  lutnick: { cn:'霍华德·卢特尼克', en:'Howard Lutnick', role:'商务部长', roleEn:'商人直觉派', badge:'商人直觉', layer:'cab',
+    summary:'Cantor Fitzgerald 首席执行官出身，特朗普任命的商务部长。商人直觉驱动的激进派，在关税与矿物协议上与贝森特争锋。',
+    keyActions:['推动激进关税议程','警告"市场要崩了，你会成为崩盘的责任人"','被特朗普骂"你现在软了，你是懦夫"'],
+    quotes:['"我是你每月250亿的懦夫。"'],
+    relation:'商人直觉派：为特朗普的贸易冲动提供"执行火力"' },
+  blanche: { cn:'托德·布兰奇', en:'Todd Blanche', role:'司法部长', roleEn:'总统前私人律师', badge:'私人律师团', layer:'cab',
+    summary:'特朗普的私人辩护律师出身，2024年特朗普刑事案的辩护人之一，第二任期出任副司法部长、后升任司法部长。',
+    keyActions:['特朗普私人律师 → 副总检察长 → 司法部长','代表特朗普打刑事案','DOJ"私人律所化"的核心人物'],
+    quotes:['布兰奇是"把DOJ领导层变成特朗普私人律所"的象征'],
+    relation:'私人律师团：总统个人法律利益与联邦执法机器彻底融合' },
+  ratcliffe: { cn:'约翰·拉特克利夫', en:'John Ratcliffe', role:'CIA 局长', roleEn:'忠诚情报官', badge:'忠诚情报', layer:'cab',
+    summary:'前得州众议员，第一任期靠辩护特朗普挺过通俄调查上位。第二任期出任CIA局长，主导委内瑞拉等秘密行动的情报支持。',
+    keyActions:['CIA局长（74-25确认）','主导马杜罗行踪情报','委内瑞拉行动情报支持'],
+    quotes:['特朗普的顾虑："他会把CIA拆掉吗"——得到满意答复后任命'],
+    relation:'忠诚情报官：把CIA变成总统的行动工具' },
+  kellogg: { cn:'基思·凯洛格', en:'Keith Kellogg', role:'乌克兰特使', roleEn:'被架空的老将', badge:'被架空', layer:'other',
+    summary:'80岁的退役中将，特朗普任命的乌克兰特使。带着六块演示板进椭圆办公室，却被当众羞辱，工作早已被秘密转给维特科夫。',
+    keyActions:['带演示板进椭圆办公室被羞辱','被下令"你团队谁都不许跟俄罗斯人谈"','被维特科夫架空'],
+    quotes:['"你团队里谁都不许跟俄罗斯人谈，因为我们在做交易。"'],
+    relation:'被架空的老人：特朗普的"工具人"随时可弃' },
+  witkoff: { cn:'史蒂夫·维特科夫', en:'Steve Witkoff', role:'中东特使', roleEn:'无外交经验的密友', badge:'另起炉灶', layer:'other',
+    summary:'特朗普1980年代的律师、老友，纽约房地产商，无外交经验。经沙特王储引荐独自飞莫斯科见普京近3小时，打开美俄直通渠道。',
+    keyActions:['独自飞莫斯科见普京近3小时','带回"流血挥拳油画"礼物','负责中东/俄乌直接谈判'],
+    quotes:['普京的"礼物"：特朗普遇刺时流血挥拳的油画'],
+    relation:'密友特使：特朗普用"自己人"绕过国务院' },
+  zelensky: { cn:'沃洛德米尔·泽连斯基', en:'Volodymyr Zelensky', role:'乌克兰总统', roleEn:'被逼签协议的"盟邦"', badge:'结构性冲突', layer:'war',
+    summary:'乌克兰总统，2025年2月28日椭圆办公室与特朗普、万斯发生49分钟公开冲突。他要"安全保证"，特朗普要"回收援助"——双方要的不是同一个东西。',
+    keyActions:['拒签$5000亿矿物协议（"这是敲诈"）','2.28椭圆办公室公开摊牌','1:40pm 雨中离开白宫'],
+    quotes:['"你说的哪种外交，JD？""你去过乌克兰吗？来一次。"'],
+    relation:'交易秩序里的"盟友"：价签是明码标价的' },
+  putin: { cn:'弗拉基米尔·普京', en:'Vladimir Putin', role:'俄罗斯总统', roleEn:'"强者"崇拜对象', badge:'强者崇拜', layer:'war',
+    summary:'俄罗斯总统。特朗普第一任期即表现出对普京的迷恋（"他说的话我很信服"）。维特科夫带回的油画礼物是精准的心理投喂——特朗普羡慕他那种不受制约的权力。',
+    keyActions:['接见维特科夫近3小时','赠送"流血挥拳油画"','四年来首次与特朗普通话90分钟'],
+    quotes:['特朗普直接问："你是要整个乌克兰还是一部分"，普京答："不需要全部。"'],
+    relation:'"强者"崇拜对象：特朗普在情感上站在强权一边' }
 };
 
 const CONNECTIONS = [
@@ -577,7 +679,19 @@ const CONNECTIONS = [
   {from:'trump', to:'pw', type:'retribution', label:'杀鸡儆猴'},
   {from:'hegseth', to:'maduro', type:'war', label:'军事执行'},
   {from:'hegseth', to:'iran', type:'war', label:'全面战争'},
-  {from:'hegseth', to:'cartels', type:'war', label:'炸船行动'}
+  {from:'hegseth', to:'cartels', type:'war', label:'炸船行动'},
+  {from:'trump', to:'bessent', type:'lead', label:'财政掌舵'},
+  {from:'trump', to:'lutnick', type:'lead', label:'商务执行'},
+  {from:'trump', to:'blanche', type:'lead', label:'私人律所'},
+  {from:'trump', to:'ratcliffe', type:'lead', label:'情报掌舵'},
+  {from:'bessent', to:'lutnick', type:'delegate', label:'关税内斗'},
+  {from:'bessent', to:'musk', type:'delegate', label:'IRS"肉搏"'},
+  {from:'trump', to:'kellogg', type:'lead', label:'架空弃用'},
+  {from:'trump', to:'witkoff', type:'lead', label:'密友特使'},
+  {from:'trump', to:'zelensky', type:'war', label:'逼签矿物协议'},
+  {from:'trump', to:'putin', type:'delegate', label:'强者崇拜'},
+  {from:'rubio', to:'zelensky', type:'war', label:'外交施压'},
+  {from:'witkoff', to:'putin', type:'delegate', label:'莫斯科密会'}
 ];
 
 const REL_TYPES = {

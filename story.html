@@ -228,6 +228,112 @@
   }
   .pp-goto:hover { color: var(--c-loyal-dark); border-color: var(--c-loyal-dark); }
 
+  /* ===== 可视化组件库 ===== */
+  /* 数字统计条 */
+  .stat-strip {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+    gap: 10px;
+    margin: 12px 0;
+  }
+  .stat-card {
+    background: linear-gradient(160deg, var(--surface-card) 0%, var(--surface-base) 100%);
+    border: 1px solid var(--border-light);
+    border-radius: 12px;
+    padding: 13px 10px 11px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .stat-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--c-trump);
+  }
+  .stat-num {
+    font-family: var(--font-serif);
+    font-size: 22px; font-weight: 900;
+    color: var(--c-trump-dark);
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+  }
+  .stat-label { font-size: 11.5px; color: var(--text-secondary); margin-top: 4px; line-height: 1.45; }
+  .stat-strip.tone-tech .stat-card::before { background: var(--c-tech); }
+  .stat-strip.tone-tech .stat-num { color: var(--c-tech-dark); }
+  .stat-strip.tone-enemy .stat-card::before { background: var(--c-enemy); }
+  .stat-strip.tone-enemy .stat-num { color: var(--c-enemy-dark); }
+  .stat-strip.tone-war .stat-card::before { background: var(--c-war); }
+  .stat-strip.tone-war .stat-num { color: var(--c-war-dark); }
+
+  /* 图标要点卡 */
+  .icon-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 10px;
+    margin: 12px 0;
+  }
+  .icon-card {
+    background: var(--surface-card);
+    border: 1px solid var(--border-light);
+    border-radius: 12px;
+    padding: 13px 14px;
+    transition: all .25s var(--ease-out-quart);
+  }
+  .icon-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); border-color: var(--border-mid); }
+  .ic-emoji { font-size: 24px; line-height: 1; margin-bottom: 8px; display: block; }
+  .ic-title { font-size: 13.5px; font-weight: 800; color: var(--text-primary); margin-bottom: 5px; line-height: 1.35; }
+  .ic-desc { font-size: 12px; color: var(--text-secondary); line-height: 1.65; }
+
+  /* 迷你时间线 */
+  .mini-tl { margin: 12px 0; position: relative; padding-left: 22px; }
+  .mini-tl::before {
+    content: '';
+    position: absolute; left: 6px; top: 4px; bottom: 4px;
+    width: 2px;
+    background: linear-gradient(180deg, var(--c-trump), rgba(196,101,58,0.15));
+  }
+  .tl-item { position: relative; padding: 0 0 13px 6px; }
+  .tl-item:last-child { padding-bottom: 0; }
+  .tl-item::before {
+    content: '';
+    position: absolute; left: -19px; top: 4px;
+    width: 10px; height: 10px; border-radius: 50%;
+    background: var(--surface-card);
+    border: 2.5px solid var(--c-trump);
+  }
+  .tl-item.tone-tech::before { border-color: var(--c-tech); }
+  .tl-item.tone-enemy::before { border-color: var(--c-enemy); }
+  .tl-item.tone-war::before { border-color: var(--c-war); }
+  .tl-item.tone-loyal::before { border-color: var(--c-loyal); }
+  .tl-date { font-size: 11px; font-weight: 800; color: var(--c-trump-dark); letter-spacing: 0.02em; }
+  .tl-item.tone-tech .tl-date { color: var(--c-tech-dark); }
+  .tl-item.tone-enemy .tl-date { color: var(--c-enemy-dark); }
+  .tl-item.tone-war .tl-date { color: var(--c-war-dark); }
+  .tl-item.tone-loyal .tl-date { color: var(--c-loyal-dark); }
+  .tl-title { font-size: 13.5px; font-weight: 800; color: var(--text-primary); margin-top: 2px; line-height: 1.35; }
+  .tl-desc { font-size: 12px; color: var(--text-secondary); margin-top: 3px; line-height: 1.6; }
+
+  /* 引用/金句卡 */
+  .quote-card {
+    margin: 12px 0;
+    padding: 14px 18px;
+    background: var(--surface-card);
+    border: 1px solid var(--border-light);
+    border-left: 4px solid var(--c-loyal);
+    border-radius: 0 12px 12px 0;
+    position: relative;
+  }
+  .quote-card::before {
+    content: '\201C';
+    position: absolute; top: 2px; left: 12px;
+    font-family: Georgia, serif; font-size: 38px;
+    color: rgba(74,66,144,0.18);
+    line-height: 1;
+  }
+  .quote-card .qc-text { font-size: 13.5px; font-style: italic; color: var(--text-primary); line-height: 1.7; padding-left: 14px; }
+  .quote-card .qc-src { font-size: 11px; color: var(--text-tertiary); margin-top: 6px; padding-left: 14px; letter-spacing: 0.02em; }
+
   /* ===== FOLD-BLOCK (可折叠展开) ===== */
   .fold-block {
     margin: 14px 0 18px;
@@ -857,7 +963,13 @@
         </div>
 
         <div class="stage-lead">
-          2026 年新年夜，海湖庄园（Mar-a-Lago）大宴会厅金碧辉煌：皮草、黑地毯、烛光、弦乐，一众 MAGA 名流齐聚，迎接"世界和平"的新年愿望。然而<strong>48 小时后</strong>，美军将抓捕委内瑞拉独裁者马杜罗；<strong>几周后</strong>，明尼苏达将爆发致命枪击；<strong>不到两个月</strong>，美国将再次卷入中东战争——三大伏笔，在此埋下。
+          2026 年新年夜，海湖庄园（Mar-a-Lago）大宴会厅金碧辉煌：皮草、黑地毯、烛光、弦乐，一众 MAGA 名流齐聚，迎接"世界和平"的新年愿望。然而——这场盛宴埋下三大伏笔：
+        </div>
+
+        <div class="stat-strip" style="margin:0 26px 6px">
+          <div class="stat-card"><div class="stat-num">48 小时</div><div class="stat-label">后，美军抓捕委内瑞拉独裁者马杜罗</div></div>
+          <div class="stat-card"><div class="stat-num">几周</div><div class="stat-label">后，明尼苏达联邦特工射杀两名美国人</div></div>
+          <div class="stat-card"><div class="stat-num">&lt; 2 个月</div><div class="stat-label">后，美国再次卷入中东战争</div></div>
         </div>
 
         <div class="events">
@@ -969,20 +1081,53 @@
               </div>
 
               <div class="sb-h">J6 试金石：新的人事"政治审查"</div>
-              <div class="sb-para">
-                第二任期的职位面试多了一道必答题：<strong>"你怎么看1月6日？2020年谁赢了？"</strong>过渡团队甚至提前搜过候选人社交媒体上对国会山事件后特朗普的批评。
-                但标准完全由特朗普一人裁定：鲁比奥骂过J6是"国耻"却当上国务卿；而第一任期国安顾问<strong>奥布莱恩</strong>只因J6当天夸了彭斯，就被当场划掉——"他1月7日在发抖。他跟波佩奥一样，把他弄下去。"（"像波佩奥"是特朗普词典里的顶级侮辱：波佩奥曾轻微批评第一任期财政纪律）。
-              </div>
-              <div class="sb-para">
-                最极端的例子：副国防部长候选人麦卡锡，只因赫格塞斯顺口说"有人觉得他是米利的人"（米利=卸任参联会主席、公开说特朗普危害共和国），即告出局。特朗普："<strong>哪怕他有1%像米利，我们也不能要。</strong>"
+              <div class="icon-grid" style="margin-top:6px">
+                <div class="icon-card">
+                  <span class="ic-emoji">❓</span>
+                  <div class="ic-title">必答题</div>
+                  <div class="ic-desc">职位面试多了一道必答题：<strong>"你怎么看1月6日？2020年谁赢了？"</strong>过渡团队甚至提前搜过候选人社交媒体上对国会山事件后特朗普的批评。</div>
+                </div>
+                <div class="icon-card">
+                  <span class="ic-emoji">✅</span>
+                  <div class="ic-title">过关：鲁比奥</div>
+                  <div class="ic-desc">骂过J6是"国耻"却当上国务卿——<strong>标准由特朗普一人裁定</strong>，他说了算。</div>
+                </div>
+                <div class="icon-card">
+                  <span class="ic-emoji">❌</span>
+                  <div class="ic-title">出局：奥布莱恩</div>
+                  <div class="ic-desc">第一任期国安顾问，只因J6当天夸了彭斯被当场划掉："他1月7日在发抖。他跟波佩奥一样，把他弄下去。"（"像波佩奥"是特朗普词典里的顶级侮辱）</div>
+                </div>
+                <div class="icon-card">
+                  <span class="ic-emoji">🚫</span>
+                  <div class="ic-title">极端案例：麦卡锡</div>
+                  <div class="ic-desc">副国防部长候选人，只因赫格塞斯顺口说"有人觉得他是米利的人"即告出局。特朗普："<strong>哪怕他有1%像米利，我们也不能要。</strong>"</div>
+                </div>
               </div>
 
               <div class="sb-h">司法部"私有化"：DOJ 成为总统的私人律所</div>
-              <div class="sb-para">
-                <strong>DOJ 是什么？</strong> DOJ（Department of Justice，美国司法部）是联邦政府最高执法与检察机构，负责联邦刑事起诉、民权执法、反垄断、情报法律监督等，下属 FBI、缉毒局、烟酒枪炮管理局等。其独立性被视为美国法治的基石——司法部长理论上应对总统"说不"。
+              <div class="icon-grid" style="margin-top:6px">
+                <div class="icon-card">
+                  <span class="ic-emoji">🏛️</span>
+                  <div class="ic-title">DOJ 是什么？</div>
+                  <div class="ic-desc"><strong>DOJ（Department of Justice，美国司法部）</strong>：联邦政府最高执法与检察机构，负责联邦刑事起诉、民权执法、反垄断、情报法律监督，下属 FBI、缉毒局等。独立性被视为美国法治基石——司法部长理论上应对总统"说不"。</div>
+                </div>
               </div>
-              <div class="sb-para">
-                特朗普相信第一任期被两任司法部长"破坏"过：<strong>塞申斯</strong>（回避通俄调查，被骂两年后解雇）和<strong>巴尔</strong>（拒绝配合"选举被窃取"阴谋）。这次他先以"一时兴起"提名<strong>加茨</strong>——明知加茨深陷性行为不端调查，把这当作"测试自己能做到哪一步"（他告诉幕僚加茨只有30%成功率），八天丑闻后加茨退出。最终司法部长<strong>邦迪</strong>、副司法部长<strong>布兰奇</strong>（特朗普私人律师）——<strong>"把DOJ领导层变成他的私人律所"</strong>。布兰奇甚至保留着私人执业时代的诉讼客户关系，总统的个人法律利益与联邦执法机器彻底融合。
+              <div class="mini-tl" style="margin-top:8px">
+                <div class="tl-item tone-enemy">
+                  <div class="tl-date">第一任期 · 两次"破坏"</div>
+                  <div class="tl-title">塞申斯 & 巴尔</div>
+                  <div class="tl-desc">塞申斯回避通俄调查（被骂两年后解雇）；巴尔拒绝配合"选举被窃取"阴谋。特朗普认为司法部"背叛"过他。</div>
+                </div>
+                <div class="tl-item tone-enemy">
+                  <div class="tl-date">提名时刻 · "一时兴起"</div>
+                  <div class="tl-title">加茨：30% 成功率的测试</div>
+                  <div class="tl-desc">明知加茨深陷性行为不端调查仍提名——把这当作"测试自己能做到哪一步"（他告诉幕僚加茨只有30%成功率）。八天丑闻后加茨退出。</div>
+                </div>
+                <div class="tl-item tone-loyal">
+                  <div class="tl-date">最终落定 · 私人律所化</div>
+                  <div class="tl-title">邦迪 + 布兰奇</div>
+                  <div class="tl-desc">司法部长邦迪、副司法部长布兰奇（特朗普私人律师）——<strong>"把DOJ领导层变成他的私人律所"</strong>。布兰奇甚至保留着私人执业时代的诉讼客户关系，总统个人利益与联邦执法机器彻底融合。</div>
+                </div>
               </div>
 
               <div class="sb-h">三个关键人物档案</div>
@@ -1333,14 +1478,33 @@
               </div>
 
               <div class="sb-h">权力巅峰（2025.2）：无监督的"半夜拆政府"</div>
-              <div class="sb-para">
-                马斯克以<strong>"特殊政府雇员"</strong>身份领导DOGE（不是正式官员——盟友认为这能把他从《信息自由法》公开记录中"包起来"）。他接管了2014年因奥巴马医改网站事故设立的"美国数字服务局"，成为总统行政办公室下的独立实体；自己却占用艾森豪威尔行政大楼的"战争部长套房"，放DOGE标志、MAGA帽和一台RGB游戏电脑。
+              <div class="stat-strip tone-tech">
+                <div class="stat-card"><div class="stat-num">130 天</div><div class="stat-label">"特殊政府雇员"任期上限（非正式官员，规避公开记录）</div></div>
+                <div class="stat-card"><div class="stat-num">40+ 人</div><div class="stat-label">DOGE 突击队（多为 19-24 岁硅谷技术人员）</div></div>
+                <div class="stat-card"><div class="stat-num">7 个</div><div class="stat-label">政府数据库被尝试进入（财政部支付系统/社保局/IRS）</div></div>
+                <div class="stat-card"><div class="stat-num">0</div><div class="stat-label">老板——白宫多数人"事后才知道"</div></div>
               </div>
-              <div class="sb-para">
-                就职后几周，40多人团队试图进入至少7个政府数据库——包括财政部支付系统、社保局、IRS。白宫多数人毫不知情："<strong>埃隆基本上在运营一家创业公司，我们看不到他们每天在干什么，都是事后才知道。他没有老板。</strong>"特朗普的算计：马斯克是"<strong>热盾</strong>"——吸收裁员骂声；"他不能当总统，他在南非出生。"
-              </div>
-              <div class="sb-para">
-                最狠的一击是<strong>摧毁USAID</strong>：1月底冻结外援后，马斯克发现款项还在流动，遂"把USAID砍成碎片"。代价是叙利亚关押数千ISIS战士的Al Hol拘留营断粮断燃料、濒临崩溃；豁免获批钱也不动——"他们把支付系统的电线从墙上拔了"。
+              <div class="icon-grid" style="margin-top:6px">
+                <div class="icon-card">
+                  <span class="ic-emoji">👤</span>
+                  <div class="ic-title">特殊身份</div>
+                  <div class="ic-desc">"特殊政府雇员"不是正式官员——盟友认为这能把他从《信息自由法》公开记录中"包起来"。他接管"美国数字服务局"，却占用艾森豪威尔行政大楼的"战争部长套房"，放 DOGE 标志、MAGA 帽和一台 RGB 游戏电脑。</div>
+                </div>
+                <div class="icon-card">
+                  <span class="ic-emoji">🔒</span>
+                  <div class="ic-title">白宫失控</div>
+                  <div class="ic-desc">"<strong>埃隆基本上在运营一家创业公司，我们看不到他们每天在干什么，都是事后才知道。他没有老板。</strong>"</div>
+                </div>
+                <div class="icon-card">
+                  <span class="ic-emoji">🛡️</span>
+                  <div class="ic-title">特朗普的算计</div>
+                  <div class="ic-desc">马斯克是"<strong>热盾</strong>"——吸收裁员骂声；"他不能当总统，他在南非出生。"</div>
+                </div>
+                <div class="icon-card">
+                  <span class="ic-emoji">💥</span>
+                  <div class="ic-title">最狠一击：摧毁 USAID</div>
+                  <div class="ic-desc">1月底冻结外援后，马斯克发现款项还在流动，遂"把 USAID 砍成碎片"。代价：叙利亚 Al Hol 拘留营（关押数千 ISIS 战士）断粮断燃料、濒临崩溃——"他们把支付系统的电线从墙上拔了"。</div>
+                </div>
               </div>
 
               <div class="sb-h">冲突引爆：三场正面交锋</div>
@@ -1633,29 +1797,67 @@
               </div>
 
               <div class="sb-h">前奏：镀金时代的执念与第一枪</div>
-              <div class="sb-para">
-                特朗普的经济理想是"镀金时代"（1870-1913）的关税政策，精神偶像是麦金莱总统——"我是关税人，站在关税平台上"。他亲自动手给白宫壁炉贴金饰，管那些金瓮叫"现金"。1月31日，他借"芬太尼和非法移民"的紧急事由签署行政令：加拿大25%、墨西哥25%、中国加10%。现场即兴：会上发现漏了中国——"<strong>他们在哪？加个10%。</strong>"幕僚（米勒、鲁比奥、贝森特）劝缓，统统驳回。
+              <div class="icon-grid" style="margin-top:6px">
+                <div class="icon-card">
+                  <span class="ic-emoji">🏆</span>
+                  <div class="ic-title">镀金时代执念</div>
+                  <div class="ic-desc">经济理想是1870-1913的关税政策，精神偶像麦金莱总统——"我是关税人，站在关税平台上"。他亲自动手给白宫壁炉贴金饰，管金瓮叫"现金"。</div>
+                </div>
+                <div class="icon-card">
+                  <span class="ic-emoji">🔫</span>
+                  <div class="ic-title">1.31 第一枪</div>
+                  <div class="ic-desc">借"芬太尼和非法移民"紧急事由签署行政令：加拿大25%、墨西哥25%、中国加10%。<strong>现场即兴</strong>：会上发现漏了中国——"他们在哪？加个10%。"</div>
+                </div>
+                <div class="icon-card">
+                  <span class="ic-emoji">🙅</span>
+                  <div class="ic-title">劝谏无效</div>
+                  <div class="ic-desc">幕僚（米勒、鲁比奥、贝森特）劝缓，统统驳回。</div>
+                </div>
               </div>
 
               <div class="sb-h">解放日（4.2）：史上最激进的关税</div>
-              <div class="sb-para">
-                对所有国家征收10%基准关税 + "对等"附加关税。计算公式（纳瓦罗草拟）：对某国贸易逆差 ÷ 进口总额 ÷ 2——特朗普在<strong>宣布前一夜才最终敲定</strong>。对比：1930年斯穆特-霍利关税历经18个月国会辩论、1000名经济学家警告仍酿成灾难；这次<strong>没有听证、没有专家、没有成本测算</strong>。
+              <div class="stat-strip tone-war" style="margin-top:6px">
+                <div class="stat-card"><div class="stat-num">10%</div><div class="stat-label">对所有国家的基础关税</div></div>
+                <div class="stat-card"><div class="stat-num">+50%</div><div class="stat-label">"对等"附加关税上限（柬埔寨/越南等）</div></div>
+                <div class="stat-card"><div class="stat-num">0 场</div><div class="stat-label">听证会 / 专家咨询 / 成本测算</div></div>
+                <div class="stat-card"><div class="stat-num">1 夜</div><div class="stat-label">宣布前一夜才最终敲定公式</div></div>
               </div>
               <div class="sb-para">
-                会上的荒诞一幕（3.26）：特朗普吼"娜塔莉，给我真实数字！"——助理<strong>娜塔莉·哈普当场谷歌</strong>；商务部长卢特尼克递上USTR数字被骂"都是狗屁"；众议长约翰逊被拉来当挡箭牌，死活不肯站特朗普身边宣布关税（"我不想显得是我的主意"）。卢特尼克警告"市场要崩了，你会成为崩盘的责任人"，特朗普："<strong>行，我担着。那又怎样？</strong>"
+                计算公式（纳瓦罗草拟）：对某国贸易逆差 ÷ 进口总额 ÷ 2。对比：1930年斯穆特-霍利关税历经18个月国会辩论、1000名经济学家警告仍酿成灾难；这次<strong>没有听证、没有专家、没有成本测算</strong>。
+              </div>
+              <div class="quote-card" style="border-left-color:var(--c-war)">
+                <div class="qc-text">"市场要崩了，你会成为崩盘的责任人。" —— "行，我担着。那又怎样？"</div>
+                <div class="qc-src">—— 3.26 白宫会议：卢特尼克警告 vs 特朗普回应。当天助理娜塔莉·哈普当场谷歌"真实数字"，众议长约翰逊死活不肯站特朗普身边宣布关税（"我不想显得是我的主意"）。</div>
               </div>
 
               <div class="sb-h">崩盘：$2 万亿蒸发</div>
+              <div class="stat-strip tone-enemy" style="margin-top:6px">
+                <div class="stat-card"><div class="stat-num">$2 万亿</div><div class="stat-label">标普500单日蒸发</div></div>
+                <div class="stat-card"><div class="stat-num">~10%</div><div class="stat-label">道指两日跌幅（"像心脏病患者的ECG"）</div></div>
+                <div class="stat-card"><div class="stat-num">$700 亿</div><div class="stat-label">4月外国投资者净卖出美国股债</div></div>
+                <div class="stat-card"><div class="stat-num">股债双杀</div><div class="stat-label">连国债都被抛售——钱在逃离美国</div></div>
+              </div>
               <div class="sb-para">
-                4月2日后，标普500单日蒸发超2万亿美元；道指两日跌近10%（"像心脏病患者的ECG"）；最可怕的是<strong>股债双杀</strong>——连国债都被抛售，投资者在逃离美国。贝森特求美联储主席鲍威尔发声救市，鲍威尔拒绝："想稳市场，总统自己改政策。"中国报复34%，特朗普威胁再加50%；马斯克发米尔顿·弗里德曼视频劝自由贸易；戴蒙警告衰退"很可能"；达里奥警告"一生一次"的体系崩溃。
+                贝森特求美联储主席鲍威尔发声救市，鲍威尔拒绝："想稳市场，总统自己改政策。"中国报复34%，特朗普威胁再加50%；马斯克发米尔顿·弗里德曼视频劝自由贸易；戴蒙警告衰退"很可能"；达里奥警告"一生一次"的体系崩溃。
               </div>
 
               <div class="sb-h">眨眼：4.6 的90天暂停</div>
-              <div class="sb-para">
-                4月6日空军一号上，贝森特苦劝："市场马上开盘……你得转向谈判，因为你在融化。"特朗普："短期的，斯科特，暂时的。"转头又骂卢特尼克"你以前是个杀手，现在你软了，你是懦夫"——卢特尼克几个月后回击："<strong>我是你每月250亿的懦夫。</strong>"
-              </div>
-              <div class="sb-para">
-                当晚特朗普宣布：暂停关税90天，<strong>中国除外，升至125%</strong>。市场当日暴涨近10%，团队忙着说"这本来就是计划"——特朗普却当众拆台："<strong>这是今早才想到的……我们从心里写出来的，没经过律师。</strong>"白宫内部被这次"自愿走到金融灾难边缘"吓坏了。
+              <div class="mini-tl" style="margin-top:6px">
+                <div class="tl-item tone-war">
+                  <div class="tl-date">4.6 · 空军一号</div>
+                  <div class="tl-title">贝森特苦劝</div>
+                  <div class="tl-desc">"市场马上开盘……你得转向谈判，因为你在融化。"特朗普："短期的，斯科特，暂时的。"转头又骂卢特尼克"你以前是个杀手，现在你软了，你是懦夫"——卢特尼克几个月后回击："<strong>我是你每月250亿的懦夫。</strong>"</div>
+                </div>
+                <div class="tl-item tone-enemy">
+                  <div class="tl-date">4.6 · 当晚</div>
+                  <div class="tl-title">暂停 90 天，中国除外</div>
+                  <div class="tl-desc">宣布暂停关税90天，<strong>中国除外，升至125%</strong>。市场当日暴涨近10%。</div>
+                </div>
+                <div class="tl-item tone-enemy">
+                  <div class="tl-date">随后 · 当众拆台</div>
+                  <div class="tl-title">"从心里写出来的"</div>
+                  <div class="tl-desc">团队忙着说"这本来就是计划"——特朗普却当众拆台："<strong>这是今早才想到的……我们从心里写出来的，没经过律师。</strong>"白宫内部被这次"自愿走到金融灾难边缘"吓坏了。</div>
+                </div>
               </div>
 
               <div class="sb-h">中国：这场关税战的"头号靶子"</div>

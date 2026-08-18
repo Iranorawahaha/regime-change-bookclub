@@ -121,6 +121,12 @@ body {
   .node { flex:1 1 100%; }
   .detail-overlay { width:100%; right:-100%; }
 }
+
+/* ===== NAV BAR ===== */
+.nav-bar { display:flex; justify-content:center; gap:6px; padding:12px 16px; background:#FDFCF8; border-bottom:1px solid #C4BEB2; flex-wrap:wrap; position:sticky; top:0; z-index:50; }
+.nav-link { font-family:'Noto Sans SC',sans-serif; font-size:13px; font-weight:600; color:#6B655C; text-decoration:none; padding:7px 18px; border-radius:3px; border:1px solid transparent; transition:all .2s; }
+.nav-link:hover { color:#23201B; border-color:#C4BEB2; background:#F1EFE9; }
+.nav-link.active { color:#fff; background:#23201B; border-color:#23201B; }
 </style>
 </head>
 <body>
@@ -135,6 +141,13 @@ body {
     <span class="meta-tag">点击人物查看详情</span>
   </div>
 </header>
+<nav class="nav-bar">
+  <a class="nav-link" href="index.html">本书简介</a>
+  <a class="nav-link active" href="人物图谱.html">人物图谱</a>
+  <a class="nav-link" href="story.html">内容梳理</a>
+  <a class="nav-link" href="data.html">数据仪表盘</a>
+</nav>
+
 <div class="canvas-wrapper"><div class="graph-container"><div class="trump-wrap"><div class="trump-card" data-id="trump" onclick="showDetail('trump')" style="--nc:#1F2D4A"><img class="avatar" src="assets/people/trump.jpg" alt="唐纳德·特朗普"><div><div class="node-name">唐纳德·特朗普</div><div class="node-role">Donald J. Trump · 第47任总统</div></div></div></div>
 <section class="zone" style="--nc:#403B63;--nc-b:rgba(64,59,99,0.4);background:rgba(64,59,99,0.05)">
   <div class="zone-head" style="background:rgba(64,59,99,0.06)"><span class="zone-title" style="--nc:#403B63">壹 · 白宫核心幕僚</span><span class="zone-sub">第一任期即跟随（3人）</span></div>

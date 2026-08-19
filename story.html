@@ -372,6 +372,28 @@
 
   /* ===== PART I DEEP-DIVE (sub-sections) ===== */
   .part1-deep { padding: 0 26px 10px; }
+
+  /* ===== STAGE BODY INNER PADDING (Part II/III/IV 裸组件贴边修复) ===== */
+  .stage-body > .sb-h,
+  .stage-body > .sb-intro,
+  .stage-body > .sb-para,
+  .stage-body > .stat-strip,
+  .stage-body > .icon-grid,
+  .stage-body > .events,
+  .stage-body > .quote-card,
+  .stage-body > .extend-note,
+  .stage-body > table {
+    margin-left: 26px;
+    margin-right: 26px;
+    max-width: calc(100% - 52px);
+  }
+  .stage-body > .sb-h {
+    padding: 11px 14px 11px 13px;
+  }
+  .stage-body > .icon-card,
+  .stage-body > .stat-card {
+    /* keep individual card padding from existing rules */
+  }
   .sub-section { margin: 18px 0; border: 1px solid var(--border-light); border-radius: 14px; overflow: hidden; background: var(--surface-base); }
   .sub-head {
     display: flex; align-items: center; gap: 14px;

@@ -1,0 +1,4 @@
+.shots/
+*.bak
+.DS_Store
+*.tmp

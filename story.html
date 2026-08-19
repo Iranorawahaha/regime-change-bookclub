@@ -975,9 +975,9 @@
   .pe-tip { position: absolute; bottom: calc(100% + 8px); left: 50%; transform: translateX(-50%); white-space: nowrap; font-size: 12px; font-weight: 700; background: var(--text-primary); color: var(--surface-card); padding: 4px 10px; border-radius: 7px; opacity: 0; pointer-events: none; transition: opacity .18s; z-index: 20; letter-spacing: .01em; }
   .pe-tip::after { content: ''; position: absolute; top: 100%; left: 50%; margin-left: -4px; border: 4px solid transparent; border-top-color: var(--text-primary); }
   .pe-node:hover .pe-tip, .pe-node.on .pe-tip { opacity: 1; }
-  .pe-stakes { position: absolute; right: 26px; top: 6px; bottom: 6px; width: 44px; border-left: 1px solid var(--border-light); display: flex; flex-direction: column; justify-content: space-between; align-items: center; padding: 2px 0 2px 8px; }
-  .pe-stake-lbl { font-size: 10.5px; font-weight: 800; color: var(--text-tertiary); }
-  .pe-stake-lbl b { display: block; text-align: center; font-family: var(--font-serif); font-size: 15px; color: var(--text-secondary); }
+  .pe-stake-key { display: flex; align-items: baseline; gap: 6px; font-size: 11px; font-weight: 700; color: var(--text-tertiary); letter-spacing: .04em; padding: 0 26px 4px 96px; }
+  .pe-stake-key b { font-family: var(--font-serif); font-size: 13px; color: var(--text-secondary); margin: 0 1px; }
+  .pe-stake-key .arrow { color: var(--text-tertiary); font-size: 10px; }
   .pe-panel { margin: 8px 26px 6px; border: 1px solid var(--border-mid); border-left: 4px solid var(--c-enemy); border-radius: 0 12px 12px 0; background: var(--surface-base); padding: 14px 18px 16px; transition: border-color .3s; }
   .pe-panel-idle { font-size: 13px; color: var(--text-tertiary); line-height: 1.7; text-align: center; padding: 6px 0; }
   .pe-panel-idle b { color: var(--text-secondary); }
@@ -1016,7 +1016,6 @@
     .pe-canvas { padding: 4px 16px 2px; }
     .pe-marks { padding-left: 0; }
     .pe-lane { display: none; }
-    .pe-stakes { display: none; }
     .pe-mobile { display: block; }
     .pe-panel { margin: 8px 16px 6px; padding: 12px 14px 14px; }
     .pe-tickers { padding: 4px 16px 10px; }
@@ -1057,8 +1056,8 @@
     <a class="stage-btn" href="#st-0"><span class="s-dot" style="background:#8A8278"></span>序言</a>
     <a class="stage-btn" href="#st-1"><span class="s-dot" style="background:var(--c-trump)"></span>Part I 旋风</a>
     <a class="stage-btn" href="#st-2"><span class="s-dot" style="background:var(--c-enemy)"></span>Part II 报复</a>
-    <a class="stage-btn" href="#st-3"><span class="s-dot" style="background:var(--c-loyal)"></span>Part III 内部敌人</a>
-    <a class="stage-btn" href="#st-4"><span class="s-dot" style="background:var(--c-war)"></span>Part IV 掠夺</a>
+    <a class="stage-btn" href="#plunder-engine"><span class="s-dot" style="background:var(--c-loyal)"></span>Part III 内部敌人</a>
+    <a class="stage-btn" href="#plunder-engine"><span class="s-dot" style="background:var(--c-war)"></span>Part IV 掠夺</a>
   </div>
 
   <div class="timeline-axis">
@@ -2296,69 +2295,7 @@
     </div>
 
     <!-- ================= STAGE 3: PART III ENEMIES WITHIN ================= -->
-    <div class="stage st-3 fade-up d-4" id="st-3">
-      <div class="stage-dot">III</div>
-      <div class="stage-body">
-        <div class="stage-head">
-          <div class="shh-main">
-            <div class="shh-part">Part III · Enemies Within</div>
-            <div class="shh-title">内部敌人：清洗"深层政府"</div>
-            <div class="shh-title-en">Enemies Within — Loyalty over Expertise</div>
-            <div class="shh-chapters">第三部 · 行政国家拆除工程（2025）</div>
-          </div>
-          <div class="shh-time" style="background:var(--c-loyal-bg);color:var(--c-loyal-dark)">2025</div>
-        </div>
-
-        <div class="stage-lead">
-          第三部分把矛头指向国内"深层政府"：公务员体系、情报界、司法部、军方高层。核心逻辑一句话——用忠诚取代专业。通过Schedule F将数万公务员转为可随时解雇的政治任命，配合DOGE裁员与情报机构政治化，重塑整个联邦官僚体系。
-        </div>
-
-        <div class="events">
-          <div class="event">
-            <div class="ev-date">2025</div>
-            <div class="ev-title">Schedule F：数万公务员清洗</div>
-            <div class="ev-desc">通过行政令将数万名联邦公务员转为政治任命（可随时解雇）。书中称之为"行政国家的拆除工程"——公务员系统的稳定性根基被动摇。</div>
-          </div>
-          <div class="event">
-            <div class="ev-date">2025</div>
-            <div class="ev-title">加巴德执掌17个情报机构</div>
-            <div class="ev-desc">前民主党众议员加巴德转投特朗普后被任命为国家情报总监，领导情报界全部17个机构——情报系统政治化的标志性事件。</div>
-          </div>
-          <div class="event">
-            <div class="ev-date">2025</div>
-            <div class="ev-title">赫格塞斯清除国防部法律官</div>
-            <div class="ev-desc">国防部长赫格塞斯（前Fox主持人）清除国防部法律顾问团队，称其为"jagoffs"，为更激进的军事行动扫清内部阻力。</div>
-          </div>
-          <div class="event">
-            <div class="ev-date">2025</div>
-            <div class="ev-title">ICE 国内军事化执法</div>
-            <div class="ev-desc">移民执法升级为军事化行动：化学制剂、Black Hawk直升机突袭平民区，国土安全部长在行动现场跳舞——表演式治理的极致。</div>
-          </div>
-        </div>
-
-        <div class="blockquote">
-          <div class="bq-en">"Schedule F was the wrecking ball for the administrative state."</div>
-          <div class="bq-zh">"Schedule F 是砸向行政国家的拆迁球。"——书中对这项人事改革的定性：用政治忠诚取代职业专业，动摇美国文官体系的根基。</div>
-          <div class="bq-src">—— 作者对 Schedule F 的概括性评价（译自书中论述）</div>
-        </div>
-
-        <div class="chip-row">
-          <span class="chip-label">核心概念</span>
-          <span class="chip concept" data-key="schedulef" style="border-color:var(--c-loyal);color:var(--c-loyal-dark)">Schedule F</span>
-          <span class="chip concept" data-key="deepstate" style="border-color:var(--c-loyal);color:var(--c-loyal-dark)">深层政府</span>
-          <span class="chip concept" data-key="performance" style="border-color:var(--c-loyal);color:var(--c-loyal-dark)">表演式治理</span>
-        </div>
-        <div class="chip-row">
-          <span class="chip-label">关键人物</span>
-          <span class="chip person" data-key="miller" style="cursor:pointer">斯蒂芬·米勒</span>
-          <span class="chip person" data-key="musk" style="cursor:pointer">埃隆·马斯克</span>
-          <span class="chip person" data-key="gabbard" style="cursor:pointer">塔尔西·加巴德</span>
-          <span class="chip person" data-key="hegseth" style="cursor:pointer">皮特·赫格塞斯</span>
-          <span class="chip person" data-key="rfk" style="cursor:pointer">小罗伯特·肯尼迪</span>
-        </div>
-      </div>
-    </div>
-
+    
     <!-- ================= PLUNDER ENGINE 掠夺引擎交互模块（Part III × IV 交汇） ================= -->
     <section class="pe-module" id="plunder-engine">
       <div class="pe-topbar"><i style="background:#A63D2E"></i><i style="background:#9A6B28"></i><i style="background:#1A7A5E"></i><i style="background:#4A4290"></i></div>
@@ -2387,13 +2324,7 @@
           <span>8月</span><span>9月</span><span>10月</span><span>11月</span><span>12月</span><span>1月 <span class="yr">2026</span></span><span>2月</span><span>3月</span>
         </div>
         <div class="pe-lanes" id="peLanes"></div>
-        <div class="pe-stakes">
-          <div class="pe-stake-lbl"><b>5</b>赌注</div>
-          <div class="pe-stake-lbl"><b>4</b></div>
-          <div class="pe-stake-lbl"><b>3</b></div>
-          <div class="pe-stake-lbl"><b>2</b></div>
-          <div class="pe-stake-lbl"><b>1</b></div>
-        </div>
+        <div class="pe-stake-key">节点大小 = 赌注指数 <b>5</b>→<b>1</b><span class="arrow">（stakes 1–5，详见面板）</span></div>
       </div>
       <div class="pe-mobile" id="peMobile"></div>
       <div class="pe-panel" id="pePanel">
@@ -2406,78 +2337,6 @@
       </div>
       <div class="pe-note">节点大小 = 赌注指数（stakes 1–5）· 泳道可单独筛选 · 移动端自动降级为事件列表</div>
     </section>
-
-    <!-- ================= STAGE 4: PART IV THE LOOTING ================= -->
-    <div class="stage st-4 fade-up d-5" id="st-4">
-      <div class="stage-dot">IV</div>
-      <div class="stage-body">
-        <div class="stage-head">
-          <div class="shh-main">
-            <div class="shh-part">Part IV · The Looting</div>
-            <div class="shh-title">掠夺：对外战争</div>
-            <div class="shh-title-en">The Looting — War Abroad</div>
-            <div class="shh-chapters">第四部 · 帝国扩张（2025.9—2026）</div>
-          </div>
-          <div class="shh-time" style="background:var(--c-war-bg);color:var(--c-war-dark)">2025.9 → 2026.3</div>
-        </div>
-
-        <div class="stage-lead">
-          第四部分将报复逻辑推向国界之外：从"交易式外交"转向"掠夺式战争"。委内瑞拉的夺油计划、对贩毒集团的"炸船行动"、对伊朗的全面战争——作者称之为"唐氏门罗主义"：用武力重新控制西半球，将中俄影响力挤出美洲。
-        </div>
-
-        <div class="events">
-          <div class="event">
-            <div class="ev-date">2025.9—10</div>
-            <div class="ev-title">"炸船行动"：对外武力首秀</div>
-            <div class="ev-desc">死神无人机+地狱火导弹打击贩毒快艇，10艘被击沉，幸存者挥手求救仍遭补射。连"酷刑备忘录"作者John Yoo都公开质疑其合法性。</div>
-          </div>
-          <div class="event">
-            <div class="ev-date">2025—26</div>
-            <div class="ev-title">委内瑞拉：夺油计划</div>
-            <div class="ev-desc">CIA秘密行动以马杜罗为目标，计划夺取全球最大石油储备并更换"傀儡政权"。鲁比奥从"民主推广"的信奉者变成"马杜罗复仇者"。</div>
-          </div>
-          <div class="event">
-            <div class="ev-date">2026.2.28</div>
-            <div class="ev-title">对伊朗全面战争："史诗怒火"</div>
-            <div class="ev-desc">特朗普加入以色列对伊朗的全面战争，代号"史诗怒火"(Operation Epic Wrath)。第二任期最大的战略冒险，也是全书高潮。</div>
-          </div>
-          <div class="event">
-            <div class="ev-date">2026.3</div>
-            <div class="ev-title">战争的代价</div>
-            <div class="ev-desc">13名美军阵亡、200+受伤、花费超150亿美元、霍尔木兹海峡基本关闭、全球油价飙升——帝国的账单由士兵与全世界共同承担。</div>
-          </div>
-        </div>
-
-        <div class="blockquote">
-          <div class="bq-en">"Operation Epic Wrath"</div>
-          <div class="bq-zh">"史诗怒火行动"——作者讽刺性地指出：连战争的名字都是表演性的。"史诗"(Epic)这个词本身就是宣传话术，与战争的残酷形成刺眼对比。</div>
-          <div class="bq-src">—— 2026年对伊战争代号 · 书中评论</div>
-        </div>
-
-        <div class="blockquote">
-          <div class="bq-en">"When retribution turns outward, the logic of empire begins to consume the logic of the republic."</div>
-          <div class="bq-zh">"当报复转向国界之外，帝国的逻辑就开始吞噬共和国的逻辑。"——作者在全书尾声的总结性判断。</div>
-          <div class="bq-src">—— 尾声 · 作者核心论断（译自书中）</div>
-        </div>
-
-        <div class="chip-row">
-          <span class="chip-label">核心概念</span>
-          <span class="chip concept" data-key="monroe" style="border-color:var(--c-war);color:var(--c-war-dark)">唐氏门罗主义</span>
-          <span class="chip concept" data-key="wrath" style="border-color:var(--c-war);color:var(--c-war-dark)">史诗怒火行动</span>
-          <span class="chip concept" data-key="boat" style="border-color:var(--c-war);color:var(--c-war-dark)">炸船行动</span>
-        </div>
-        <div class="chip-row">
-          <span class="chip-label">关键人物</span>
-          <span class="chip person" data-key="trump" style="cursor:pointer">唐纳德·特朗普</span>
-          <span class="chip person" data-key="hegseth" style="cursor:pointer">皮特·赫格塞斯</span>
-          <span class="chip person" data-key="rubio" style="cursor:pointer">马可·鲁比奥</span>
-          <span class="chip person" data-key="gabbard" style="cursor:pointer">塔尔西·加巴德</span>
-          <span class="chip person" data-key="maduro" style="cursor:pointer">尼古拉斯·马杜罗</span>
-          <span class="chip person" data-key="iran" style="cursor:pointer">伊朗</span>
-          <span class="chip person" data-key="cartels" style="cursor:pointer">贩毒集团</span>
-        </div>
-      </div>
-    </div>
 
   </div>
 

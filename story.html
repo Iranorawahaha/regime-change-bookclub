@@ -228,6 +228,50 @@
   }
   .pp-goto:hover { color: var(--c-loyal-dark); border-color: var(--c-loyal-dark); }
 
+  /* ===== 档案弹窗（Part II 人物/机构） ===== */
+  .profile-popover {
+    position: fixed; z-index: 1300;
+    width: min(440px, calc(100vw - 40px));
+    max-height: 72vh; overflow-y: auto;
+    background: var(--surface-card);
+    border: 1px solid var(--border-mid);
+    border-radius: 16px;
+    box-shadow: 0 20px 60px rgba(26,22,18,.24);
+    padding: 22px 24px 18px;
+    display: none;
+    animation: popIn .3s var(--ease-out-expo);
+  }
+  .profile-popover.show { display: block; }
+  .pp-avatar img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
+  .pf-bg { font-size: 14px; color: var(--text-secondary); line-height: 1.7; margin-bottom: 12px; }
+  .pf-bg strong, .pf-bg em { color: var(--text-primary); }
+  .pf-grudge {
+    margin: 10px 0 12px; padding: 10px 14px;
+    background: var(--surface-base);
+    border-left: 3px solid var(--c-enemy);
+    border-radius: 0 9px 9px 0;
+    font-size: 14px; color: var(--text-secondary); line-height: 1.65;
+  }
+  .pf-grudge strong { color: var(--c-enemy); }
+  .pf-outcome {
+    margin-top: 10px; padding: 10px 14px;
+    background: rgba(166,61,46,.05);
+    border: 1px solid rgba(166,61,46,.18);
+    border-radius: 9px;
+    font-size: 14px; color: var(--text-primary); line-height: 1.65;
+  }
+  /* 头像卡片（个人清算） */
+  .ic-avatar {
+    width: 44px; height: 44px; border-radius: 50%;
+    object-fit: cover; display: block;
+    margin-bottom: 8px;
+    border: 2px solid rgba(166,61,46,.25);
+    background: var(--surface-base);
+  }
+  .icon-card[data-key] { cursor: pointer; }
+  .icon-card[data-key]:hover .ic-title { color: var(--c-enemy); }
+  .ic-hint { font-size: 10.5px; color: var(--text-tertiary); margin-top: 2px; display: block; }
+
   /* ===== 可视化组件库 ===== */
   /* 数字统计条 */
   .stat-strip {
@@ -1821,8 +1865,8 @@
                   <div class="ic-title">1.31 第一枪</div>
                   <div class="ic-desc">借"芬太尼和非法移民"紧急事由签署行政令：加拿大25%、墨西哥25%、中国加10%。<strong>现场即兴</strong>：会上发现漏了中国——"他们在哪？加个10%。"</div>
                 </div>
-                <div class="icon-card">
-                  <span class="ic-emoji">🙅</span>
+                <div class="icon-card" data-key="milley" title="点击查看人物档案">
+                  <img class="ic-avatar" src="assets/people/milley.jpg" alt="马克·米利">
                   <div class="ic-title">劝谏无效</div>
                   <div class="ic-desc">幕僚（米勒、鲁比奥、贝森特）劝缓，统统驳回。</div>
                 </div>
@@ -1954,6 +1998,7 @@
                 <span class="chip person" data-key="bessent" style="cursor:pointer">斯科特·贝森特</span>
               </div>
             </div>
+            <span class="ic-hint">👆 点击查看人物档案</span>
           </div>
 
         </div>
@@ -2077,68 +2122,78 @@
           <strong>逻辑</strong>：针对曾反对、批评或"不忠诚"的<strong>前官员与对手</strong>。手段：撤肖像/取消安保/威胁军法/刑事调查/解雇后追杀。
         </div>
         <div class="icon-grid">
-          <div class="icon-card" style="--nc:#A63D2E;--nb:rgba(166,61,46,0.14)">
-            <span class="ic-emoji">🎖️</span>
+          <div class="icon-card" style="--nc:#A63D2E;--nb:rgba(166,61,46,0.14)" data-key="milley" title="点击查看人物档案">
+            <img class="ic-avatar" src="assets/people/milley.jpg" alt="马克·米利">
             <div class="ic-title">马克·米利</div>
-            <div class="ic-desc">前参联会主席，公开说特朗普"危害共和国"——五角角大楼官方肖像被撤、安保待遇取消，面临可能的军法调查。<em>"不忠诚的样板"</em></div>
+            <div class="ic-desc">前参联会主席，公开说特朗普"危害共和国"——五角大楼官方肖像被撤、安保待遇取消，面临可能的军法调查。<em>"不忠诚的样板"</em></div>
+            <span class="ic-hint">👆 点击查看人物档案</span>
           </div>
-          <div class="icon-card" style="--nc:#A63D2E;--nb:rgba(166,61,46,0.14)">
-            <span class="ic-emoji">📕</span>
+          <div class="icon-card" style="--nc:#A63D2E;--nb:rgba(166,61,46,0.14)" data-key="bolton" title="点击查看人物档案">
+            <img class="ic-avatar" src="assets/people/bolton.jpg" alt="约翰·博尔顿">
             <div class="ic-title">约翰·博尔顿</div>
             <div class="ic-desc">前国安顾问，第一任期被解雇。其回忆录爆料细节触怒特朗普——书出版后遭系统性抹黑，并被威胁国家安全起诉。<em>"他想回忆录吗？给他一个回忆"</em></div>
+            <span class="ic-hint">👆 点击查看人物档案</span>
           </div>
-          <div class="icon-card" style="--nc:#A63D2E;--nb:rgba(166,61,46,0.14)">
-            <span class="ic-emoji">🎗</</span>
+          <div class="icon-card" style="--nc:#A63D2E;--nb:rgba(166,61,46,0.14)" data-key="pompeo" title="点击查看人物档案">
+            <img class="ic-avatar" src="assets/people/pompeo.jpg" alt="迈克·蓬佩奥">
             <div class="ic-title">迈克·蓬佩奥</div>
             <div class="ic-desc">前国务卿，第一任期重要盟友——但在第一任期后期出现"波佩奥向总统抗议赤字"的小插曲。书中借他作为"冒犯过总统就会一辈子被标记"的样板：<em>"像波佩奥一样"</em>是特朗普词典中的顶级侮辱。</div>
+            <span class="ic-hint">👆 点击查看人物档案</span>
           </div>
-          <div class="icon-card" style="--nc:#A63D2E;--nb:rgba(166,61,46,0.14)">
-            <span class="ic-emoji">🛡️</span>
+          <div class="icon-card" style="--nc:#A63D2E;--nb:rgba(166,61,46,0.14)" data-key="esper" title="点击查看人物档案">
+            <img class="ic-avatar" src="assets/people/esper.jpg" alt="马克·埃斯珀">
             <div class="ic-title">马克·埃斯珀</div>
             <div class="ic-desc">前国防部长，任内因反对调动军队平息 BLM抗议被特朗普解雇——<em>"炒鱿鱼"</em>并被公开羞辱。书中称其为"阻挡特朗普最任性的军方意愿"的代表。</div>
+            <span class="ic-hint">👆 点击查看人物档案</span>
           </div>
-          <div class="icon-card" style="--nc:#A63D2E;--nb:rgba(166,61,46,0.14)">
-            <span class="ic-emoji">🗳️</span>
+          <div class="icon-card" style="--nc:#A63D2E;--nb:rgba(166,61,46,0.14)" data-key="krebs" title="点击查看人物档案">
+            <img class="ic-avatar" src="assets/people/krebs.jpg" alt="克里斯·克雷布斯">
             <div class="ic-title">克里斯·克雷布斯</div>
-            <div class="ic-desc">前网络安全与基础设施安全局（CISA）局长，因公开证实 2020 年大选"史上最安全"而被解雇——随后被特朗普点名为<em>"应该被处决的蠢"</em>"。</div>
+            <div class="ic-desc">前网络安全与基础设施安全局（CISA）局长，因公开证实 2020 年大选"史上最安全"而被解雇——随后被特朗普点名为<em>"应该被处决的蠢"</em>。</div>
+            <span class="ic-hint">👆 点击查看人物档案</span>
           </div>
-          <div class="icon-card" style="--nc:#A63D2E;--nb:rgba(166,61,46,0.14)">
-            <span class="ic-emoji">✍️</span>
+          <div class="icon-card" style="--nc:#A63D2E;--nb:rgba(166,61,46,0.14)" data-key="taylor" title="点击查看人物档案">
+            <img class="ic-avatar" src="assets/people/taylor.jpg" alt="迈尔斯·泰勒">
             <div class="ic-title">迈尔斯·泰勒</div>
             <div class="ic-desc">前国土安全部幕僚长，2020 年匿名发表《我是抵抗组织内部成员》抨击特朗普。身份曝光后遭<em>"叛国罪"</em>调查——报复从总统私人恩怨升级为刑事指控威胁。</div>
+            <span class="ic-hint">👆 点击查看人物档案</span>
           </div>
-          <div class="icon-card" style="--nc:#A63D2E;--nb:rgba(166,61,46,0.14)">
-            <span class="ic-emoji">⚖️</span>
+          <div class="icon-card" style="--nc:#A63D2E;--nb:rgba(166,61,46,0.14)" data-key="smith" title="点击查看人物档案">
+            <img class="ic-avatar" src="assets/people/smith.jpg" alt="杰克·史密斯">
             <div class="ic-title">杰克·史密斯</div>
             <div class="ic-desc">前特别检察官，起诉特朗普"机密文件案"和"干涉选举案"。特朗普胜选后要求<em>"立即解雇"</em>、调查其团队，司法部按惯例解散特别检察官办公室。</div>
+            <span class="ic-hint">👆 点击查看人物档案</span>
           </div>
-          <div class="icon-card" style="--nc:#A63D2E;--nb:rgba(166,61,46,0.14)">
-            <span class="ic-emoji">🎖️</span>
+          <div class="icon-card" style="--nc:#A63D2E;--nb:rgba(166,61,46,0.14)" data-key="kelly" title="点击查看人物档案">
+            <img class="ic-avatar" src="assets/people/kelly.jpg" alt="约翰·凯利">
             <div class="ic-title">约翰·凯利</div>
             <div class="ic-desc">前白宫幕僚长，第一任期被称为"成熟的成年人"。因多次公开与特朗普不一致（如对 J6 的表态），被拖入"威胁论"叙事中。</div>
+            <span class="ic-hint">👆 点击查看人物档案</span>
           </div>
         </div>
-
         <!-- ② 打击中间人 -->
         <div class="sb-h">② 打击中间人："你帮助了我的敌人"</div>
         <div class="sb-para">
           <strong>逻辑</strong>：个人报复容易招惹<em>"欺负弱者"</em>的批评。更高明的报复是<strong>瞄准"帮助过我敌人"的专业服务机构</strong>——律所、咨询公司、智库——以资金和安全许可为武器，逼迫全行业<em>"自查"</em>。
         </div>
         <div class="icon-grid">
-          <div class="icon-card" style="--nc:#A63D2E;--nb:rgba(166,61,46,0.14)">
+          <div class="icon-card" data-key="paulweiss" title="点击查看背景档案" style="--nc:#A63D2E;--nb:rgba(166,61,46,0.14)">
             <span class="ic-emoji">🏛️</span>
             <div class="ic-title">宝维斯律所（Paul Weiss）</div>
             <div class="ic-desc">代表特别检察官 Jack Smith 的顶级律所。行政令威胁后<em>"投降"</em>：承诺提供 4000 万美元"公益法律服务"——作者称之为<em>"现代保护费"</em>。</div>
+            <span class="ic-hint">👆 点击查看背景档案</span>
           </div>
-          <div class="icon-card" style="--nc:#A63D2E;--nb:rgba(166,61,46,0.14)">
+          <div class="icon-card" data-key="perkins" title="点击查看背景档案" style="--nc:#A63D2E;--nb:rgba(166,61,46,0.14)">
             <span class="ic-emoji">🏛️</span>
             <div class="ic-title">珀金斯·科伊律所（Perkins Coie）</div>
             <div class="ic-desc">代表希拉里和民主党候选人的律所。被吊销安全许可、撤销联邦合同资格，数百名员工面临业务流失。</div>
+            <span class="ic-hint">👆 点击查看背景档案</span>
           </div>
-          <div class="icon-card" style="--nc:#A63D2E;--nb:rgba(166,61,46,0.14)">
+          <div class="icon-card" data-key="lawfirms" title="点击查看背景档案" style="--nc:#A63D2E;--nb:rgba(166,61,46,0.14)">
             <span class="ic-emoji">🏛️</span>
             <div class="ic-title">其他大型律所</div>
             <div class="ic-desc">Covington（撤合同）、WilmerHale（员工自查"是否与特朗普敌人有关"）。行业自发<em>"起底"</em>员工名单，避免引火上身。</div>
+            <span class="ic-hint">👆 点击查看背景档案</span>
           </div>
         </div>
 
@@ -2148,20 +2203,23 @@
           <strong>逻辑</strong>：瞄准与特朗普世界观相左的<strong>大型机构</strong>——高校、媒体、智库、NGO——以联邦经费为武器施加压力，<em>"不能打败机构，就冻住它的钱袋"</em>。
         </div>
         <div class="icon-grid">
-          <div class="icon-card" style="--nc:#A63D2E;--nb:rgba(166,61,46,0.14)">
+          <div class="icon-card" data-key="harvard" title="点击查看背景档案" style="--nc:#A63D2E;--nb:rgba(166,61,46,0.14)">
             <span class="ic-emoji">🎓</span>
             <div class="ic-title">哈佛大学</div>
             <div class="ic-desc">首批 <strong>26 亿美元</strong>联邦资助被冻结，总额 <strong>90 亿</strong>面临威胁，免税资格被点名。哈佛选择起诉反击——成为<em>"机构对抗"的标杆</em>。</div>
+            <span class="ic-hint">👆 点击查看背景档案</span>
           </div>
-          <div class="icon-card" style="--nc:#A63D2E;--nb:rgba(166,61,46,0.14)">
+          <div class="icon-card" data-key="universities" title="点击查看背景档案" style="--nc:#A63D2E;--nb:rgba(166,61,46,0.14)">
             <span class="ic-emoji">🏫</span>
             <div class="ic-title">美国高校体系</div>
             <div class="ic-desc">联邦教育部以"反犹"、"DEI"、"左倾"为名，对数十所高校施压。长期被视为<em>"左翼文化战争"</em>核心。</div>
+            <span class="ic-hint">👆 点击查看背景档案</span>
           </div>
-          <div class="icon-card" style="--nc:#A63D2E;--nb:rgba(166,61,46,0.14)">
+          <div class="icon-card" data-key="publicmedia" title="点击查看背景档案" style="--nc:#A63D2E;--nb:rgba(166,61,46,0.14)">
             <span class="ic-emoji">📻</span>
             <div class="ic-title">公共广播 / 智库 / NGO</div>
             <div class="ic-desc">NPR / PBS 联邦经费被砍；传统基金会、企业研究所等保守派智库获巨额捐款；自由派智库 Brookings 等被边缘化。</div>
+            <span class="ic-hint">👆 点击查看背景档案</span>
           </div>
         </div>
 
@@ -2171,25 +2229,29 @@
           <strong>逻辑</strong>：瞄准有影响力、可挑战他的<strong>媒体与企业</strong>。手段：并购威胁、恶意诉讼、监管施压。目标：<em>"让他们自我审查"</em>。
         </div>
         <div class="icon-grid">
-          <div class="icon-card" style="--nc:#A63D2E;--nb:rgba(166,61,46,0.14)">
+          <div class="icon-card" data-key="cbs" title="点击查看背景档案" style="--nc:#A63D2E;--nb:rgba(166,61,46,0.14)">
             <span class="ic-emoji">📺</span>
             <div class="ic-title">CBS / Paramount</div>
             <div class="ic-desc">并购威胁（Skydance 收购案）+ 诉讼压力，导致 <em>60 Minutes</em> 编辑路线调整。书中称之为<em>"用杠杆改变编辑"</em>。</div>
+            <span class="ic-hint">👆 点击查看背景档案</span>
           </div>
-          <div class="icon-card" style="--nc:#A63D2E;--nb:rgba(166,61,46,0.14)">
+          <div class="icon-card" data-key="disney" title="点击查看背景档案" style="--nc:#A63D2E;--nb:rgba(166,61,46,0.14)">
             <span class="ic-emoji">🏰</span>
             <div class="ic-title">Disney / ABC</div>
             <div class="ic-desc">因 ABC News 记者报道触发诉讼，最后和解约 <strong>1600 万美元</strong>。此后 ABC 内部审查收紧。</div>
+            <span class="ic-hint">👆 点击查看背景档案</span>
           </div>
-          <div class="icon-card" style="--nc:#A63D2E;--nb:rgba(166,61,46,0.14)">
+          <div class="icon-card" data-key="advertisers" title="点击查看背景档案" style="--nc:#A63D2E;--nb:rgba(166,61,46,0.14)">
             <span class="ic-emoji">💼</span>
             <div class="ic-title">大企业广告商</div>
             <div class="ic-desc">特朗普公开点名"如果广告支持敌对媒体，就考虑你的关税豁免"。大企业主动撤回或削减敌对媒体广告，<em>"让市场自己动手"</em>。</div>
+            <span class="ic-hint">👆 点击查看背景档案</span>
           </div>
-          <div class="icon-card" style="--nc:#A63D2E;--nb:rgba(166,61,46,0.14)">
+          <div class="icon-card" data-key="commentators" title="点击查看背景档案" style="--nc:#A63D2E;--nb:rgba(166,61,46,0.14)">
             <span class="ic-emoji">🎤</span>
             <div class="ic-title">评论员 / 主持人</div>
             <div class="ic-desc">多次 Truth Social 点名导致主持人自我审查或被解雇。"复仇的成本低于道歉的成本"，成为行业潜规则。</div>
+            <span class="ic-hint">👆 点击查看背景档案</span>
           </div>
         </div>
 
@@ -2380,6 +2442,28 @@
   <div class="pp-actions" id="ppActions"></div>
   <div class="pp-relation" id="ppRelation"></div>
   <a class="pp-goto" id="ppGoto" href="人物图谱.html">在人物图谱中查看完整关系 →</a>
+</div>
+
+<!-- Profile popover (Part II 人物/机构背景档案) -->
+<div class="profile-popover" id="profilePopover" data-pos="below">
+  <button class="cp-close" onclick="closeProfilePop()">&times;</button>
+  <div class="pp-head">
+    <div class="pp-avatar" id="pfAvatar">?</div>
+    <div class="pp-namebox">
+      <div class="pp-name" id="pfName"></div>
+      <div class="pp-en" id="pfEn"></div>
+      <div class="pp-role" id="pfRole"></div>
+    </div>
+  </div>
+  <div class="pp-rule"></div>
+  <div class="pp-section-label" id="pfSecLabel1">人物概述</div>
+  <div class="pp-summary" id="pfSummary"></div>
+  <div class="pp-section-label">背景故事</div>
+  <div class="pf-bg" id="pfBg"></div>
+  <div class="pp-section-label" id="pfSecLabel2">与特朗普的恩怨</div>
+  <div class="pf-grudge" id="pfGrudge"></div>
+  <div class="pp-section-label">结局 / 现状</div>
+  <div class="pf-outcome" id="pfOutcome"></div>
 </div>
 
 <script>
@@ -2753,6 +2837,220 @@ document.addEventListener('keydown', e => {
   if (e.key === 'Escape') { closeConceptPop(); closePersonPop(); }
 });
 window.addEventListener('resize', () => { closeConceptPop(); closePersonPop(); });
+
+
+/* ===== PROFILE POPOVER LOGIC (Part II 人物/机构背景档案) ===== */
+const PROFILES = {
+  milley: {
+    type: 'person', cn: '马克·米利', en: 'Mark Milley · 前参联会主席 (2019-2023)', role: '四星上将 / 参谋长联席会议主席',
+    img: 'assets/people/milley.jpg', color: '#A63D2E',
+    summary: '美军最高军职——参谋长联席会议主席。特朗普第一任期最后两年的"军人挡箭牌"，卸任时公开称特朗普"法西斯分子""危害共和国"。',
+    bg: '西点军校出身，参加过伊拉克、阿富汗战争。2020 年 BLM 抗议期间反对动用现役军队镇压；2021 年 1 月 6 日国会山事件后，主动向中方保证美军稳定（书中引用的争议细节）；2023 年卸任时称特朗普是"法西斯主义者"。',
+    grudge: '特朗普认为米利"背叛"了他：公开批评、权力交接期绕开总统的对外沟通，以及回忆录《危言》爆料 2020 年白宫冲突。报复方式：五角大楼官方肖像被撤、安保待遇取消、威胁军法调查。',
+    outcome: '退休后仍被"追责"——肖像从五角大楼撤下（后恢复）、安保一度被取消；书中视为"不忠诚的样板"，成为清算名单上的头号军人。'
+  },
+  bolton: {
+    type: 'person', cn: '约翰·博尔顿', en: 'John Bolton · 前国安顾问 (2018-2019)', role: '新保守主义鹰派',
+    img: 'assets/people/bolton.jpg', color: '#A63D2E',
+    summary: '新保守主义鹰派代表人物，曾任联合国大使（2005-2006）与特朗普国安顾问（2018-2019），以强硬、好战著称。',
+    bg: '里根政府司法部出身，小布什时期主管军控；主张对伊朗、朝鲜动武。2018 年加入特朗普团队后，与特朗普的"直觉外交"格格不入，2019 年 9 月被解雇——特朗普称是自己开除，博尔顿称是被迫辞职。',
+    grudge: '2020 年出版回忆录《事发之屋》（The Room Where It Happened），详细记录白宫决策内幕。特朗普怒斥其"泄露国家机密"，书中名言："他想写回忆录吗？那就给他一个回忆"——暗示司法报复。',
+    outcome: '出版后遭系统性抹黑、被撤销安保待遇（后恢复），长期面临司法起诉威胁；成为"爆料者代价"的典型案例。'
+  },
+  pompeo: {
+    type: 'person', cn: '迈克·蓬佩奥', en: 'Mike Pompeo · 前国务卿 (2018-2021)', role: '前 CIA 局长 / 前国务卿',
+    img: 'assets/people/pompeo.jpg', color: '#A63D2E',
+    summary: '西点军校毕业、前堪萨斯州众议员。特朗普第一任期"最忠诚者"之一，从 CIA 局长一路做到国务卿，曾被视为特朗普最信任的官员。',
+    bg: '西点军校毕业、哈佛法学院；2017 年任 CIA 局长（口号"重新让 CIA 变得冷酷"）；2018 年接替蒂勒森任国务卿，主导"极限施压"外交。',
+    grudge: '书中的"小插曲"：第一任期后期蓬佩奥向总统抗议赤字——特朗普记恨在心。"像波佩奥一样"成为特朗普词典中的顶级侮辱，形容任何轻微的内部批评都是不可饶恕的背叛。',
+    outcome: '作为"冒犯过总统就会一辈子被标记"的样板——即便曾经最忠诚，轻微异议也难逃清算名单；书中借他说明"忠诚测试"的绝对性。'
+  },
+  esper: {
+    type: 'person', cn: '马克·埃斯珀', en: 'Mark Esper · 前国防部长 (2019-2020)', role: '西点出身 / 前国防部长',
+    img: 'assets/people/esper.jpg', color: '#A63D2E',
+    summary: '西点军校毕业、雷神公司高管出身；2017 年任陆军部长、2019 年任国防部长，是特朗普第二任国防部长。',
+    bg: '海湾战争老兵；任内推动军队现代化。2020 年与特朗普在"用现役军队平息 BLM 抗议"、"从阿富汗/叙利亚撤军"、"解雇军法审查人员"等问题上分歧公开化。',
+    grudge: '2020 年 11 月大选后 6 天被特朗普解雇——公开说法是"任期届满"，实为对他在 BLM 问题上拒绝出兵、以及疏远总统的不满；被公开羞辱。',
+    outcome: '被"炒鱿鱼"并公开羞辱；书中称其为"阻挡特朗普最任性的军方意愿"的代表，后出版回忆录《神圣誓言》。'
+  },
+  krebs: {
+    type: 'person', cn: '克里斯·克雷布斯', en: 'Chris Krebs · 前 CISA 局长 (2018-2020)', role: '网络安全专家 / 前 CISA 局长',
+    img: 'assets/people/krebs.jpg', color: '#A63D2E',
+    summary: '网络安全专家，创立并执掌国土安全部下属的网络安全与基础设施安全局（CISA）。',
+    bg: '微软背景出身，2018 年进入国土安全部；2020 年大选期间，CISA 发布声明称 2020 大选"史上最安全、无任何舞弊证据"。',
+    grudge: '特朗普要求他"翻案"被拒，11 天后（2020.11.17）被解雇；随后特朗普发推称他"应该被处决"（书中引用为"应该被处决的蠢"）。',
+    outcome: '解雇后成立网络安全公司，并起诉特朗普诽谤；成为"选举否认主义"受害者代表，也是"说真话的下场"的公开示范。'
+  },
+  taylor: {
+    type: 'person', cn: '迈尔斯·泰勒', en: 'Miles Taylor · 前国土安全部幕僚长 (2018-2019)', role: '最年轻国安高官之一',
+    img: 'assets/people/taylor.jpg', color: '#A63D2E',
+    summary: '特朗普政府最年轻的国安高官之一，曾任国土安全部幕僚长、办公厅主任。',
+    bg: '2018 年 25 岁即任 DHS 幕僚长（当时全美最年轻的此类职位）；2019 年转任办公厅主任。2020 年 9 月在《纽约时报》匿名发文《我是抵抗组织内部成员》，抨击特朗普"无能和危险"，后公开身份。',
+    grudge: '匿名批评特朗普，身份曝光后遭"叛国罪"调查威胁——报复从总统私人恩怨升级为刑事指控威胁。',
+    outcome: '身份公开后长期面临法律压力；书中视为"报复升级"的标志性案例——从撤职、抹黑升级到刑事追诉威胁。'
+  },
+  smith: {
+    type: 'person', cn: '杰克·史密斯', en: 'Jack Smith · 前特别检察官 (2022-2024)', role: '前联邦检察官 / 特别检察官',
+    img: 'assets/people/smith.jpg', color: '#A63D2E',
+    summary: '前联邦检察官、海牙科索沃特别法庭首席检察官；2022 年被司法部长加兰德任命为特别检察官，专查特朗普。',
+    bg: '起诉特朗普两案："机密文件案"（海湖庄园藏匿机密文件）与"2020 大选干预案"（推翻选举结果共谋）。特朗普称其为"恶棍""精神错乱者"。',
+    grudge: '2024 年特朗普胜选后要求"立即解雇"史密斯并调查其团队；司法部按惯例撤销两案起诉、解散特别检察官办公室。',
+    outcome: '起诉在胜选面前"自动清零"，史密斯辞职（书中记载）——成为"权力的免疫"最直接标志：法律追诉挡不住当选。'
+  },
+  kelly: {
+    type: 'person', cn: '约翰·凯利', en: 'John Kelly · 前白宫幕僚长 (2017-2019)', role: '退役四星上将 / 前幕僚长',
+    img: 'assets/people/kelly.jpg', color: '#A63D2E',
+    summary: '退役四星海军陆战队上将，曾任国土安全部长（2017）、白宫幕僚长（2017-2019），特朗普第一任期的"成年人"代表。',
+    bg: '海军陆战队服役 40 余年，指挥过伊拉克战争；2017 年接替普里巴斯任幕僚长，试图给白宫"立规矩"（媒体称其"将军幕僚长"）。',
+    grudge: '与特朗普在边境墙、移民政策上摩擦不断；2023 年公开称特朗普是"法西斯主义者"；对 J6 的表态与特朗普立场相悖。',
+    outcome: '被拖入"威胁论"叙事；书中视为第一任期"建制派抵抗"的符号——连"最忠诚的将军"也上了清算名单。'
+  },
+  paulweiss: {
+    type: 'org', cn: '宝维斯律所', en: 'Paul, Weiss · 美国顶级律所', role: '华尔街"白鞋所" · 代表 Jack Smith',
+    icon: '🏛️', color: '#A63D2E',
+    summary: '华尔街顶级律所，创立于 1875 年，美国"白鞋所"（White-shoe firm）代表之一，常年位列全美最赚钱律所前列。',
+    bg: '客户包括各大投行与科技巨头。2024 年无偿代理特别检察官杰克·史密斯的"机密文件案"，对特朗普提起诉讼——这是它被清算的直接原因。',
+    grudge: '特朗普签署行政令，威胁吊销其安全许可、切断联邦业务。律所最终"投降"：承诺提供 4000 万美元"公益法律服务"换取和解——作者称之为"现代保护费"。',
+    outcome: '成为"第一个屈服的顶级律所"；其和解引发全行业效仿与争论——连最赚钱的律所都扛不住行政压力。'
+  },
+  perkins: {
+    type: 'org', cn: '珀金斯·科伊律所', en: 'Perkins Coie · 美国大型律所', role: '民主党长期法律代理',
+    icon: '🏛️', color: '#A63D2E',
+    summary: '1912 年成立的美国大型律所，长期是民主党与进步派团体的首选法律代理。',
+    bg: '曾代理希拉里 2016 竞选团队、民主党全国委员会（DNC）；"通俄门"时期的斯蒂尔档案（Steele Dossier）即由其委托制作——特朗普多年怀恨在心。',
+    grudge: '被吊销安全许可、撤销联邦合同资格，数百名员工面临业务流失——特朗普公开点名其"为民主党服务"。',
+    outcome: '与宝维斯不同，珀金斯·科伊选择坚持诉讼抗争，未迅速和解；成为"抵抗型律所"代表，也承担了更长期的业务代价。'
+  },
+  lawfirms: {
+    type: 'org', cn: '其他大型律所', en: 'Covington & Burling / WilmerHale', role: '华盛顿"权力圈"律所',
+    icon: '🏛️', color: '#A63D2E',
+    summary: '华盛顿"权力圈"律所的代表——Covington & Burling（科文顿）创立于 1919 年，WilmerHale（威尔默黑尔）由两大所合并而成，均为民主党/建制派长期代理。',
+    bg: 'Covington 曾代理"通俄门"调查的穆勒团队、米勒起诉案；WilmerHale 曾代理前官员诉讼。',
+    grudge: 'Covington 被撤销联邦合同；WilmerHale 被要求"自查员工是否与特朗普敌人有关"。行业自发"起底"员工名单以求自保。',
+    outcome: '全行业陷入"寒蝉效应"——各律所主动切割与特朗普敌人的关联，形成自我审查；律师界"替谁辩护"变成政治问题。'
+  },
+  harvard: {
+    type: 'org', cn: '哈佛大学', en: 'Harvard University · 1636 年建校', role: '美国最古老、最富有的大学',
+    icon: '🎓', color: '#A63D2E',
+    summary: '创立于 1636 年，美国最古老的高等学府，常春藤之首；捐赠基金规模全球第一（约 500 亿美元）。',
+    bg: '2023-2024 年因"校园反犹争议"（国会听证会）成为政治靶心，校长盖伊辞职；此后成为特朗普阵营"精英大学腐败"叙事的代表。',
+    grudge: '以"反犹不力""DEI 政策"为由：首批 26 亿美元联邦资助被冻结、总额 90 亿面临威胁、免税资格被点名。',
+    outcome: '与多数高校不同，哈佛选择起诉反击——成为"机构对抗"的标杆，其诉讼路径被其他大学观望效仿。'
+  },
+  universities: {
+    type: 'org', cn: '美国高校体系', en: 'U.S. University System', role: '全国高等教育体系',
+    icon: '🏫', color: '#A63D2E',
+    summary: '美国约 4000 所高校，其中公立大学大量依赖联邦拨款——研究经费（NIH/NSF）、学生贷款、医疗体系资助是其命脉。',
+    bg: '联邦经费是高校生命线；"反犹""DEI""左倾"成为教育部施压的新抓手——高校被迫在课程、人事、DEI 部门上"自查整改"。',
+    grudge: '联邦教育部以"反犹""DEI""左倾"为名，对数十所高校施压、冻结/削减经费；高校被迫裁撤 DEI 部门、整改课程。',
+    outcome: '多数高校选择"顺从换经费"，少数（如哈佛、普林斯顿等）诉讼抵抗——体系整体处于"低头"状态。'
+  },
+  publicmedia: {
+    type: 'org', cn: '公共广播 / 智库 / NGO', en: 'NPR / PBS / Think Tanks / NGOs', role: '公共媒体与政策研究机构',
+    icon: '📻', color: '#A63D2E',
+    summary: '美国公共广播公司 NPR/PBS 依靠联邦拨款（CPB 基金）维持运营；智库则是华盛顿政策话语的"生产线"。',
+    bg: 'NPR/PBS 数十年来被共和党视为"左翼媒体"；智库分保守派（传统基金会、企业研究所）与自由派（布鲁金斯、美国进步中心）。',
+    grudge: 'NPR/PBS 联邦经费被砍（CPB 拨款面临归零）；传统基金会等保守派智库获巨额捐款、影响力上升；布鲁金斯等自由派智库被边缘化。',
+    outcome: '公共媒体的经费命脉被攥住、智库生态向保守派倾斜——"用钱投票"重塑华盛顿话语权版图。'
+  },
+  cbs: {
+    type: 'org', cn: 'CBS / Paramount', en: 'CBS / Paramount', role: '美国三大广播电视网之一',
+    icon: '📺', color: '#A63D2E',
+    summary: 'CBS 是美国老牌电视网（1927 年成立）；Paramount（派拉蒙）为其母公司，旗下有 CBS 新闻与王牌栏目《60 分钟》。',
+    bg: '《60 分钟》2024 年大选前对哈里斯的专访引发"剪辑争议"，特朗普阵营长期追打；2024 年底 Paramount 被 Skydance（天舞影业）收购，需联邦监管审批。',
+    grudge: '并购审批卡在政府手中 + 恶意诉讼压力 → 《60 分钟》编辑路线调整；书中称之为"用杠杆改变编辑"。',
+    outcome: '媒体巨头在并购审批与诉讼压力下"自我审查"——编辑独立性让位于商业生存。'
+  },
+  disney: {
+    type: 'org', cn: 'Disney / ABC', en: 'Disney / ABC', role: '全球最大传媒娱乐集团之一',
+    icon: '🏰', color: '#A63D2E',
+    summary: '迪士尼（1923 年成立）旗下 ABC 电视网是三大电视网之一，ABC News 拥有多个黄金时段新闻节目。',
+    bg: '2024 年 ABC News 主播斯特凡诺普洛斯（George Stephanopoulos）在节目中称特朗普"因强奸被判有罪"（实为性侵民事诉讼），特朗普起诉诽谤。',
+    grudge: '诉讼压力下 Disney 选择和解，向特朗普总统图书馆捐赠/支付和解金约 1600 万美元（书中数据）。',
+    outcome: '和解后 ABC 内部审查全面收紧——"诉讼即杠杆"的最直接示范：一条报道换 1600 万和解金。'
+  },
+  advertisers: {
+    type: 'org', cn: '大企业广告商', en: 'Corporate Advertisers', role: '美国企业广告主',
+    icon: '💼', color: '#A63D2E',
+    summary: '美国商业广告市场（电视+数字）规模数千亿美元，大企业是媒体的生命线。',
+    bg: '2019-2020 年右翼曾组织广告主撤资施压主流媒体；2025 年后攻守易位——特朗普直接点名企业施压。',
+    grudge: '特朗普公开点名"如果广告支持敌对媒体，就考虑你的关税豁免"——企业为保商业利益，主动撤回或削减敌对媒体广告。',
+    outcome: '"让市场自己动手"——不靠行政命令，靠经济威慑让媒体失去广告收入，形成"寒蝉效应"。'
+  },
+  commentators: {
+    type: 'org', cn: '评论员 / 主持人', en: 'Pundits / TV Hosts', role: '媒体评论员与节目主持人',
+    icon: '🎤', color: '#A63D2E',
+    summary: '美国电视网黄金时段主持人/评论员——政治话语的直接出口，也是最容易被"点名"的群体。',
+    bg: '特朗普从第一任期就热衷在 Truth Social 上"点名羞辱"媒体人；支持者会随之发起网络围攻与商业施压。',
+    grudge: '多次 Truth Social 点名导致主持人自我审查或被解雇；"复仇的成本低于道歉的成本"成为行业潜规则。',
+    outcome: '评论界整体"向内收缩"——公开批评特朗普的主持人越来越少，自我审查成为职业生存策略。'
+  }
+};
+
+const pfpop = document.getElementById('profilePopover');
+
+function showProfilePop(key, anchorEl) {
+  const p = PROFILES[key];
+  if (!p) return;
+  const isOrg = p.type === 'org';
+  // 头像：人物=照片，机构=emoji
+  const av = document.getElementById('pfAvatar');
+  if (isOrg) {
+    av.textContent = p.icon;
+    av.style.background = p.color;
+    av.innerHTML = '<span style="font-size:26px;line-height:1">' + p.icon + '</span>';
+    av.style.display = 'flex';
+  } else {
+    av.innerHTML = '<img src="' + p.img + '" alt="' + p.cn + '">';
+    av.style.background = 'transparent';
+  }
+  document.getElementById('pfName').textContent = p.cn;
+  document.getElementById('pfEn').textContent = p.en;
+  document.getElementById('pfRole').textContent = p.role;
+  document.getElementById('pfSummary').textContent = p.summary;
+  document.getElementById('pfBg').innerHTML = p.bg;
+  document.getElementById('pfGrudge').innerHTML = p.grudge;
+  document.getElementById('pfOutcome').innerHTML = p.outcome;
+  document.getElementById('pfSecLabel1').textContent = isOrg ? '机构简介' : '人物概述';
+  document.getElementById('pfSecLabel2').textContent = isOrg ? '被打击的原因' : '与特朗普的恩怨';
+
+  const rect = anchorEl.getBoundingClientRect();
+  const popW = 440, popH = pfpop.offsetHeight || 400;
+  let x = rect.left + rect.width / 2 - popW / 2;
+  x = Math.max(12, Math.min(x, window.innerWidth - popW - 12));
+  const spaceBelow = window.innerHeight - rect.bottom;
+  if (spaceBelow > popH + 20 || spaceBelow > rect.top) {
+    pfpop.dataset.pos = 'below';
+    pfpop.style.top = (rect.bottom + 12) + 'px';
+  } else {
+    pfpop.dataset.pos = 'above';
+    pfpop.style.top = Math.max(12, rect.top - popH - 14) + 'px';
+  }
+  pfpop.style.left = x + 'px';
+  pfpop.style.display = 'block';
+  requestAnimationFrame(() => pfpop.classList.add('show'));
+  closeConceptPop(); closePersonPop();
+}
+
+function closeProfilePop() {
+  pfpop.classList.remove('show');
+  pfpop.style.display = 'none';
+}
+
+// Click on any icon-card with data-key
+document.querySelectorAll('.icon-card[data-key]').forEach(card => {
+  card.addEventListener('click', e => {
+    e.stopPropagation();
+    showProfilePop(card.dataset.key, card);
+  });
+});
+document.addEventListener('click', e => {
+  if (!pfpop.contains(e.target) && !e.target.closest('.icon-card[data-key]')) closeProfilePop();
+});
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeProfilePop();
+});
+window.addEventListener('resize', () => closeProfilePop());
 
 /* =====================================================
    PLUNDER ENGINE 掠夺引擎交互模块（Part III × IV）
